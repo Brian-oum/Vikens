@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sybyl - Enterprise IT Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #0066cc;
+      --primary-light: #e6f2ff;
+      --secondary: #0f3c4c;
+      --accent: #00d8ff;
+      --accent-light: #e6f9ff;
+      --dark: #222;
+      --light: #f7f7f7;
+      --orange: #f90;
+      --section-bg: #f9f9f9;
+      --border-radius: 12px;
+      --box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      color: var(--dark);
+      background-color: white;
+      scroll-behavior: smooth;
+    }
+
+    /* Header Styles */
+    header {
+      background: rgba(34, 34, 34, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      transition: var(--transition);
+    }
+
+    header.scrolled {
+      padding: 0.75rem 2rem;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: var(--orange);
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo i {
+      font-size: 1.5rem;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--orange);
+      transition: var(--transition);
+    }
+
+    nav a:hover::after,
+    nav a.active::after {
+      width: 100%;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: var(--orange);
+    }
+
+    .mobile-menu {
+      display: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+      color: white;
+      padding: 10rem 2rem 6rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+      opacity: 0.1;
+      z-index: 0;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: var(--orange);
+      color: white;
+      padding: 0.8rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      border: 2px solid var(--orange);
+    }
+
+    .cta-button:hover {
+      background: transparent;
+      color: var(--orange);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    /* Main Content Container */
+    .main-content {
+      display: flex;
+      max-width: 1200px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+      gap: 3rem;
+    }
+
+    /* Services Section - Left Side - SIMPLIFIED TO MATCH SCREENSHOT */
+    .services {
+      flex: 1;
+    }
+
+    .service-item {
+      margin-bottom: 2.5rem;
+    }
+
+    .service-item h3 {
+      color: var(--primary);
+      font-size: 1.5rem;
+      margin-bottom: 0.8rem;
+      font-weight: 600;
+    }
+
+    .service-item p {
+      color: #555;
+      line-height: 1.6;
+    }
+
+    /* Industries Section - Right Side */
+    .industries {
+      flex: 1;
+      background: var(--section-bg);
+      padding: 2.5rem;
+      border-radius: var(--border-radius);
+      position: sticky;
+      top: 120px;
+      align-self: flex-start;
+    }
+
+    .section-title {
+      margin-bottom: 2rem;
+    }
+
+    .section-title h2 {
+      font-size: 2.2rem;
+      color: var(--secondary);
+      margin-bottom: 0.5rem;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    .section-title p {
+      color: #666;
+    }
+
+    .industries-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+    }
+
+    .industry-item {
+      background: white;
+      padding: 1.2rem;
+      text-align: center;
+      border-radius: var(--border-radius);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+      transition: var(--transition);
+      font-weight: 500;
+    }
+
+    .industry-item:hover {
+      background: var(--primary-light);
+      color: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .main-content {
+        flex-direction: column;
+      }
+
+      .industries {
+        position: static;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: 8rem 1.5rem 4rem;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      nav ul {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: rgba(34, 34, 34, 0.95);
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem 0;
+        gap: 0;
+        clip-path: circle(0px at 90% -10%);
+        transition: all 0.5s ease-out;
+        pointer-events: none;
+      }
+
+      nav ul.active {
+        clip-path: circle(1000px at 90% -10%);
+        pointer-events: all;
+      }
+
+      nav ul li {
+        width: 100%;
+        text-align: center;
+      }
+
+      nav ul li a {
+        display: block;
+        padding: 1rem;
+      }
+
+      .mobile-menu {
+        display: block;
+      }
+
+      .industries {
+        padding: 2rem;
+      }
+
+      .section-title h2 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header id="header">
+    <div class="logo">
+      <i class="fas fa-network-wired"></i>
+      <span>Sybyl</span>
+    </div>
+    <nav>
+      <div class="mobile-menu">
+        <i class="fas fa-bars"></i>
+      </div>
+      <ul>
+        <li><a href="#" class="active">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Industries</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Enterprise IT Solutions</h1>
+      <p>Transforming businesses through innovative technology solutions tailored to your needs</p>
+      <a href="#services" class="cta-button">Explore Our Services</a>
+    </div>
+  </section>
+
+  <!-- Main Content - Side by Side Sections -->
+  <div class="main-content">
+    <!-- Services Section - Left - SIMPLIFIED TO MATCH SCREENSHOT -->
+    <section class="services" id="services">
+      <div class="service-item">
+        <h3>Enterprise Systems</h3>
+        <p>Data Centres, Cloud, Networking & Cabling, Communication, Contact Centres</p>
+      </div>
+      
+      <div class="service-item">
+        <h3>Security</h3>
+        <p>Data & Application Security, Physical Security</p>
+      </div>
+      
+      <div class="service-item">
+        <h3>Banking Sector Solutions</h3>
+        <p>Core Banking, Cash Management, Digital Channels, Fintech Solutions</p>
+      </div>
+      
+      <div class="service-item">
+        <h3>Services</h3>
+        <p>Fully harness the potential of technology for your business through technological advancements.</p>
+      </div>
+      
+      <div class="service-item">
+        <h3>Business Intelligence</h3>
+        <p>Active management to optimize returns while managing risk.</p>
+      </div>
+      
+      <div class="service-item">
+        <h3>Managed Services</h3>
+        <p>Maximize growth potential via managed Services.</p>
+      </div>
+      
+      <div class="service-item">
+        <h3>Unified Communication</h3>
+        <p>Deliver quality of services to ensure availability and performance of your crucial IT infrastructure.</p>
+      </div>
+      
+      <div class="service-item">
+        <h3>End User Devices</h3>
+        <p>Laptops, Printers, Solar Panels, and End User Computing for enhanced Productivity and Sustainability.</p>
+      </div>
+    </section>
+
+    <!-- Industries Section - Right -->
+    <section class="industries">
+      <div class="section-title">
+        <h2>Industries We Serve</h2>
+        <p>Sybyl's experience cuts across verticals and industries. Explore our capabilities.</p>
+      </div>
+      <div class="industries-grid">
+        <div class="industry-item">Banking</div>
+        <div class="industry-item">Consulting</div>
+        <div class="industry-item">Education</div>
+        <div class="industry-item">Energy</div>
+        <div class="industry-item">Telecom</div>
+        <div class="industry-item">Government</div>
+        <div class="industry-item">Healthcare</div>
+        <div class="industry-item">Hospitality</div>
+        <div class="industry-item">Insurance</div>
+        <div class="industry-item">Manufacturing</div>
+        <div class="industry-item">NGOs</div>
+        <div class="industry-item">Financial Institutions</div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Mobile Menu Toggle
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const navUl = document.querySelector('nav ul');
+    
+    mobileMenu.addEventListener('click', () => {
+      navUl.classList.toggle('active');
+      mobileMenu.innerHTML = navUl.classList.contains('active') ? 
+        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
+
+    // Header Scroll Effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>

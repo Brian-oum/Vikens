@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Sybyl - Enterprise IT Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #0066cc;
+      --secondary: #0f3c4c;
+      --accent: #00d8ff;
+      --dark: #222;
+      --light: #f7f7f7;
+      --orange: #f90;
+      --section-bg: #f9f9f9;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      color: var(--dark);
+      background-color: white;
+    }
+
+    /* Modern Glass Header */
+    header {
+      background: var(--dark);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: var(--orange);
+      letter-spacing: 1px;
+    }
+
+    /* Navigation Styles */
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover, nav a.active {
+      color: var(--orange);
+    }
+
+    /* Dropdown Menu */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--dark);
+      min-width: 200px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      padding: 1rem 0;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease;
+      z-index: 100;
+      flex-direction: column;
+    }
+
+    .dropdown:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .dropdown-menu li {
+      padding: 0.5rem 1.5rem;
+    }
+
+    .dropdown-menu a {
+      color: white;
+      display: block;
+    }
+
+    .dropdown-menu a:hover {
+      color: var(--orange);
+    }
+
+    .mobile-menu {
+      display: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+
+    /* Page Header with Gradient */
+    .page-header {
+      background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+      height: 60vh;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      margin-top: 70px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+      opacity: 0.15;
+    }
+
+    .page-header-content {
+      max-width: 800px;
+      padding: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-header h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+
+    .page-header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    /* Modern Timeline */
+    .timeline-container {
+      max-width: 1200px;
+      margin: 5rem auto;
+      padding: 0 2rem;
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 50px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(to bottom, var(--accent), var(--primary));
+      border-radius: 10px;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3rem;
+      padding: 2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .timeline-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    }
+
+    .timeline-year {
+      position: absolute;
+      left: -70px;
+      top: 20px;
+      width: 50px;
+      height: 50px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      box-shadow: 0 5px 15px rgba(0,216,255,0.3);
+    }
+
+    /* Mission & Vision Cards */
+    .mission-vision {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 5rem auto;
+      padding: 0 2rem;
+    }
+
+    .mission-card {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .mission-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 5px;
+      height: 100%;
+      background: var(--accent);
+    }
+
+    .mission-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .mission-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--secondary);
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .mission-card h3 i {
+      color: var(--accent);
+    }
+
+    /* Values Section */
+    .values-section {
+      background: var(--section-bg);
+      padding: 5rem 2rem;
+    }
+
+    .values-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-title h2 {
+      font-size: 2.5rem;
+      color: var(--secondary);
+      margin-bottom: 1rem;
+    }
+
+    .section-title p {
+      color: #666;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .value-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .value-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+      border-color: var(--accent);
+    }
+
+    .value-icon {
+      width: 80px;
+      height: 80px;
+      background: rgba(0,216,255,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 1.8rem;
+      color: var(--accent);
+    }
+
+    /* Leadership Section */
+    .leadership-section {
+      padding: 5rem 2rem;
+    }
+
+    .leadership-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .leader-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .leader-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    }
+
+    .leader-image {
+      height: 350px;
+      overflow: hidden;
+    }
+
+    .leader-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .leader-card:hover .leader-image img {
+      transform: scale(1.05);
+    }
+
+    .leader-info {
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .leader-info h3 {
+      color: var(--secondary);
+      margin-bottom: 0.5rem;
+    }
+
+    .leader-info p.position {
+      color: var(--primary);
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .leader-social {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 1rem;
+    }
+
+    .leader-social a {
+      color: var(--dark);
+      transition: color 0.3s ease;
+    }
+
+    .leader-social a:hover {
+      color: var(--accent);
+    }
+
+    /* Footer Styles */
+    footer {
+      background: var(--dark);
+      color: #aaa;
+      padding: 4rem 2rem 2rem;
+      font-size: 0.9rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto 2rem;
+      text-align: left;
+    }
+
+    .footer-title {
+      color: var(--orange);
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-links a {
+      color: #ddd;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 1.5rem;
+    }
+
+    .social-links a {
+      color: #ddd;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: var(--accent);
+    }
+
+    .contact-info {
+      list-style: none;
+    }
+
+    .contact-info li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .contact-icon {
+      color: var(--accent);
+      width: 20px;
+      text-align: center;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 2rem;
+      text-align: center;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .mobile-menu {
+        display: block;
+      }
+
+      nav ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(34, 34, 34, 0.95);
+        flex-direction: column;
+        padding: 1rem 2rem;
+      }
+
+      nav ul.active {
+        display: flex;
+      }
+
+      .dropdown-menu {
+        position: static;
+        box-shadow: none;
+        background: transparent;
+        padding: 0;
+        margin-left: 1rem;
+        margin-top: 0.5rem;
+      }
+
+      .dropdown-menu a {
+        color: #ddd;
+      }
+
+      .page-header h1 {
+        font-size: 2.5rem;
+      }
+      
+      .timeline::before {
+        left: 10px;
+      }
+      
+      .timeline-year {
+        left: -50px;
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+      
+      .mission-vision {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header with Vertical Dropdown Menu -->
+  <header>
+    <div class="logo">Sybyl</div>
+    <nav>
+      <div class="mobile-menu">
+        <i class="fas fa-bars"></i>
+      </div>
+      <ul>
+        <li><a href="#" class="active">Home</a></li>
+        <li class="dropdown">
+          <a href="#">About</a>
+          <ul class="dropdown-menu">
+            <li><a href="about_us.html">About Us</a></li>
+            <li><a href="#">Our People</a></li>
+            <li><a href="#">Awards & Accolades</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Downloads</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Expertise</a></li>
+        <li class="dropdown">
+          <a href="#">Discover & Learn</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Insights and Latest</a></li>
+            <li><a href="#">In the Community</a></li>
+            <li><a href="#">Customer Stories</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Get In Touch</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Gradient Page Header with Overlay -->
+  <section class="page-header">
+    <div class="page-header-content">
+      <h1>Our Story</h1>
+      <p>Driving digital transformation through innovation, expertise, and a commitment to excellence</p>
+    </div>
+  </section>
+
+  <!-- Modern Timeline Section -->
+  <div class="timeline-container">
+    <h2 style="font-size: 2rem; color: var(--secondary); margin-bottom: 2rem;">Our Journey</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-year">2010</div>
+        <h3>Company Founded</h3>
+        <p>Sybyl was established with a team of 5 professionals focused on IT infrastructure solutions, operating from a small office in Nairobi.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2014</div>
+        <h3>First Major Enterprise Client</h3>
+        <p>Secured our first banking sector client, marking our entry into financial technology solutions and establishing our reputation in the industry.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2017</div>
+        <h3>Regional Expansion</h3>
+        <p>Expanded operations to Tanzania and Uganda, establishing regional offices and building a pan-East African presence.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2020</div>
+        <h3>Digital Transformation Focus</h3>
+        <p>Launched our dedicated digital transformation practice to help businesses adapt to new technologies in the post-pandemic world.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year">2023</div>
+        <h3>100+ Employees</h3>
+        <p>Grew to over 100 technology professionals serving clients across East Africa with comprehensive enterprise solutions.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mission & Vision Section -->
+  <div class="mission-vision">
+    <div class="mission-card">
+      <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
+      <p>To empower businesses through innovative technology solutions that drive growth, efficiency, and competitive advantage in the digital age. We combine global expertise with local understanding to deliver transformative results.</p>
+    </div>
+    <div class="mission-card">
+      <h3><i class="fas fa-eye"></i> Our Vision</h3>
+      <p>To be the leading digital transformation partner for enterprises in Africa, recognized for our technical excellence, innovative approach, and commitment to client success. We aim to bridge the technology gap in emerging markets.</p>
+    </div>
+  </div>
+
+  <!-- Values Section -->
+  <section class="values-section">
+    <div class="values-container">
+      <div class="section-title">
+        <h2>Our Core Values</h2>
+        <p>These fundamental beliefs guide our decisions, actions, and relationships with clients and partners</p>
+      </div>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-lightbulb"></i>
+          </div>
+          <h3>Innovation</h3>
+          <p>We constantly push boundaries, exploring new technologies and creative approaches to solve complex business challenges.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-handshake"></i>
+          </div>
+          <h3>Integrity</h3>
+          <p>We build trust through transparency, honesty, and ethical business practices in all our engagements.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3>Collaboration</h3>
+          <p>We believe in the power of teamwork and partnership, working closely with clients to achieve shared success.</p>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-bullseye"></i>
+          </div>
+          <h3>Excellence</h3>
+          <p>We strive for the highest quality in everything we do, setting and exceeding industry standards.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leadership Section -->
+  <section class="leadership-section">
+    <div class="values-container">
+      <div class="section-title">
+        <h2>Leadership Team</h2>
+        <p>The visionary leaders driving Sybyl's success and innovation</p>
+      </div>
+      <div class="leadership-grid">
+        <div class="leader-card">
+          <div class="leader-image">
+            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Dr. Sarah Mwangi, CEO">
+          </div>
+          <div class="leader-info">
+            <h3>Dr. Sarah Mwangi</h3>
+            <p class="position">Chief Executive Officer</p>
+            <p>20+ years of technology leadership experience across Africa and Europe.</p>
+            <div class="leader-social">
+              <a href="#" aria-label="LinkedIn profile"><i class="fab fa-linkedin"></i></a>
+              <a href="#" aria-label="Twitter profile"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="leader-card">
+          <div class="leader-image">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="James Omondi, CTO">
+          </div>
+          <div class="leader-info">
+            <h3>James Omondi</h3>
+            <p class="position">Chief Technology Officer</p>
+            <p>Expert in enterprise architecture and digital transformation strategies.</p>
+            <div class="leader-social">
+              <a href="#" aria-label="LinkedIn profile"><i class="fab fa-linkedin"></i></a>
+              <a href="#" aria-label="Twitter profile"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="leader-card">
+          <div class="leader-image">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Fatuma Abdi, CFO">
+          </div>
+          <div class="leader-info">
+            <h3>Fatuma Abdi</h3>
+            <p class="position">Chief Financial Officer</p>
+            <p>Specializes in financial technology and business growth strategies.</p>
+            <div class="leader-social">
+              <a href="#" aria-label="LinkedIn profile"><i class="fab fa-linkedin"></i></a>
+              <a href="#" aria-label="Twitter profile"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <h3 class="footer-title">About Sybyl</h3>
+        <p>Leading provider of enterprise IT solutions helping businesses transform and grow through innovative technology.</p>
+        <div class="social-links">
+          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      
+      <div>
+        <h3 class="footer-title">Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="case-studies.html">Case Studies</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3 class="footer-title">Services</h3>
+        <ul class="footer-links">
+          <li><a href="#">Enterprise Systems</a></li>
+          <li><a href="#">Security Solutions</a></li>
+          <li><a href="#">Business Intelligence</a></li>
+          <li><a href="#">Managed Services</a></li>
+          <li><a href="#">Banking Solutions</a></li>
+        </ul>
+      </div>
+      
+      <div>
+        <h3 class="footer-title">Contact Us</h3>
+        <ul class="contact-info">
+          <li>
+            <i class="fas fa-map-marker-alt contact-icon"></i> 
+            123 Tech Street, Nairobi, Kenya
+          </li>
+          <li>
+            <i class="fas fa-phone contact-icon"></i> 
+            +254 700 123456
+          </li>
+          <li>
+            <i class="fas fa-envelope contact-icon"></i> 
+            info@sybyl.com
+          </li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2025 Sybyl. All Rights Reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile Menu Toggle
+    document.addEventListener('DOMContentLoaded', function() {
+      const mobileMenu = document.querySelector('.mobile-menu');
+      const navUl = document.querySelector('nav ul');
+      const dropdowns = document.querySelectorAll('.dropdown');
+
+      // Toggle mobile menu
+      mobileMenu.addEventListener('click', () => {
+        navUl.classList.toggle('active');
+        mobileMenu.innerHTML = navUl.classList.contains('active') ? 
+          '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+      });
+
+      // Handle dropdowns on mobile
+      dropdowns.forEach(dropdown => {
+        const link = dropdown.querySelector('a:first-child');
+        
+        link.addEventListener('click', (e) => {
+          if (window.innerWidth <= 768) {
+            e.preventDefault();
+            dropdown.classList.toggle('active');
+          }
+        });
+      });
+
+      // Close dropdowns when clicking outside on mobile
+      document.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768 && !e.target.closest('nav')) {
+          navUl.classList.remove('active');
+          mobileMenu.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+      });
+
+      // Handle window resize
+      window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+          navUl.classList.remove('active');
+          mobileMenu.innerHTML = '<i class="fas fa-bars"></i>';
+          dropdowns.forEach(dropdown => {
+            dropdown.classList.remove('active');
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

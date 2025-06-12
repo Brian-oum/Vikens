@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sybyl - Enterprise IT Solutions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #0066cc;
+      --secondary: #0f3c4c;
+      --accent: #00d8ff;
+      --dark: #222;
+      --light: #f7f7f7;
+      --orange: #f90;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      background-color: var(--light);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      background: var(--dark);
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: var(--orange);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 5px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--orange);
+    }
+
+    nav a.active {
+      color: var(--orange);
+    }
+
+    nav a.active:after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: var(--orange);
+      bottom: 0;
+      left: 0;
+    }
+
+    .mobile-menu {
+      display: none;
+      cursor: pointer;
+    }
+
+    /* Vertical Dropdown Menu */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown > a {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dropdown > a::after {
+      content: '\f078';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      font-size: 0.8rem;
+      transition: transform 0.3s ease;
+    }
+
+    .dropdown.active > a::after {
+      transform: rotate(180deg);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--dark);
+      min-width: 200px;
+      padding: 0.5rem 0;
+      border-radius: 0 0 5px 5px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dropdown.active .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-menu li {
+      padding: 0;
+      width: 100%;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 0.5rem 1rem;
+      color: #fff;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .dropdown-menu a:hover {
+      background: rgba(255,255,255,0.1);
+      color: var(--orange);
+      padding-left: 1.2rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                  url('https://images.unsplash.com/photo-1581090700227-1e37b190418e') no-repeat center center/cover;
+      height: 100vh;
+      min-height: 600px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      margin-top: 0;
+    }
+
+    .hero .overlay {
+      padding: 2rem;
+      max-width: 800px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 2.8rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+    }
+
+    .hero .highlight {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--dark);
+      padding: 0.8rem 2rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: 2px solid var(--accent);
+    }
+
+    .cta-button:hover {
+      background: transparent;
+      color: var(--accent);
+    }
+
+    /* Info Section */
+    .info {
+      background-color: var(--secondary);
+      color: white;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .info .text h2 {
+      margin-bottom: 1.5rem;
+      font-size: 2.2rem;
+    }
+
+    .info .text p {
+      max-width: 800px;
+      margin: 0 auto 3rem;
+      font-size: 1.1rem;
+    }
+
+    .stats {
+      margin-top: 3rem;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .stats div {
+      flex: 0 1 200px;
+      padding: 1.5rem;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      transition: transform 0.3s ease;
+    }
+
+    .stats div:hover {
+      transform: translateY(-10px);
+    }
+
+    .stats div strong {
+      display: block;
+      font-size: 2.5rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    /* Services Grid */
+    .services {
+      padding: 5rem 2rem;
+      background: white;
+      text-align: center;
+    }
+
+    .services .intro {
+      max-width: 800px;
+      margin: 0 auto 3rem;
+      font-size: 1.1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 0 auto;
+      max-width: 1200px;
+    }
+
+    .card {
+      border-radius: 10px;
+      position: relative;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      text-align: left;
+      transition: all 0.3s ease;
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+      overflow: hidden;
+      border: none;
+      margin-bottom: 20px; 
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+      z-index: 1;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    .card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: white;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card .icon {
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    .card p {
+      color: rgba(255,255,255,0.9);
+      position: relative;
+      z-index: 2;
+      font-size: 0.9rem;
+    }
+
+    .card .plus-icon {
+      position: absolute;
+      right: 1.5rem;
+      top: 1.5rem;
+      font-weight: bold;
+      color: white;
+      font-size: 1.2rem;
+      z-index: 2;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: rgba(0,0,0,0.3);
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .card .plus-icon:hover {
+      background: var(--accent);
+      transform: rotate(90deg);
+    }
+
+    /* Card Menu */
+    .card-menu {
+      position: absolute;
+      top: 4rem;
+      right: 1.5rem;
+      background: white;
+      min-width: 180px;
+      border-radius: 5px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      z-index: 10;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      padding: 0;
+      min-height: auto;
+    }
+
+    .card.active .card-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      height: auto;
+      overflow: visible;
+    }
+
+    .card-menu ul {
+      list-style: none;
+      margin: 0;
+      width: 100%;
+    }
+
+    .card-menu li {
+      padding: 0.5rem 1rem;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      overflow: hidden; 
+      text-overflow: ellipsis; 
+    }
+
+    .card-menu li:hover {
+      background: var(--light);
+    }
+
+    .card-menu a {
+      color: var(--dark);
+      text-decoration: none;
+      font-size: 0.9rem;
+      display: block;
+      width: 100%; /* Full width links */
+      box-sizing: border-box;
+    }
+
+    .card-menu li:first-child {
+      border-radius: 5px 5px 0 0;
+    }
+
+    .card-menu li:last-child {
+      border-radius: 0 0 5px 5px;
+    }
+
+    /* Specific card backgrounds */
+    .card.enterprise {
+      background: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+    }
+
+    .card.security {
+      background: url('https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+    }
+
+    .card.business-intel {
+      background: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1115&q=80') center/cover;
+    }
+
+    .card.banking {
+      background: url('https://images.unsplash.com/photo-1535320903710-d993d3d77d29?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+    }
+
+    .card.managed {
+      background: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+    }
+
+    .card.communications {
+      background: url('https://images.unsplash.com/photo-1579389083078-4e7018379f7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+    }
+
+    .card.general-services {
+      background: url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+    }
+
+    .card.explore {
+      background-color: var(--secondary);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .card.explore::before {
+      display: none;
+    }
+
+    .card.explore h3 {
+      color: white;
+    }
+
+    .card.explore button {
+      margin-top: 1.5rem;
+      padding: 0.8rem 1.5rem;
+      background: var(--orange);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      align-self: flex-start;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    .card.explore button:hover {
+      background: var(--accent);
+      transform: translateX(5px);
+    }
+
+    /* Discover Text */
+    .discover {
+      margin-top: 3rem;
+      font-size: 1rem;
+      color: #777;
+    }
+
+    /* Footer Styles */
+    footer {
+      background: var(--dark);
+      color: #aaa;
+      padding: 4rem 2rem 2rem;
+      font-size: 0.9rem;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto 2rem;
+      text-align: left;
+    }
+
+    .footer-column {
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-column h3 {
+      color: var(--orange);
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-column a {
+      color: #ddd;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .footer-column a:hover {
+      color: var(--accent);
+      padding-left: 5px;
+    }
+
+    .contact-info li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .contact-info i {
+      color: var(--accent);
+      width: 20px;
+      text-align: center;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 1.5rem;
+    }
+
+    .social-links a {
+      color: #ddd;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 2rem;
+      text-align: center;
+    }
+
+    .footer-bottom p {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-bottom a {
+      color: #aaa;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .footer-bottom a:hover {
+      color: var(--accent);
+    }
+
+    .credit {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: #777;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      nav ul {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: var(--dark);
+        flex-direction: column;
+        align-items: center;
+        padding-top: 2rem;
+        transition: left 0.3s ease;
+      }
+
+      nav ul.active {
+        left: 0;
+      }
+
+      nav ul li {
+        margin: 1rem 0;
+      }
+
+      .mobile-menu {
+        display: block;
+        font-size: 1.5rem;
+      }
+
+      .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        display: none;
+        padding-left: 1rem;
+        background: rgba(0,0,0,0.2);
+        margin-top: 0.5rem;
+        border-radius: 5px;
+      }
+
+      .dropdown.active .dropdown-menu {
+        display: flex;
+      }
+
+      .dropdown > a::after {
+        content: '\f078';
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        font-size: 0.8rem;
+        transition: transform 0.3s ease;
+      }
+
+      .dropdown.active > a::after {
+        transform: rotate(180deg);
+      }
+
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .hero .overlay {
+        padding: 1rem;
+      }
+
+      .stats div {
+        flex: 0 1 150px;
+      }
+
+      .footer-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .footer-column {
+        margin-bottom: 1rem;
+      }
+      
+      .footer-column h3 {
+        margin-bottom: 1rem;
+      }
+
+      .card-menu {
+        min-width: 150px;
+        right: 1rem;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    .delay-1 {
+      animation-delay: 0.2s;
+    }
+
+    .delay-2 {
+      animation-delay: 0.4s;
+    }
+
+    .delay-3 {
+      animation-delay: 0.6s;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header with Vertical Dropdown Menu -->
+  <header>
+    <div class="logo">Sybyl</div>
+    <nav>
+      <div class="mobile-menu">
+        <i class="fas fa-bars"></i>
+      </div>
+      <ul>
+        <li><a href="#" class="active">Home</a></li>
+        <li class="dropdown">
+          <a href="#">About</a>
+          <ul class="dropdown-menu">
+            <li><a href="about_us.html">About Us</a></li>
+            <li><a href="#">Our People</a></li>
+            <li><a href="#">Awards & Accolades</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Downloads</a></li>
+          </ul>
+        </li>
+        <li><a href="expertise.html">Expertise</a></li>
+        <li class="dropdown">
+          <a href="#">Discover & Learn</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Insights and Latest</a></li>
+            <li><a href="#">In the Community</a></li>
+            <li><a href="#">Customer Stories</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Get In Touch</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="overlay fade-in">
+      <h1>Enterprise IT Solutions that <span class="highlight">Exponentially scale Business Growth</span></h1>
+      <p>The backbone to successful brands is investing in mission critical IT Infrastructure. Sybyl lays the foundation for your future growth.</p>
+      <a href="#" class="cta-button">Get Started</a>
+    </div>
+  </section>
+
+  <!-- Info Section -->
+  <section class="info">
+    <div class="text">
+      <h2 class="fade-in">Optimise Your Business Process & Gain an Edge in the Market</h2>
+      <p class="fade-in delay-1">Setting the right foundation is critical to spurring business growth. Investing in enterprise technology for your business processes is thus a core strategy for many organisations.</p>
+    </div>
+    <div class="stats">
+      <div class="fade-in delay-1">
+        <strong>800+</strong><br>Projects Delivered
+      </div>
+      <div class="fade-in delay-2">
+        <strong>50+</strong><br>Enterprise Partners
+      </div>
+      <div class="fade-in delay-1">
+        <strong>10+</strong><br>Industries
+      </div>
+      <div class="fade-in delay-2">
+        <strong>10+</strong><br>Project Countries
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Grid -->
+  <section class="services">
+    <p class="intro fade-in">We deliver the best ICT enterprise services available in the East Africa Region. Our solutions are crafted to suit your unique challenges to ensure you gain competitive advantage.</p>
+    <div class="grid">
+      <!-- Enterprise Systems -->
+      <div class="card enterprise fade-in">
+        <h3><i class="fas fa-server icon"></i> Enterprise Systems</h3>
+        <p>Comprehensive solutions for large-scale business operations</p>
+        <div class="plus-icon">+</div>
+        <div class="card-menu">
+          <ul>
+            <li><a href="#">Networking</a></li>
+            <li><a href="#">servers</a></li>
+            <li><a href="#">ERPs</a></li>
+            <li><a href="#">Explore More</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Security -->
+      <div class="card security fade-in delay-1">
+        <h3><i class="fas fa-shield-alt icon"></i> Security</h3>
+        <p>Protecting your digital assets and infrastructure</p>
+        <div class="plus-icon">+</div>
+        <div class="card-menu">
+          <ul>
+            <li><a href="#">Physical Security</a></li>
+            <li><a href="#">Application Security</a></li>
+            <li><a href="#">End Point Security</a></li>
+            <li><a href="#">Explore More</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Business Intelligence -->
+      <div class="card business-intel fade-in delay-2">
+        <h3><i class="fas fa-chart-line icon"></i> Business Intelligence</h3>
+        <p>Data-driven insights for strategic decisions</p>
+        <div class="plus-icon">+</div>
+        <div class="card-menu">
+          <ul>
+            <li><a href="#">QLIK</a></li>
+            <li><a href="#">Banking</a></li>
+            <li><a href="#">Explore More</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Banking Sector Solutions -->
+      <div class="card banking fade-in delay-1">
+        <h3><i class="fas fa-university icon"></i> Banking Solutions</h3>
+        <p>Specialized technology for financial institutions</p>
+        <div class="plus-icon">+</div>
+        <div class="card-menu">
+          <ul>
+            <li><a href="#">Core Banking Solutions</a></li>
+            <li><a href="#">Cash Recycling ATM</a></li>
+            <li><a href="#">Fintech Solutions</a></li>
+            <li><a href="#">Explore More</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Managed Services -->
+      <div class="card managed fade-in delay-2">
+        <h3><i class="fas fa-cogs icon"></i> Managed Services</h3>
+        <p>Comprehensive IT management solutions</p>
+        <div class="plus-icon">+</div>
+        <div class="card-menu">
+          <ul>
+            <li><a href="#">Infrastructure</a></li>
+            <li><a href="#">Managed Security SOC</a></li>
+            <li><a href="#">Explore More</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Unified Communications -->
+      <div class="card communications fade-in delay-1">
+        <h3><i class="fas fa-comments icon"></i> Unified Communications</h3>
+        <p>Seamless connectivity for your organization</p>
+        <div class="plus-icon">+</div>
+        <div class="card-menu">
+          <ul>
+            <li><a href="#">Collaboration Solutions</a></li>
+            <li><a href="#">Contact Centre Solutions</a></li>
+            <li><a href="#">Explore More</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Services -->
+      <div class="card general-services fade-in delay-2">
+        <h3><i class="fas fa-concierge-bell icon"></i> IT Services</h3>
+        <p>End-to-end technology solutions</p>
+        <div class="plus-icon">+</div>
+        <div class="card-menu">
+          <ul>
+            <li><a href="#">Virtualization</a></li>
+            <li><a href="#">Deployment</a></li>
+            <li><a href="#">Consultation</a></li>
+            <li><a href="#">Explore More</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Explore Card -->
+      <div class="card explore fade-in delay-3">
+        <h3><i class="fas fa-compass icon"></i> Explore Our Capabilities</h3>
+        <p>Sybyl's experience cuts across verticals and industries.</p>
+        <button>Explore Industries →</button>
+      </div>
+    </div>
+    <p class="discover fade-in delay-3">Discover & Learn. Explore what we are up to at Sybyl. Keeping you ahead
+       of the curve with the latest in Enterprise Information Technology solutions, our industry and our community service.</p>
+  </section>
+
+  <!-- Enhanced Footer -->
+  <footer class="fade-in delay-3">
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>About Sybyl</h3>
+        <p>Leading provider of enterprise IT solutions helping businesses transform and grow through innovative technology.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="#">Enterprise Systems</a></li>
+          <li><a href="#">Security Solutions</a></li>
+          <li><a href="#">Business Intelligence</a></li>
+          <li><a href="#">Managed Services</a></li>
+          <li><a href="#">Banking Solutions</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Contact Us</h3>
+        <ul class="contact-info">
+          <li><i class="fas fa-map-marker-alt"></i> 123 Tech Street, Nairobi, Kenya</li>
+          <li><i class="fas fa-phone"></i> +254 700 123456</li>
+          <li><i class="fas fa-envelope"></i> info@sybyl.com</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2025 Sybyl. All Rights Reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile Menu Toggle
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const navUl = document.querySelector('nav ul');
+
+    mobileMenu.addEventListener('click', () => {
+      navUl.classList.toggle('active');
+      mobileMenu.innerHTML = navUl.classList.contains('active') ? 
+        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
+
+    // Dropdown functionality
+    const dropdowns = document.querySelectorAll('.dropdown');
+    
+    dropdowns.forEach(dropdown => {
+      const link = dropdown.querySelector('a:first-child');
+      
+      link.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          dropdown.classList.toggle('active');
+        }
+      });
+      
+      // For desktop - show on hover
+      if (window.innerWidth > 768) {
+        dropdown.addEventListener('mouseenter', () => {
+          dropdown.classList.add('active');
+        });
+        
+        dropdown.addEventListener('mouseleave', () => {
+          dropdown.classList.remove('active');
+        });
+      }
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.dropdown') && window.innerWidth <= 768) {
+        dropdowns.forEach(dropdown => {
+          dropdown.classList.remove('active');
+        });
+      }
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop - 70,
+            behavior: 'smooth'
+          });
+        }
+        
+        // Close mobile menu if open
+        if (navUl.classList.contains('active')) {
+          navUl.classList.remove('active');
+          mobileMenu.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+      });
+    });
+
+    // Add active class to current section in viewport
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        
+        if (pageYOffset >= sectionTop - 300) {
+          current = section.getAttribute('id');
+        }
+      });
+      
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // Intersection Observer for animations
+    const fadeElements = document.querySelectorAll('.fade-in');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    fadeElements.forEach(el => {
+      observer.observe(el);
+    });
+
+    // Card plus icon functionality
+    const plusIcons = document.querySelectorAll('.card .plus-icon');
+    const cards = document.querySelectorAll('.card:not(.explore)');
+    
+    plusIcons.forEach(icon => {
+      icon.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent card click from triggering
+        const card = icon.closest('.card');
+        
+        // Close all other card menus first
+        cards.forEach(c => {
+          if (c !== card) {
+            c.classList.remove('active');
+          }
+        });
+        
+        // Toggle current card menu
+        card.classList.toggle('active');
+      });
+    });
+    
+    // Close card menus when clicking outside
+    document.addEventListener('click', () => {
+      cards.forEach(card => {
+        card.classList.remove('active');
+      });
+    });
+    
+    // Prevent card menu from closing when clicking inside it
+    document.querySelectorAll('.card-menu').forEach(menu => {
+      menu.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+    });
+
+    // Explore button functionality
+    const exploreBtn = document.querySelector('.card.explore button');
+    if (exploreBtn) {
+      exploreBtn.addEventListener('click', () => {
+        alert('Exploring industries! This would show a modal or navigate to industries page.');
+      });
+    }
+  </script>
+</body>
+</html>
