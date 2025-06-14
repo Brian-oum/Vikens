@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Us | Sybyl - Enterprise IT Solutions</title>
+  <title>About Us - Sybyl | Enterprise IT Solutions</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -14,7 +14,6 @@
       --dark: #222;
       --light: #f7f7f7;
       --orange: #f90;
-      --section-bg: #f9f9f9;
     }
 
     * {
@@ -25,16 +24,16 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      line-height: 1.7;
+      line-height: 1.6;
+      background-color: var(--light);
       color: var(--dark);
-      background-color: white;
+      overflow-x: hidden;
     }
 
-    /* Modern Glass Header */
+    /* Header */
     header {
       background: var(--dark);
-      backdrop-filter: blur(10px);
-      color: white;
+      color: #fff;
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
@@ -43,37 +42,74 @@
       width: 100%;
       top: 0;
       z-index: 1000;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     }
 
     .logo {
       font-weight: 700;
       font-size: 1.8rem;
       color: var(--orange);
-      letter-spacing: 1px;
     }
 
-    /* Navigation Styles */
     nav ul {
-      display: flex;
       list-style: none;
-      gap: 1.5rem;
+      display: flex;
+      gap: 2rem;
     }
 
     nav a {
-      color: white;
+      color: #fff;
       text-decoration: none;
       font-weight: 500;
-      transition: color 0.3s ease;
+      position: relative;
+      padding-bottom: 5px;
+      transition: all 0.3s ease;
     }
 
-    nav a:hover, nav a.active {
+    nav a:hover {
       color: var(--orange);
     }
 
-    /* Dropdown Menu */
+    nav a.active {
+      color: var(--orange);
+    }
+
+    nav a.active:after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: var(--orange);
+      bottom: 0;
+      left: 0;
+    }
+
+    .mobile-menu {
+      display: none;
+      cursor: pointer;
+    }
+
+    /* Vertical Dropdown Menu */
     .dropdown {
       position: relative;
+    }
+
+    .dropdown > a {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dropdown > a::after {
+      content: '\f078';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      font-size: 0.8rem;
+      transition: transform 0.3s ease;
+    }
+
+    .dropdown.active > a::after {
+      transform: rotate(180deg);
     }
 
     .dropdown-menu {
@@ -82,321 +118,550 @@
       left: 0;
       background: var(--dark);
       min-width: 200px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      border-radius: 8px;
-      padding: 1rem 0;
+      padding: 0.5rem 0;
+      border-radius: 0 0 5px 5px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
       opacity: 0;
       visibility: hidden;
+      transform: translateY(10px);
       transition: all 0.3s ease;
       z-index: 100;
+      display: flex;
       flex-direction: column;
     }
 
-    .dropdown:hover .dropdown-menu {
+    .dropdown.active .dropdown-menu {
       opacity: 1;
       visibility: visible;
+      transform: translateY(0);
     }
 
     .dropdown-menu li {
-      padding: 0.5rem 1.5rem;
+      padding: 0;
+      width: 100%;
     }
 
     .dropdown-menu a {
-      color: white;
       display: block;
+      padding: 0.5rem 1rem;
+      color: #fff;
+      transition: all 0.3s ease;
+      width: 100%;
     }
 
     .dropdown-menu a:hover {
+      background: rgba(255,255,255,0.1);
       color: var(--orange);
+      padding-left: 1.2rem;
     }
 
-    .mobile-menu {
-      display: none;
-      cursor: pointer;
-      font-size: 1.5rem;
-    }
-
-    /* Page Header with Gradient */
-    .page-header {
-      background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+    /* About Hero Section */
+    .about-hero {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                  url('https://images.unsplash.com/photo-1522071820081-009f0129c71c') no-repeat center center/cover;
       height: 60vh;
-      min-height: 500px;
+      min-height: 400px;
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      text-align: center;
       margin-top: 70px;
-      position: relative;
-      overflow: hidden;
+      text-align: center;
     }
 
-    .page-header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
-      opacity: 0.15;
-    }
-
-    .page-header-content {
+    .about-hero .overlay {
+      padding: 2rem;
       max-width: 800px;
-      padding: 2rem;
-      position: relative;
-      z-index: 1;
     }
 
-    .page-header h1 {
-      font-size: 3.5rem;
+    .about-hero h1 {
+      font-size: 2.8rem;
       margin-bottom: 1.5rem;
-      font-weight: 700;
-      letter-spacing: -1px;
+      line-height: 1.2;
     }
 
-    .page-header p {
+    .about-hero p {
       font-size: 1.2rem;
-      opacity: 0.9;
+      margin-bottom: 2rem;
     }
 
-    /* Modern Timeline */
-    .timeline-container {
+    /* About Content Sections */
+    .about-section {
+      padding: 5rem 2rem;
       max-width: 1200px;
-      margin: 5rem auto;
-      padding: 0 2rem;
+      margin: 0 auto;
     }
 
-    .timeline {
+    .about-section h2 {
+      font-size: 2rem;
+      color: var(--secondary);
+      margin-bottom: 2rem;
       position: relative;
-      padding-left: 50px;
+      padding-bottom: 10px;
     }
 
-    .timeline::before {
+    .about-section h2::after {
       content: '';
       position: absolute;
-      left: 20px;
-      top: 0;
+      left: 0;
       bottom: 0;
-      width: 4px;
-      background: linear-gradient(to bottom, var(--accent), var(--primary));
-      border-radius: 10px;
+      width: 60px;
+      height: 3px;
+      background: var(--orange);
     }
 
-    .timeline-item {
-      position: relative;
-      margin-bottom: 3rem;
-      padding: 2rem;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .timeline-item:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-    }
-
-    .timeline-year {
-      position: absolute;
-      left: -70px;
-      top: 20px;
-      width: 50px;
-      height: 50px;
-      background: var(--accent);
-      color: white;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
+    .about-section p {
+      margin-bottom: 1.5rem;
       font-size: 1.1rem;
-      box-shadow: 0 5px 15px rgba(0,216,255,0.3);
+      line-height: 1.8;
     }
 
-    /* Mission & Vision Cards */
     .mission-vision {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 2rem;
-      max-width: 1200px;
-      margin: 5rem auto;
-      padding: 0 2rem;
+      margin: 3rem 0;
     }
 
-    .mission-card {
+    .mission, .vision {
       background: white;
-      padding: 2.5rem;
-      border-radius: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+
+    .mission h3, .vision h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mission i, .vision i {
+      color: var(--orange);
+      font-size: 1.5rem;
+    }
+
+    /* Team Section */
+    .team-section {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .team-section h2 {
+      font-size: 2rem;
+      color: var(--secondary);
+      margin-bottom: 2rem;
       position: relative;
+      padding-bottom: 10px;
+      text-align: center;
+    }
+
+    .team-section h2::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--orange);
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .team-member {
+      position: relative;
+      background: white;
+      border-radius: 10px;
       overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
       transition: transform 0.3s ease;
     }
 
-    .mission-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 5px;
+    .team-member:hover {
+      transform: translateY(-5px);
+    }
+
+    .team-member-img {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      overflow: hidden;
+    }
+
+    .team-member img {
+      width: 100%;
       height: 100%;
-      background: var(--accent);
+      object-fit: cover;
+      transition: transform 0.3s ease;
     }
 
-    .mission-card:hover {
-      transform: translateY(-10px);
+    .team-member:hover img {
+      transform: scale(1.05);
     }
 
-    .mission-card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
-      color: var(--secondary);
+    .linkedin-icon {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: var(--primary);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
-      gap: 15px;
+      justify-content: center;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+      opacity: 0.9;
     }
 
-    .mission-card h3 i {
-      color: var(--accent);
+    .linkedin-icon:hover {
+      background: #0077B5;
+      transform: scale(1.1);
+    }
+
+    .team-member-info {
+      padding: 1.5rem;
+    }
+
+    .team-member-info h3 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .team-member-info .position {
+      color: var(--orange);
+      font-weight: 600;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+
+    .team-member-info p {
+      color: var(--dark);
+      font-size: 0.9rem;
+    }
+
+    /* New Get in Touch Button Section */
+    .get-in-touch-section {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: var(--secondary);
+      color: white;
+    }
+
+    .get-in-touch-section h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .get-in-touch-section p {
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      font-size: 1.1rem;
+    }
+
+    .contact-btn {
+      display: inline-block;
+      background: var(--orange);
+      color: white;
+      padding: 1rem 2.5rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      border: 2px solid var(--orange);
+    }
+
+    .contact-btn:hover {
+      background: transparent;
+      color: var(--orange);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
     }
 
     /* Values Section */
     .values-section {
-      background: var(--section-bg);
       padding: 5rem 2rem;
+      background: white;
     }
 
-    .values-container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .section-title {
+    .values-section h2 {
       text-align: center;
       margin-bottom: 3rem;
-    }
-
-    .section-title h2 {
-      font-size: 2.5rem;
-      color: var(--secondary);
-      margin-bottom: 1rem;
-    }
-
-    .section-title p {
-      color: #666;
-      max-width: 700px;
-      margin: 0 auto;
     }
 
     .values-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 2rem;
-    }
-
-    .value-card {
-      background: white;
-      padding: 2rem;
-      border-radius: 12px;
-      text-align: center;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(0,0,0,0.05);
-    }
-
-    .value-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-      border-color: var(--accent);
-    }
-
-    .value-icon {
-      width: 80px;
-      height: 80px;
-      background: rgba(0,216,255,0.1);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 1.5rem;
-      font-size: 1.8rem;
-      color: var(--accent);
-    }
-
-    /* Leadership Section */
-    .leadership-section {
-      padding: 5rem 2rem;
-    }
-
-    .leadership-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
       max-width: 1200px;
       margin: 0 auto;
     }
 
-    .leader-card {
-      background: white;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-      transition: transform 0.3s ease;
-    }
-
-    .leader-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-    }
-
-    .leader-image {
-      height: 350px;
-      overflow: hidden;
-    }
-
-    .leader-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.5s ease;
-    }
-
-    .leader-card:hover .leader-image img {
-      transform: scale(1.05);
-    }
-
-    .leader-info {
+    .value-card {
+      background: var(--light);
       padding: 2rem;
+      border-radius: 10px;
       text-align: center;
+      transition: all 0.3s ease;
     }
 
-    .leader-info h3 {
-      color: var(--secondary);
-      margin-bottom: 0.5rem;
+    .value-card:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-5px);
     }
 
-    .leader-info p.position {
+    .value-card:hover h3,
+    .value-card:hover .value-icon {
+      color: white;
+    }
+
+    .value-icon {
+      font-size: 2.5rem;
+      color: var(--orange);
+      margin-bottom: 1.5rem;
+    }
+
+    .value-card h3 {
       color: var(--primary);
-      font-weight: 600;
       margin-bottom: 1rem;
     }
 
-    .leader-social {
+    /* Services Grid */
+    .services {
+      padding: 5rem 2rem;
+      background: var(--light);
+      text-align: center;
+    }
+
+    .services h2 {
+      font-size: 2.2rem;
+      color: var(--secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .services .intro {
+      max-width: 800px;
+      margin: 0 auto 3rem;
+      font-size: 1.1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin: 0 auto;
+      max-width: 1200px;
+    }
+
+    .card {
+      border-radius: 10px;
+      position: relative;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      text-align: left;
+      transition: all 0.3s ease;
+      min-height: 250px;
       display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.5rem;
+      overflow: hidden;
+      border: none;
+      margin-bottom: 20px; 
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+      z-index: 1;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    .card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: white;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card .icon {
+      font-size: 1.5rem;
+      color: white;
+    }
+
+    .card p {
+      color: rgba(255,255,255,0.9);
+      position: relative;
+      z-index: 2;
+      font-size: 0.9rem;
+    }
+
+    .card .plus-icon {
+      position: absolute;
+      right: 1.5rem;
+      top: 1.5rem;
+      font-weight: bold;
+      color: white;
+      font-size: 1.2rem;
+      z-index: 2;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: rgba(0,0,0,0.3);
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
       justify-content: center;
-      gap: 15px;
-      margin-top: 1rem;
+      border-radius: 50%;
     }
 
-    .leader-social a {
+    .card .plus-icon:hover {
+      background: var(--accent);
+      transform: rotate(90deg);
+    }
+
+    /* Card Menu */
+    .card-menu {
+      position: absolute;
+      top: 4rem;
+      right: 1.5rem;
+      background: white;
+      min-width: 180px;
+      border-radius: 5px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      z-index: 10;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      padding: 0;
+      min-height: auto;
+    }
+
+    .card.active .card-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      height: auto;
+      overflow: visible;
+    }
+
+    .card-menu ul {
+      list-style: none;
+      margin: 0;
+      width: 100%;
+    }
+
+    .card-menu li {
+      padding: 0.5rem 1rem;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      overflow: hidden; 
+      text-overflow: ellipsis; 
+    }
+
+    .card-menu li:hover {
+      background: var(--light);
+    }
+
+    .card-menu a {
       color: var(--dark);
-      transition: color 0.3s ease;
+      text-decoration: none;
+      font-size: 0.9rem;
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
     }
 
-    .leader-social a:hover {
-      color: var(--accent);
+    /* Specific card backgrounds */
+    .card.enterprise {
+      background: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+    }
+
+    .card.security {
+      background: url('https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+    }
+
+    .card.business-intel {
+      background: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1115&q=80') center/cover;
+    }
+
+    .card.banking {
+      background: url('https://images.unsplash.com/photo-1535320903710-d993d3d77d29?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+    }
+
+    .card.managed {
+      background: url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+    }
+
+    .card.communications {
+      background: url('https://images.unsplash.com/photo-1579389083078-4e7018379f7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+    }
+
+    .card.general-services {
+      background: url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+    }
+
+    .card.explore {
+      background-color: var(--secondary);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .card.explore::before {
+      display: none;
+    }
+
+    .card.explore h3 {
+      color: white;
+    }
+
+    .card.explore button {
+      margin-top: 1.5rem;
+      padding: 0.8rem 1.5rem;
+      background: var(--orange);
+      color: white;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      align-self: flex-start;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    .card.explore button:hover {
+      background: var(--accent);
+      transform: translateX(5px);
     }
 
     /* Footer Styles */
@@ -407,7 +672,7 @@
       font-size: 0.9rem;
     }
 
-    .footer-grid {
+    .footer-container {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 2rem;
@@ -416,7 +681,11 @@
       text-align: left;
     }
 
-    .footer-title {
+    .footer-column {
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-column h3 {
       color: var(--orange);
       margin-bottom: 1.5rem;
       font-size: 1.1rem;
@@ -424,22 +693,46 @@
       padding-bottom: 10px;
     }
 
-    .footer-links {
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .footer-column ul {
       list-style: none;
     }
 
-    .footer-links li {
+    .footer-column ul li {
       margin-bottom: 0.8rem;
     }
 
-    .footer-links a {
+    .footer-column a {
       color: #ddd;
       text-decoration: none;
       transition: all 0.3s ease;
     }
 
-    .footer-links a:hover {
+    .footer-column a:hover {
       color: var(--accent);
+      padding-left: 5px;
+    }
+
+    .contact-info li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .contact-info i {
+      color: var(--accent);
+      width: 20px;
+      text-align: center;
     }
 
     .social-links {
@@ -456,23 +749,7 @@
 
     .social-links a:hover {
       color: var(--accent);
-    }
-
-    .contact-info {
-      list-style: none;
-    }
-
-    .contact-info li {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 1rem;
-    }
-
-    .contact-icon {
-      color: var(--accent);
-      width: 20px;
-      text-align: center;
+      transform: translateY(-3px);
     }
 
     .footer-bottom {
@@ -481,58 +758,130 @@
       text-align: center;
     }
 
+    .footer-bottom p {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-bottom a {
+      color: #aaa;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .footer-bottom a:hover {
+      color: var(--accent);
+    }
+
+    .credit {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: #777;
+    }
+
     /* Responsive Design */
     @media (max-width: 768px) {
-      .mobile-menu {
-        display: block;
-      }
-
       nav ul {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: rgba(34, 34, 34, 0.95);
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: var(--dark);
         flex-direction: column;
-        padding: 1rem 2rem;
+        align-items: center;
+        padding-top: 2rem;
+        transition: left 0.3s ease;
       }
 
       nav ul.active {
-        display: flex;
+        left: 0;
+      }
+
+      nav ul li {
+        margin: 1rem 0;
+      }
+
+      .mobile-menu {
+        display: block;
+        font-size: 1.5rem;
       }
 
       .dropdown-menu {
         position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
         box-shadow: none;
-        background: transparent;
-        padding: 0;
-        margin-left: 1rem;
+        display: none;
+        padding-left: 1rem;
+        background: rgba(0,0,0,0.2);
         margin-top: 0.5rem;
+        border-radius: 5px;
       }
 
-      .dropdown-menu a {
-        color: #ddd;
+      .dropdown.active .dropdown-menu {
+        display: flex;
       }
 
-      .page-header h1 {
-        font-size: 2.5rem;
+      .dropdown > a::after {
+        content: '\f078';
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        font-size: 0.8rem;
+        transition: transform 0.3s ease;
       }
-      
-      .timeline::before {
-        left: 10px;
+
+      .dropdown.active > a::after {
+        transform: rotate(180deg);
       }
-      
-      .timeline-year {
-        left: -50px;
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
+
+      .about-hero h1 {
+        font-size: 2rem;
       }
-      
-      .mission-vision {
+
+      .about-hero .overlay {
+        padding: 1rem;
+      }
+
+      .footer-container {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
       }
+      
+      .footer-column {
+        margin-bottom: 1rem;
+      }
+      
+      .footer-column h3 {
+        margin-bottom: 1rem;
+      }
+
+      .card-menu {
+        min-width: 150px;
+        right: 1rem;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    .delay-1 {
+      animation-delay: 0.2s;
+    }
+
+    .delay-2 {
+      animation-delay: 0.4s;
+    }
+
+    .delay-3 {
+      animation-delay: 0.6s;
     }
   </style>
 </head>
@@ -545,18 +894,18 @@
         <i class="fas fa-bars"></i>
       </div>
       <ul>
-        <li><a href="#" class="active">Home</a></li>
+        <li><a href="homepage.html">Home</a></li>
         <li class="dropdown">
-          <a href="#">About</a>
+          <a href="#" class="active">About</a>
           <ul class="dropdown-menu">
-            <li><a href="about_us.html">About Us</a></li>
+            <li><a href="about_us.html" class="active">About Us</a></li>
             <li><a href="#">Our People</a></li>
             <li><a href="#">Awards & Accolades</a></li>
             <li><a href="#">Careers</a></li>
             <li><a href="#">Downloads</a></li>
           </ul>
         </li>
-        <li><a href="#">Expertise</a></li>
+        <li><a href="expertise.html">Expertise</a></li>
         <li class="dropdown">
           <a href="#">Discover & Learn</a>
           <ul class="dropdown-menu">
@@ -570,180 +919,257 @@
     </nav>
   </header>
 
-  <!-- Gradient Page Header with Overlay -->
-  <section class="page-header">
-    <div class="page-header-content">
-      <h1>Our Story</h1>
-      <p>Driving digital transformation through innovation, expertise, and a commitment to excellence</p>
+  <!-- About Hero Section -->
+  <section class="about-hero fade-in">
+    <div class="overlay">
+      <h1>About Sybyl</h1>
+      <p>Leading the way in enterprise IT solutions with innovation, expertise, and commitment to excellence.</p>
     </div>
   </section>
 
-  <!-- Modern Timeline Section -->
-  <div class="timeline-container">
-    <h2 style="font-size: 2rem; color: var(--secondary); margin-bottom: 2rem;">Our Journey</h2>
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-year">2010</div>
-        <h3>Company Founded</h3>
-        <p>Sybyl was established with a team of 5 professionals focused on IT infrastructure solutions, operating from a small office in Nairobi.</p>
+  <!-- About Content Section -->
+  <section class="about-section fade-in delay-1">
+    <h2>Our Story</h2>
+    <p>Founded in 2010, Sybyl has grown from a small IT consultancy to a leading provider of enterprise technology solutions in East Africa. Our journey began with a simple mission: to help businesses leverage technology for growth and efficiency.</p>
+    <p>Over the years, we've built a reputation for delivering innovative, reliable, and scalable IT solutions that transform businesses. Our team of experts brings together decades of experience across various industries, ensuring we understand the unique challenges our clients face.</p>
+    <p>Today, Sybyl serves over 200 clients across multiple sectors, from banking and finance to healthcare and manufacturing. Our commitment to excellence has earned us numerous awards and recognition as a leader in the IT solutions space.</p>
+    
+    <div class="mission-vision">
+      <div class="mission">
+        <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
+        <p>To empower businesses through innovative technology solutions that drive efficiency, security, and growth. We strive to be the trusted partner that organizations rely on for their most critical IT infrastructure needs.</p>
       </div>
-      <div class="timeline-item">
-        <div class="timeline-year">2014</div>
-        <h3>First Major Enterprise Client</h3>
-        <p>Secured our first banking sector client, marking our entry into financial technology solutions and establishing our reputation in the industry.</p>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-year">2017</div>
-        <h3>Regional Expansion</h3>
-        <p>Expanded operations to Tanzania and Uganda, establishing regional offices and building a pan-East African presence.</p>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-year">2020</div>
-        <h3>Digital Transformation Focus</h3>
-        <p>Launched our dedicated digital transformation practice to help businesses adapt to new technologies in the post-pandemic world.</p>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-year">2023</div>
-        <h3>100+ Employees</h3>
-        <p>Grew to over 100 technology professionals serving clients across East Africa with comprehensive enterprise solutions.</p>
+      <div class="vision">
+        <h3><i class="fas fa-eye"></i> Our Vision</h3>
+        <p>To be the leading provider of enterprise IT solutions in Africa, recognized for our technical excellence, customer-centric approach, and ability to deliver transformative technology solutions.</p>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Mission & Vision Section -->
-  <div class="mission-vision">
-    <div class="mission-card">
-      <h3><i class="fas fa-bullseye"></i> Our Mission</h3>
-      <p>To empower businesses through innovative technology solutions that drive growth, efficiency, and competitive advantage in the digital age. We combine global expertise with local understanding to deliver transformative results.</p>
+  <!-- Team Section -->
+  <section class="team-section fade-in delay-2">
+    <h2>Meet Our Leadership</h2>
+    <div class="team-grid">
+      <div class="team-member">
+        <div class="team-member-img">
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80" alt="CEO">
+          <a href="https://www.linkedin.com" target="_blank" class="linkedin-icon">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+        <div class="team-member-info">
+          <h3>John Mwangi</h3>
+          <p class="position">Chief Executive Officer</p>
+          <p>20+ years in enterprise technology and business transformation</p>
+        </div>
+      </div>
+      <div class="team-member">
+        <div class="team-member-img">
+          <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80" alt="CTO">
+          <a href="https://www.linkedin.com" target="_blank" class="linkedin-icon">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+        <div class="team-member-info">
+          <h3>Sarah Johnson</h3>
+          <p class="position">Chief Technology Officer</p>
+          <p>Expert in enterprise architecture and digital transformation</p>
+        </div>
+      </div>
+      <div class="team-member">
+        <div class="team-member-img">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80" alt="COO">
+          <a href="https://www.linkedin.com" target="_blank" class="linkedin-icon">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+        </div>
+        <div class="team-member-info">
+          <h3>David Omondi</h3>
+          <p class="position">Chief Operations Officer</p>
+          <p>Specializes in IT operations and service delivery excellence</p>
+        </div>
+      </div>
     </div>
-    <div class="mission-card">
-      <h3><i class="fas fa-eye"></i> Our Vision</h3>
-      <p>To be the leading digital transformation partner for enterprises in Africa, recognized for our technical excellence, innovative approach, and commitment to client success. We aim to bridge the technology gap in emerging markets.</p>
-    </div>
-  </div>
+  </section>
 
   <!-- Values Section -->
-  <section class="values-section">
-    <div class="values-container">
-      <div class="section-title">
-        <h2>Our Core Values</h2>
-        <p>These fundamental beliefs guide our decisions, actions, and relationships with clients and partners</p>
+  <section class="values-section fade-in delay-3">
+    <h2>Our Core Values</h2>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon"><i class="fas fa-lightbulb"></i></div>
+        <h3>Innovation</h3>
+        <p>We constantly push boundaries to deliver cutting-edge solutions that give our clients a competitive edge.</p>
       </div>
-      <div class="values-grid">
-        <div class="value-card">
-          <div class="value-icon">
-            <i class="fas fa-lightbulb"></i>
-          </div>
-          <h3>Innovation</h3>
-          <p>We constantly push boundaries, exploring new technologies and creative approaches to solve complex business challenges.</p>
-        </div>
-        <div class="value-card">
-          <div class="value-icon">
-            <i class="fas fa-handshake"></i>
-          </div>
-          <h3>Integrity</h3>
-          <p>We build trust through transparency, honesty, and ethical business practices in all our engagements.</p>
-        </div>
-        <div class="value-card">
-          <div class="value-icon">
-            <i class="fas fa-users"></i>
-          </div>
-          <h3>Collaboration</h3>
-          <p>We believe in the power of teamwork and partnership, working closely with clients to achieve shared success.</p>
-        </div>
-        <div class="value-card">
-          <div class="value-icon">
-            <i class="fas fa-bullseye"></i>
-          </div>
-          <h3>Excellence</h3>
-          <p>We strive for the highest quality in everything we do, setting and exceeding industry standards.</p>
-        </div>
+      <div class="value-card">
+        <div class="value-icon"><i class="fas fa-handshake"></i></div>
+        <h3>Integrity</h3>
+        <p>We build trust through transparency, honesty, and ethical business practices in all we do.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon"><i class="fas fa-users"></i></div>
+        <h3>Collaboration</h3>
+        <p>We believe in working closely with our clients as partners to achieve shared success.</p>
+      </div>
+      <div class="value-card">
+        <div class="value-icon"><i class="fas fa-star"></i></div>
+        <h3>Excellence</h3>
+        <p>We're committed to delivering the highest quality solutions and service in everything we do.</p>
       </div>
     </div>
   </section>
 
-  <!-- Leadership Section -->
-  <section class="leadership-section">
-    <div class="values-container">
-      <div class="section-title">
-        <h2>Leadership Team</h2>
-        <p>The visionary leaders driving Sybyl's success and innovation</p>
-      </div>
-      <div class="leadership-grid">
-        <div class="leader-card">
-          <div class="leader-image">
-            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Dr. Sarah Mwangi, CEO">
-          </div>
-          <div class="leader-info">
-            <h3>Dr. Sarah Mwangi</h3>
-            <p class="position">Chief Executive Officer</p>
-            <p>20+ years of technology leadership experience across Africa and Europe.</p>
-            <div class="leader-social">
-              <a href="#" aria-label="LinkedIn profile"><i class="fab fa-linkedin"></i></a>
-              <a href="#" aria-label="Twitter profile"><i class="fab fa-twitter"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="leader-card">
-          <div class="leader-image">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="James Omondi, CTO">
-          </div>
-          <div class="leader-info">
-            <h3>James Omondi</h3>
-            <p class="position">Chief Technology Officer</p>
-            <p>Expert in enterprise architecture and digital transformation strategies.</p>
-            <div class="leader-social">
-              <a href="#" aria-label="LinkedIn profile"><i class="fab fa-linkedin"></i></a>
-              <a href="#" aria-label="Twitter profile"><i class="fab fa-twitter"></i></a>
-            </div>
-          </div>
-        </div>
-        <div class="leader-card">
-          <div class="leader-image">
-            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Fatuma Abdi, CFO">
-          </div>
-          <div class="leader-info">
-            <h3>Fatuma Abdi</h3>
-            <p class="position">Chief Financial Officer</p>
-            <p>Specializes in financial technology and business growth strategies.</p>
-            <div class="leader-social">
-              <a href="#" aria-label="LinkedIn profile"><i class="fab fa-linkedin"></i></a>
-              <a href="#" aria-label="Twitter profile"><i class="fab fa-twitter"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-grid">
-      <div>
-        <h3 class="footer-title">About Sybyl</h3>
-        <p>Leading provider of enterprise IT solutions helping businesses transform and grow through innovative technology.</p>
-        <div class="social-links">
-          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-          <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-          <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+  <!-- Services Section -->
+  <section class="services">
+    <h2 class="fade-in">Our Services</h2>
+    <p class="intro fade-in delay-1">We deliver the best ICT enterprise services available in the East Africa Region. Our solutions are crafted to suit your unique challenges to ensure you gain competitive advantage.</p>
+    <div class="grid">
+      <!-- Enterprise Systems -->
+      <div class="card enterprise fade-in">
+        <h3><i class="fas fa-server icon"></i> Enterprise Systems</h3>
+        <p>Comprehensive solutions for large-scale business operations</p>
+        <div class="plus-icon">+</div>
+        <div class="card-menu">
+          <ul>
+            <li><a href="#">Networking</a></li>
+            <li><a href="#">servers</a></li>
+            <li><a href="#">ERPs</a></li>
+            <li><a href="#">Explore More</a></li>
+          </ul>
         </div>
       </div>
       
-      <div>
-        <h3 class="footer-title">Quick Links</h3>
-        <ul class="footer-links">
+      <!-- Security -->
+      <div class="card security fade-in delay-1">
+        <h3><i class="fas fa-shield-alt icon"></i> Security</h3>
+        <p>Protecting your digital assets and infrastructure</p>
+        <div class="plus-icon">+</div>
+        <div class="card-menu">
+          <ul>
+            <li><a href="#">Physical Security</a></li>
+            <li><a href="#">Application Security</a></li>
+            <li><a href="#">End Point Security</a></li>
+            <li><a href="#">Explore More</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Business Intelligence -->
+      <div class="card business-intel fade-in delay-2">
+        <h3><i class="fas fa-chart-line icon"></i> Business Intelligence</h3>
+        <p>Data-driven insights for strategic decisions</p>
+        <div class="plus-icon">+</div>
+        <div class="card-menu">
+          <ul>
+            <li><a href="#">QLIK</a></li>
+            <li><a href="#">Banking</a></li>
+            <li><a href="#">Explore More</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Banking Sector Solutions -->
+      <div class="card banking fade-in delay-1">
+        <h3><i class="fas fa-university icon"></i> Banking Solutions</h3>
+        <p>Specialized technology for financial institutions</p>
+        <div class="plus-icon">+</div>
+        <div class="card-menu">
+          <ul>
+            <li><a href="#">Core Banking Solutions</a></li>
+            <li><a href="#">Cash Recycling ATM</a></li>
+            <li><a href="#">Fintech Solutions</a></li>
+            <li><a href="#">Explore More</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Managed Services -->
+      <div class="card managed fade-in delay-2">
+        <h3><i class="fas fa-cogs icon"></i> Managed Services</h3>
+        <p>Comprehensive IT management solutions</p>
+        <div class="plus-icon">+</div>
+        <div class="card-menu">
+          <ul>
+            <li><a href="#">Infrastructure</a></li>
+            <li><a href="#">Managed Security SOC</a></li>
+            <li><a href="#">Explore More</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Unified Communications -->
+      <div class="card communications fade-in delay-1">
+        <h3><i class="fas fa-comments icon"></i> Unified Communications</h3>
+        <p>Seamless connectivity for your organization</p>
+        <div class="plus-icon">+</div>
+        <div class="card-menu">
+          <ul>
+            <li><a href="#">Collaboration Solutions</a></li>
+            <li><a href="#">Contact Centre Solutions</a></li>
+            <li><a href="#">Explore More</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Services -->
+      <div class="card general-services fade-in delay-2">
+        <h3><i class="fas fa-concierge-bell icon"></i> IT Services</h3>
+        <p>End-to-end technology solutions</p>
+        <div class="plus-icon">+</div>
+        <div class="card-menu">
+          <ul>
+            <li><a href="#">Virtualization</a></li>
+            <li><a href="#">Deployment</a></li>
+            <li><a href="#">Consultation</a></li>
+            <li><a href="#">Explore More</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Explore Card -->
+      <div class="card explore fade-in delay-3">
+        <h3><i class="fas fa-compass icon"></i> Explore Our Capabilities</h3>
+        <p>Sybyl's experience cuts across verticals and industries.</p>
+        <button>Explore Industries →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- New Get in Touch Section -->
+  <section class="get-in-touch-section fade-in">
+    <h2>Ready to Transform Your Business?</h2>
+    <p>Our team of experts is ready to discuss your enterprise IT needs and help you find the perfect solutions to drive your business forward.</p>
+    <a href="#" class="contact-btn">Get in Touch</a>
+  </section>
+
+  <!-- Enhanced Footer -->
+  <footer class="fade-in delay-3">
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>About Sybyl</h3>
+        <p>Leading provider of enterprise IT solutions helping businesses transform and grow through innovative technology.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul>
           <li><a href="index.html">Home</a></li>
-          <li><a href="about-us.html">About Us</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="case-studies.html">Case Studies</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="about_us.html">About Us</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="#">Contact</a></li>
         </ul>
       </div>
       
-      <div>
-        <h3 class="footer-title">Services</h3>
-        <ul class="footer-links">
+      <div class="footer-column">
+        <h3>Services</h3>
+        <ul>
           <li><a href="#">Enterprise Systems</a></li>
           <li><a href="#">Security Solutions</a></li>
           <li><a href="#">Business Intelligence</a></li>
@@ -752,21 +1178,12 @@
         </ul>
       </div>
       
-      <div>
-        <h3 class="footer-title">Contact Us</h3>
+      <div class="footer-column">
+        <h3>Contact Us</h3>
         <ul class="contact-info">
-          <li>
-            <i class="fas fa-map-marker-alt contact-icon"></i> 
-            123 Tech Street, Nairobi, Kenya
-          </li>
-          <li>
-            <i class="fas fa-phone contact-icon"></i> 
-            +254 700 123456
-          </li>
-          <li>
-            <i class="fas fa-envelope contact-icon"></i> 
-            info@sybyl.com
-          </li>
+          <li><i class="fas fa-map-marker-alt"></i> 123 Tech Street, Nairobi, Kenya</li>
+          <li><i class="fas fa-phone"></i> +254 700 123456</li>
+          <li><i class="fas fa-envelope"></i> info@sybyl.com</li>
         </ul>
       </div>
     </div>
@@ -778,49 +1195,167 @@
 
   <script>
     // Mobile Menu Toggle
-    document.addEventListener('DOMContentLoaded', function() {
-      const mobileMenu = document.querySelector('.mobile-menu');
-      const navUl = document.querySelector('nav ul');
-      const dropdowns = document.querySelectorAll('.dropdown');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const navUl = document.querySelector('nav ul');
 
-      // Toggle mobile menu
-      mobileMenu.addEventListener('click', () => {
-        navUl.classList.toggle('active');
-        mobileMenu.innerHTML = navUl.classList.contains('active') ? 
-          '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
-      });
+    mobileMenu.addEventListener('click', () => {
+      navUl.classList.toggle('active');
+      mobileMenu.innerHTML = navUl.classList.contains('active') ? 
+        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
 
-      // Handle dropdowns on mobile
-      dropdowns.forEach(dropdown => {
-        const link = dropdown.querySelector('a:first-child');
-        
-        link.addEventListener('click', (e) => {
-          if (window.innerWidth <= 768) {
-            e.preventDefault();
-            dropdown.classList.toggle('active');
-          }
-        });
-      });
-
-      // Close dropdowns when clicking outside on mobile
-      document.addEventListener('click', (e) => {
-        if (window.innerWidth <= 768 && !e.target.closest('nav')) {
-          navUl.classList.remove('active');
-          mobileMenu.innerHTML = '<i class="fas fa-bars"></i>';
+    // Dropdown functionality
+    const dropdowns = document.querySelectorAll('.dropdown');
+    
+    dropdowns.forEach(dropdown => {
+      const link = dropdown.querySelector('a:first-child');
+      
+      link.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          dropdown.classList.toggle('active');
         }
       });
+      
+      // For desktop - show on hover
+      if (window.innerWidth > 768) {
+        dropdown.addEventListener('mouseenter', () => {
+          dropdown.classList.add('active');
+        });
+        
+        dropdown.addEventListener('mouseleave', () => {
+          dropdown.classList.remove('active');
+        });
+      }
+    });
 
-      // Handle window resize
-      window.addEventListener('resize', function() {
-        if (window.innerWidth > 768) {
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.dropdown') && window.innerWidth <= 768) {
+        dropdowns.forEach(dropdown => {
+          dropdown.classList.remove('active');
+        });
+      }
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop - 70,
+            behavior: 'smooth'
+          });
+        }
+        
+        // Close mobile menu if open
+        if (navUl.classList.contains('active')) {
           navUl.classList.remove('active');
           mobileMenu.innerHTML = '<i class="fas fa-bars"></i>';
-          dropdowns.forEach(dropdown => {
-            dropdown.classList.remove('active');
-          });
         }
       });
     });
+
+    // Add active class to current section in viewport
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('nav a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        
+        if (pageYOffset >= sectionTop - 300) {
+          current = section.getAttribute('id');
+        }
+      });
+      
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // Intersection Observer for animations
+    const fadeElements = document.querySelectorAll('.fade-in');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    fadeElements.forEach(el => {
+      observer.observe(el);
+    });
+
+    // Card plus icon functionality
+    const plusIcons = document.querySelectorAll('.card .plus-icon');
+    const cards = document.querySelectorAll('.card:not(.explore)');
+    
+    plusIcons.forEach(icon => {
+      icon.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent card click from triggering
+        const card = icon.closest('.card');
+        
+        // Close all other card menus first
+        cards.forEach(c => {
+          if (c !== card) {
+            c.classList.remove('active');
+          }
+        });
+        
+        // Toggle current card menu
+        card.classList.toggle('active');
+      });
+    });
+    
+    // Close card menus when clicking outside
+    document.addEventListener('click', () => {
+      cards.forEach(card => {
+        card.classList.remove('active');
+      });
+    });
+    
+    // Prevent card menu from closing when clicking inside it
+    document.querySelectorAll('.card-menu').forEach(menu => {
+      menu.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+    });
+
+    // Explore button functionality
+    const exploreBtn = document.querySelector('.card.explore button');
+    if (exploreBtn) {
+      exploreBtn.addEventListener('click', () => {
+        alert('Exploring industries! This would show a modal or navigate to industries page.');
+      });
+    }
+
+    // Add smooth scrolling to Get in Touch button
+    const contactBtn = document.querySelector('.contact-btn');
+    if (contactBtn) {
+      contactBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        // Assuming you have a contact section with id "contact"
+        const contactSection = document.querySelector('#contact') || document.querySelector('footer');
+        window.scrollTo({
+          top: contactSection.offsetTop - 70,
+          behavior: 'smooth'
+        });
+      });
+    }
   </script>
 </body>
 </html>
