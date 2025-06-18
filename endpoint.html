@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Physical Security Solutions | Sybyl</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>Endpoint Security Solutions | Sybyl</title>
+  <!-- Add Font Awesome for icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
@@ -30,7 +30,6 @@
       overflow-x: hidden;
     }
 
-   
     /* Header */
     header {
       background: var(--dark);
@@ -158,7 +157,7 @@
 
     .service-hero {
       background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                  url('https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+                  url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
       height: 60vh;
       min-height: 400px;
       display: flex;
@@ -248,18 +247,16 @@
       background-position: center;
     }
 
-    .feature-card.access {
-      --bg-image: url('https://images.unsplash.com/photo-1597852074816-d933c7d2b988?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+    .feature-card.edr {
+      --bg-image: url('https://images.unsplash.com/photo-1535320903710-d993d3d77d29?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
     }
-
-    .feature-card.surveillance {
-      --bg-image: url('https://images.unsplash.com/photo-1691215415846-676d3dc8d6d6?q=80&w=1450&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    .feature-card.antivirus {
+      --bg-image: url('https://images.unsplash.com/photo-1579389083078-4e7018379f7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
     }
-
-    .feature-card.biometrics {
-      --bg-image: url('https://plus.unsplash.com/premium_photo-1677093905921-617951e10e90?q=80&w=1632&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    .feature-card.dlp {
+      --bg-image: url('https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
     }
-
+    
     .feature-card:hover {
       transform: translateY(-10px);
       box-shadow: 0 15px 30px rgba(0,0,0,0.2);
@@ -294,6 +291,11 @@
       padding: 3rem;
       border-radius: 10px;
       margin-bottom: 4rem;
+    }
+
+    .benefits-list h2 {
+      margin-bottom: 1.5rem;
+      color: white;
     }
 
     .benefits-list ul {
@@ -597,7 +599,19 @@
     }
 
     .fade-in {
+      opacity: 0;
+    }
+
+    .fade-in.animate {
       animation: fadeIn 0.8s ease forwards;
+    }
+
+    .delay-1 {
+      animation-delay: 0.2s;
+    }
+
+    .delay-2 {
+      animation-delay: 0.4s;
     }
   </style>
 </head>
@@ -637,36 +651,36 @@
 
   <section class="service-hero">
     <div class="service-hero-content fade-in">
-      <h1>Physical Security Solutions</h1>
-      <p>Comprehensive protection for your facilities, assets, and personnel</p>
-      <a href="#contact" class="cta-button">Get Security Assessment</a>
+      <h1>Endpoint Security Solutions</h1>
+      <p>Comprehensive protection for all devices in your network against advanced threats</p>
+      <a href="#contact" class="cta-button">Get Endpoint Assessment</a>
     </div>
   </section>
 
   <section class="service-detail">
     <div class="service-overview">
       <div class="fade-in">
-        <h2>Secure Your Physical Infrastructure</h2>
-        <p>Sybyl's physical security solutions protect your business premises, data centers, and critical infrastructure from unauthorized access and threats through layered security measures.</p>
-        <p>Our certified security professionals design and implement customized solutions that address your specific risk profile and compliance requirements.</p>
+        <h2>Secure Every Device</h2>
+        <p>Sybyl's endpoint security solutions protect laptops, desktops, mobile devices and servers from malware, ransomware, and other advanced threats through next-generation protection technologies.</p>
+        <p>Our solutions provide visibility and control across all endpoints, whether on-premises or remote.</p>
       </div>
-      <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3" alt="Security System" class="fade-in delay-1">
+      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c" alt="Endpoint Security" class="fade-in delay-1">
     </div>
 
     <div class="service-features">
-      <h2 class="fade-in">Our Physical Security Solutions</h2>
+      <h2 class="fade-in">Our Endpoint Security Services</h2>
       <div class="features-grid">
-        <div class="feature-card access fade-in">
-          <h3><i class="fas fa-key"></i> Access Control Systems</h3>
-          <p>Electronic systems to manage and monitor facility access with audit trails</p>
+        <div class="feature-card edr fade-in">
+          <h3><i class="fas fa-laptop-medical"></i> Endpoint Detection & Response</h3>
+          <p>Advanced threat detection and incident response capabilities</p>
         </div>
-        <div class="feature-card surveillance fade-in delay-1">
-          <h3><i class="fas fa-video"></i> Surveillance Systems</h3>
-          <p>IP cameras and monitoring solutions for 24/7 visibility and recording</p>
+        <div class="feature-card antivirus fade-in delay-1">
+          <h3><i class="fas fa-shield-alt"></i> Next-Gen Antivirus</h3>
+          <p>AI-powered protection against known and unknown threats</p>
         </div>
-        <div class="feature-card biometrics fade-in delay-2">
-          <h3><i class="fas fa-fingerprint"></i> Biometric Security</h3>
-          <p>Advanced fingerprint, facial recognition and iris scanning systems</p>
+        <div class="feature-card dlp fade-in delay-2">
+          <h3><i class="fas fa-lock"></i> Data Loss Prevention</h3>
+          <p>Prevent sensitive data from leaving your endpoints</p>
         </div>
       </div>
     </div>
@@ -674,22 +688,23 @@
     <div class="benefits-list fade-in">
       <h2>Business Benefits</h2>
       <ul>
-        <li>Prevent unauthorized access to sensitive areas</li>
-        <li>24/7 monitoring of your facilities</li>
-        <li>Compliance with industry security standards</li>
-        <li>Detailed access logs for security audits</li>
-        <li>Integration with other security systems</li>
-        <li>Scalable solutions that grow with your business</li>
+        <li>Protection against advanced malware and ransomware</li>
+        <li>Centralized management of all endpoints</li>
+        <li>Real-time threat detection and response</li>
+        <li>Prevent data exfiltration from endpoints</li>
+        <li>Compliance with data protection regulations</li>
+        <li>Reduced risk of security breaches</li>
       </ul>
     </div>
   </section>
 
   <section class="service-cta fade-in" id="contact">
-    <h2>Ready to Enhance Your Physical Security?</h2>
-    <p>Our security experts will assess your current setup and recommend the optimal physical security solutions for your business.</p>
-    <a href="contact.html" class="cta-button">Contact Security Team</a>
+    <h2>Need Endpoint Protection?</h2>
+    <p>Our security team will assess your current endpoint protection and recommend the right solution for your environment.</p>
+    <a href="contact.html" class="cta-button">Request Endpoint Consultation</a>
   </section>
- <!-- Enhanced Footer -->
+
+   <!-- Enhanced Footer -->
   <footer class="fade-in">
     <div class="footer-container">
       <div class="footer-column">
@@ -697,8 +712,8 @@
         <p>Leading provider of enterprise IT solutions helping businesses transform and grow through innovative technology.</p>
         <div class="social-links">
           <a href="#"><i class="fab fa-twitter"></i></a>
-          <a href="#"><i class="fab fa-linkedin"></i></a>
-          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
           <a href="#"><i class="fab fa-instagram"></i></a>
         </div>
       </div>
@@ -739,7 +754,8 @@
       <p>&copy; 2025 Sybyl. All Rights Reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
     </div>
   </footer>
-<script>
+  
+  <script>
     // Mobile Menu Toggle
     const mobileMenu = document.querySelector('.mobile-menu');
     const navUl = document.querySelector('nav ul');
