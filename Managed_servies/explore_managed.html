@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Managed Services | Sybyl</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #0066cc;
+      --secondary: #0f3c4c;
+      --accent: #00d8ff;
+      --dark: #222;
+      --light: #f7f7f7;
+      --orange: #f90;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+        body {
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      background-color: var(--light);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    header {
+      background: var(--dark);
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 1.8rem;
+      color: var(--orange);
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 2rem;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      padding-bottom: 5px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      color: var(--orange);
+    }
+
+    nav a.active {
+      color: var(--orange);
+    }
+
+    nav a.active:after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: var(--orange);
+      bottom: 0;
+      left: 0;
+    }
+
+    .mobile-menu {
+      display: none;
+      cursor: pointer;
+    }
+
+    /* Vertical Dropdown Menu */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown > a {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dropdown > a::after {
+      content: '\f078';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      font-size: 0.8rem;
+      transition: transform 0.3s ease;
+    }
+
+    .dropdown.active > a::after {
+      transform: rotate(180deg);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: var(--dark);
+      min-width: 200px;
+      padding: 0.5rem 0;
+      border-radius: 0 0 5px 5px;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dropdown.active .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-menu li {
+      padding: 0;
+      width: 100%;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 0.5rem 1rem;
+      color: #fff;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .dropdown-menu a:hover {
+      background: rgba(255,255,255,0.1);
+      color: var(--orange);
+      padding-left: 1.2rem;
+    }
+
+    /* Hero Section */
+    .service-hero {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                  url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+      height: 50vh;
+      min-height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      margin-top: 70px;
+      text-align: center;
+      padding: 2rem;
+    }
+
+     .service-hero-content {
+      max-width: 800px;
+    }
+
+    .service-hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    .service-hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    }
+
+    /* Service Detail Section */
+    .service-detail {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .service-overview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 4rem;
+      align-items: center;
+    }
+
+    .service-overview img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .service-features h2,
+    .service-benefits h2,
+    .service-solutions h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      color: var(--secondary);
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .service-features h2::after,
+    .service-benefits h2::after,
+    .service-solutions h2::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--accent);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .feature-card {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), var(--bg-image);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+      color: white;
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+      z-index: 1;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    .feature-card h3 {
+      color: white;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .feature-card i {
+      color: var(--accent);
+      font-size: 1.2rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .feature-card p {
+      position: relative;
+      z-index: 2;
+      color: rgba(255,255,255,0.9);
+    }
+
+    /* Enterprise Systems Grid */
+    .enterprise-systems {
+      padding: 5rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .systems-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .system-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+
+    .system-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .system-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .system-content {
+      padding: 1.5rem;
+    }
+
+    .system-content h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .system-content h3 i {
+      color: var(--accent);
+    }
+
+    .system-content .cta-link {
+      display: inline-block;
+      margin-top: 1rem;
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .system-content .cta-link:hover {
+      color: var(--accent);
+      transform: translateX(5px);
+    }
+
+    .system-content .cta-link i {
+      margin-left: 5px;
+    }
+
+    /* Comparison Section */
+    .comparison {
+      background: var(--light);
+      padding: 4rem 2rem;
+      margin: 4rem 0;
+      border-radius: 10px;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+    }
+
+    .comparison-table th, 
+    .comparison-table td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .comparison-table th {
+      background: var(--secondary);
+      color: white;
+    }
+
+    .comparison-table tr:nth-child(even) {
+      background: rgba(0,0,0,0.02);
+    }
+
+    .check-icon {
+      color: var(--accent);
+    }
+     .benefits-list {
+      background: var(--secondary);
+      color: white;
+      padding: 3rem;
+      border-radius: 10px;
+      margin-bottom: 4rem;
+    }
+
+    .benefits-list ul {
+      list-style: none;
+      columns: 2;
+      column-gap: 3rem;
+    }
+
+    .benefits-list li {
+      margin-bottom: 1rem;
+      position: relative;
+      padding-left: 1.5rem;
+    }
+
+    .benefits-list li::before {
+      content: '\f00c';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+
+    .solutions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .solution-card {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+
+    .solution-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .solution-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .solution-content {
+      padding: 1.5rem;
+    }
+
+    .solution-content h3 {
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+    }
+
+    /* CTA Section */
+    .service-cta {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      text-align: center;
+      padding: 4rem 2rem;
+      margin-top: 4rem;
+    }
+
+    .service-cta h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .service-cta p {
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      font-size: 1.1rem;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--dark);
+      padding: 0.8rem 2rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: 2px solid var(--accent);
+    }
+
+    .cta-button:hover {
+      background: transparent;
+      color: var(--accent);
+    }
+
+    /* Footer Styles */
+    footer {
+      background: var(--dark);
+      color: #aaa;
+      padding: 4rem 2rem 2rem;
+      font-size: 0.9rem;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto 2rem;
+      text-align: left;
+    }
+
+    .footer-column {
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-column h3 {
+      color: var(--orange);
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-column h3::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--accent);
+    }
+
+    .footer-column ul {
+      list-style: none;
+    }
+
+    .footer-column ul li {
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-column a {
+      color: #ddd;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .footer-column a:hover {
+      color: var(--accent);
+      padding-left: 5px;
+    }
+
+    .contact-info li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .contact-info i {
+      color: var(--accent);
+      width: 20px;
+      text-align: center;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 1.5rem;
+    }
+
+    .social-links a {
+      color: #ddd;
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 2rem;
+      text-align: center;
+    }
+
+    .footer-bottom p {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-bottom a {
+      color: #aaa;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .footer-bottom a:hover {
+      color: var(--accent);
+    }
+
+    .credit {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: #777;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      nav ul {
+        position: fixed;
+        top: 70px;
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: var(--dark);
+        flex-direction: column;
+        align-items: center;
+        padding-top: 2rem;
+        transition: left 0.3s ease;
+      }
+
+      nav ul.active {
+        left: 0;
+      }
+
+      nav ul li {
+        margin: 1rem 0;
+      }
+
+      .mobile-menu {
+        display: block;
+        font-size: 1.5rem;
+      }
+
+      .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        display: none;
+        padding-left: 1rem;
+        background: rgba(0,0,0,0.2);
+        margin-top: 0.5rem;
+        border-radius: 5px;
+      }
+
+      .dropdown.active .dropdown-menu {
+        display: flex;
+      }
+
+      .dropdown > a::after {
+        content: '\f078';
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        font-size: 0.8rem;
+        transition: transform 0.3s ease;
+      }
+
+      .dropdown.active > a::after {
+        transform: rotate(180deg);
+      }
+
+      .service-overview {
+        grid-template-columns: 1fr;
+      }
+
+      .benefits-list ul {
+        columns: 1;
+      }
+
+      .service-hero h1 {
+        font-size: 2rem;
+      }
+
+      .service-hero {
+        height: 50vh;
+        min-height: 300px;
+      }
+
+      .footer-container {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .footer-column {
+        margin-bottom: 1rem;
+      }
+      
+      .footer-column h3 {
+        margin-bottom: 1rem;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.8s ease forwards;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header with Vertical Dropdown Menu -->
+  <header>
+    <div class="logo">Sybyl</div>
+    <nav>
+      <div class="mobile-menu">
+        <i class="fas fa-bars"></i>
+      </div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li class="dropdown">
+          <a href="#">About</a>
+          <ul class="dropdown-menu">
+            <li><a href="about_us.html">About Us</a></li>
+            <li><a href="#">Our People</a></li>
+            <li><a href="#">Awards & Accolades</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Downloads</a></li>
+          </ul>
+        </li>
+        <li><a href="expertise.html">Expertise</a></li>
+        <li class="dropdown">
+          <a href="#">Discover & Learn</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Insights and Latest</a></li>
+            <li><a href="#">In the Community</a></li>
+            <li><a href="#">Customer Stories</a></li>
+          </ul>
+        </li>
+        <li><a href="contact.html">Get In Touch</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Managed Services Hero Section -->
+  <section class="service-hero">
+    <div class="service-hero-content fade-in">
+      <h1>Managed IT Services</h1>
+      <p>Comprehensive IT management solutions tailored to your business needs</p>
+      <a href="#contact" class="cta-button">Explore Options</a>
+    </div>
+  </section>
+
+  <!-- Service Detail Section -->
+  <section class="service-detail">
+    <div class="service-overview">
+      <div>
+        <h2>Your IT, Managed</h2>
+        <p>Sybyl's Managed Services provide organizations with complete IT operations management, from infrastructure to applications. Our flexible service models allow you to outsource all or part of your IT operations, gaining access to enterprise-grade expertise and technology without the overhead of an in-house team.</p>
+        <p>With predictable costs, defined service levels, and proactive management, we help businesses focus on their core operations while we handle the technology.</p>
+      </div>
+      <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3" alt="Managed Services" class="fade-in">
+    </div>
+
+    <div class="service-features">
+      <h2 class="fade-in">Managed Services Capabilities</h2>
+      <div class="features-grid">
+        <div class="feature-card design fade-in">
+          <h3><i class="fas fa-server"></i> Infrastructure Management</h3>
+          <p>End-to-end management of servers, storage, and networks.</p>
+        </div>
+        <div class="feature-card security fade-in delay-1">
+          <h3><i class="fas fa-shield-alt"></i> Security Operations</h3>
+          <p>24/7 monitoring and threat management.</p>
+        </div>
+        <div class="feature-card performance fade-in delay-2">
+          <h3><i class="fas fa-cloud"></i> Cloud Management</h3>
+          <p>Administration of public, private, and hybrid clouds.</p>
+        </div>
+        <div class="feature-card cloud fade-in">
+          <h3><i class="fas fa-headset"></i> Helpdesk Services</h3>
+          <p>Technical support for your end-users.</p>
+        </div>
+        <div class="feature-card wireless fade-in delay-1">
+          <h3><i class="fas fa-mobile-alt"></i> Device Management</h3>
+          <p>Management of endpoints and mobile devices.</p>
+        </div>
+        <div class="feature-card support fade-in delay-2">
+          <h3><i class="fas fa-database"></i> Database Administration</h3>
+          <p>Management of critical database systems.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-benefits">
+      <h2 class="fade-in">Business Benefits</h2>
+      <div class="benefits-list fade-in">
+        <ul>
+          <li>30-50% lower IT operational costs</li>
+          <li>Improved system reliability and uptime</li>
+          <li>Access to specialized skills and expertise</li>
+          <li>Predictable monthly budgeting</li>
+          <li>Proactive monitoring and maintenance</li>
+          <li>Scalable services that grow with your business</li>
+          <li>Reduced burden on internal staff</li>
+          <li>Comprehensive reporting and visibility</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="service-solutions">
+      <h2 class="fade-in">Our Managed Services</h2>
+      <div class="solutions-grid">
+        <div class="solution-card fade-in">
+          <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31" alt="Infrastructure">
+          <div class="solution-content">
+            <h3>Managed Infrastructure</h3>
+            <p>Comprehensive management of your IT environment.</p>
+          </div>
+        </div>
+        <div class="solution-card fade-in delay-1">
+          <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095" alt="Security">
+          <div class="solution-content">
+            <h3>Managed Security</h3>
+            <p>24/7 monitoring and threat management.</p>
+          </div>
+        </div>
+        <div class="solution-card fade-in delay-2">
+          <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3" alt="Cloud">
+          <div class="solution-content">
+            <h3>Managed Cloud</h3>
+            <p>Administration of cloud environments and workloads.</p>
+          </div>
+        </div>
+        <div class="solution-card fade-in">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71" alt="Applications">
+          <div class="solution-content">
+            <h3>Managed Applications</h3>
+            <p>Support and maintenance for business applications.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="service-cta fade-in" id="contact">
+    <h2>Ready to Simplify Your IT Operations?</h2>
+    <p>Our managed services experts can design a solution tailored to your business needs.</p>
+    <a href="contact.html" class="cta-button">Contact Our Team</a>
+  </section>
+
+  <!-- Enhanced Footer -->
+  <footer class="fade-in">
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>About Sybyl</h3>
+        <p>Leading provider of enterprise IT solutions helping businesses transform and grow through innovative technology.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about_us.html">About Us</a></li>
+          <li><a href="expertise.html">Services</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="#">Enterprise Systems</a></li>
+          <li><a href="#">Security Solutions</a></li>
+          <li><a href="#">Business Intelligence</a></li>
+          <li><a href="#">Managed Services</a></li>
+          <li><a href="#">Banking Solutions</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Contact Us</h3>
+        <ul class="contact-info">
+          <li><i class="fas fa-map-marker-alt"></i> 123 Tech Street, Nairobi, Kenya</li>
+          <li><i class="fas fa-phone"></i> +254 700 123456</li>
+          <li><i class="fas fa-envelope"></i> info@sybyl.com</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2025 Sybyl. All Rights Reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile Menu Toggle
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const navUl = document.querySelector('nav ul');
+
+    mobileMenu.addEventListener('click', () => {
+      navUl.classList.toggle('active');
+      mobileMenu.innerHTML = navUl.classList.contains('active') ? 
+        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    });
+
+    // Dropdown functionality
+    const dropdowns = document.querySelectorAll('.dropdown');
+    
+    dropdowns.forEach(dropdown => {
+      const link = dropdown.querySelector('a:first-child');
+      
+      link.addEventListener('click', (e) => {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          dropdown.classList.toggle('active');
+        }
+      });
+      
+      // For desktop - show on hover
+      if (window.innerWidth > 768) {
+        dropdown.addEventListener('mouseenter', () => {
+          dropdown.classList.add('active');
+        });
+        
+        dropdown.addEventListener('mouseleave', () => {
+          dropdown.classList.remove('active');
+        });
+      }
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.dropdown') && window.innerWidth <= 768) {
+        dropdowns.forEach(dropdown => {
+          dropdown.classList.remove('active');
+        });
+      }
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop - 70,
+            behavior: 'smooth'
+          });
+        }
+        
+        // Close mobile menu if open
+        if (navUl.classList.contains('active')) {
+          navUl.classList.remove('active');
+          mobileMenu.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+      });
+    });
+
+    // Intersection Observer for animations
+    const fadeElements = document.querySelectorAll('.fade-in');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    fadeElements.forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
