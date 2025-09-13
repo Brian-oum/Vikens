@@ -89,7 +89,7 @@
       cursor: pointer;
     }
 
-    /* Vertical Dropdown Menu */
+    /* Vertical Dropdown Menu - SUPER COMPACT */
     .dropdown {
       position: relative;
     }
@@ -104,7 +104,7 @@
       content: '\f078';
       font-family: 'Font Awesome 6 Free';
       font-weight: 900;
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       transition: transform 0.3s ease;
     }
 
@@ -117,14 +117,14 @@
       top: 100%;
       left: 0;
       background: var(--dark);
-      min-width: 200px;
-      padding: 0.5rem 0;
+      min-width: 190px; /* slightly slimmer */
+      padding: 0; /* no top/bottom padding */
       border-radius: 0 0 5px 5px;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
       opacity: 0;
       visibility: hidden;
-      transform: translateY(10px);
-      transition: all 0.3s ease;
+      transform: translateY(8px);
+      transition: all 0.25s ease;
       z-index: 100;
       display: flex;
       flex-direction: column;
@@ -137,22 +137,25 @@
     }
 
     .dropdown-menu li {
+      margin: 0;
       padding: 0;
       width: 100%;
     }
 
     .dropdown-menu a {
       display: block;
-      padding: 0.5rem 1rem;
+      padding: 0.15rem 0.7rem; /* minimal padding */
       color: #fff;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
       width: 100%;
+      font-size: 0.8rem; /* smaller font */
+      line-height: 1.1; /* very compact line spacing */
     }
 
     .dropdown-menu a:hover {
       background: rgba(255,255,255,0.1);
-      color: var(--orange);
-      padding-left: 1.2rem;
+      color: #fff; /* Fixed: changed from var(--white) to #fff */
+      padding-left: 0.9rem; /* subtle hover shift */
     }
 
     /* Hero Section */
@@ -166,7 +169,7 @@
       align-items: center;
       justify-content: center;
       color: white;
-      margin-top: 0;
+      margin-top: 70px; /* Account for fixed header */
     }
 
     .hero .overlay {
@@ -658,6 +661,11 @@
         transform: rotate(180deg);
       }
 
+      .hero {
+        margin-top: 60px;
+        height: calc(100vh - 60px);
+      }
+
       .hero h1 {
         font-size: 2rem;
       }
@@ -721,7 +729,7 @@
         <i class="fas fa-bars"></i>
       </div>
       <ul>
-        <li><a href="homepage.html" class="active">Home</a></li>
+        <li><a href="homepage.html">Home</a></li>
         <li class="dropdown">
           <a href="#">About</a>
           <ul class="dropdown-menu">
@@ -732,7 +740,18 @@
             <li><a href="#">Downloads</a></li>
           </ul>
         </li>
-        <li><a href="expertise.html">Expertise</a></li>
+        <li class="dropdown">
+          <a href="expertise.html" class="active">Solutions</a>
+          <ul class="dropdown-menu">
+            <li><a href="solutions.html#enterprise">Enterprise Systems</a></li>
+            <li><a href="solutions.html#security">Security Solutions</a></li>
+            <li><a href="solutions.html#business-intelligence">Business Intelligence</a></li>
+            <li><a href="solutions.html#banking">Banking Solutions</a></li>
+            <li><a href="solutions.html#managed">Managed Services</a></li>
+            <li><a href="solutions.html#communications">Unified Communications</a></li>
+            <li><a href="solutions.html#it-services">IT Services</a></li>
+          </ul>
+        </li>
         <li class="dropdown">
           <a href="#">Discover & Learn</a>
           <ul class="dropdown-menu">
@@ -811,7 +830,7 @@
         </div>
       </div>
       
-      <!-- Business Intelligence -->
+    
       <div class="card business-intel fade-in delay-2">
         <h3><i class="fas fa-chart-line icon"></i> Business Intelligence</h3>
         <p>Data-driven insights for strategic decisions</p>
@@ -825,7 +844,6 @@
         </div>
       </div>
       
-      <!-- Banking Sector Solutions -->
       <div class="card banking fade-in delay-1">
         <h3><i class="fas fa-university icon"></i> Banking Solutions</h3>
         <p>Specialized technology for financial institutions</p>
@@ -840,7 +858,6 @@
         </div>
       </div>
       
-      <!-- Managed Services -->
       <div class="card managed fade-in delay-2">
         <h3><i class="fas fa-cogs icon"></i> Managed Services</h3>
         <p>Comprehensive IT management solutions</p>
@@ -854,7 +871,6 @@
         </div>
       </div>
       
-      <!-- Unified Communications -->
       <div class="card communications fade-in delay-1">
         <h3><i class="fas fa-comments icon"></i> Unified Communications</h3>
         <p>Seamless connectivity for your organization</p>
@@ -868,7 +884,6 @@
         </div>
       </div>
       
-      <!-- Services -->
       <div class="card general-services fade-in delay-2">
         <h3><i class="fas fa-concierge-bell icon"></i> IT Services</h3>
         <p>End-to-end technology solutions</p>
@@ -883,7 +898,7 @@
         </div>
       </div>
       
-      <!-- Explore Card -->
+
       <div class="card explore fade-in delay-3">
         <h3><i class="fas fa-compass icon"></i> Explore Our Capabilities</h3>
         <p>Sybyl's experience cuts across verticals and industries.</p>
@@ -894,7 +909,6 @@
        of the curve with the latest in Enterprise Information Technology solutions, our industry and our community service.</p>
   </section>
 
-  <!-- Enhanced Footer -->
   <footer class="fade-in delay-3">
     <div class="footer-container">
       <div class="footer-column">
@@ -956,18 +970,11 @@
         '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
     });
 
-    // Dropdown functionality
+    // Dropdown functionality - FIXED
     const dropdowns = document.querySelectorAll('.dropdown');
     
     dropdowns.forEach(dropdown => {
       const link = dropdown.querySelector('a:first-child');
-      
-      link.addEventListener('click', (e) => {
-        if (window.innerWidth <= 768) {
-          e.preventDefault();
-          dropdown.classList.toggle('active');
-        }
-      });
       
       // For desktop - show on hover
       if (window.innerWidth > 768) {
@@ -978,12 +985,18 @@
         dropdown.addEventListener('mouseleave', () => {
           dropdown.classList.remove('active');
         });
+      } else {
+        // For mobile - toggle on click
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          dropdown.classList.toggle('active');
+        });
       }
     });
 
     // Close dropdowns when clicking outside
     document.addEventListener('click', (e) => {
-      if (!e.target.closest('.dropdown') && window.innerWidth <= 768) {
+      if (!e.target.closest('.dropdown')) {
         dropdowns.forEach(dropdown => {
           dropdown.classList.remove('active');
         });
@@ -1009,47 +1022,6 @@
           mobileMenu.innerHTML = '<i class="fas fa-bars"></i>';
         }
       });
-    });
-
-    // Add active class to current section in viewport
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('nav a');
-
-    window.addEventListener('scroll', () => {
-      let current = '';
-      
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        
-        if (pageYOffset >= sectionTop - 300) {
-          current = section.getAttribute('id');
-        }
-      });
-      
-      navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${current}`) {
-          link.classList.add('active');
-        }
-      });
-    });
-
-    // Intersection Observer for animations
-    const fadeElements = document.querySelectorAll('.fade-in');
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate');
-        }
-      });
-    }, {
-      threshold: 0.1
-    });
-
-    fadeElements.forEach(el => {
-      observer.observe(el);
     });
 
     // Card plus icon functionality
@@ -1094,6 +1066,47 @@
         alert('Exploring industries! This would show a modal or navigate to industries page.');
       });
     }
+
+    // Add active class to current section in viewport
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('section');
+      const navLinks = document.querySelectorAll('nav a');
+      
+      let current = '';
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        
+        if (pageYOffset >= sectionTop - 300) {
+          current = section.getAttribute('id') || '';
+        }
+      });
+      
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // Intersection Observer for animations
+    const fadeElements = document.querySelectorAll('.fade-in');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    fadeElements.forEach(el => {
+      observer.observe(el);
+    });
   </script>
 </body>
 </html>
