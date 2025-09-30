@@ -9,12 +9,27 @@
   <style>
     :root {
       --primary: #0066cc;
+      --primary-dark: #0052a3;
       --secondary: #0f3c4c;
       --accent: #00d8ff;
+      --accent-dark: #00b8d9;
       --dark: #222;
       --light: #f7f7f7;
-      --orange: #f90;
+      --orange: #ff6b00;
+      --orange-light: #ff8c33;
       --success: #28a745;
+      --gray-100: #f8f9fa;
+      --gray-200: #e9ecef;
+      --gray-300: #dee2e6;
+      --gray-600: #6c757d;
+      --gray-800: #343a40;
+      --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      --gradient-orange: linear-gradient(135deg, var(--orange) 0%, #ff9d5c 100%);
+      --gradient-dark: linear-gradient(135deg, var(--dark) 0%, var(--secondary) 100%);
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.15);
+      --transition: all 0.3s ease;
     }
 
     * {
@@ -33,7 +48,8 @@
 
     /* Header */
     header {
-      background: var(--dark);
+      background: rgba(34, 34, 34, 0.95);
+      backdrop-filter: blur(10px);
       color: #fff;
       padding: 1rem 2rem;
       display: flex;
@@ -43,19 +59,32 @@
       width: 100%;
       top: 0;
       z-index: 1000;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    header.scrolled {
+      padding: 0.7rem 2rem;
+      background: rgba(34, 34, 34, 0.98);
     }
 
     .logo {
       font-weight: 700;
       font-size: 1.8rem;
       color: var(--orange);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-icon {
+      font-size: 2rem;
     }
 
     nav ul {
       list-style: none;
       display: flex;
-      gap: 2rem;
+      gap: 1.8rem;
     }
 
     nav a {
@@ -64,7 +93,8 @@
       font-weight: 500;
       position: relative;
       padding-bottom: 5px;
-      transition: all 0.3s ease;
+      transition: var(--transition);
+      font-size: 0.95rem;
     }
 
     nav a:hover {
@@ -88,9 +118,10 @@
     .mobile-menu {
       display: none;
       cursor: pointer;
+      font-size: 1.5rem;
     }
 
-    /* Vertical Dropdown Menu - SUPER COMPACT */
+    /* Vertical Dropdown Menu */
     .dropdown {
       position: relative;
     }
@@ -117,15 +148,16 @@
       position: absolute;
       top: 100%;
       left: 0;
-      background: var(--dark);
-      min-width: 190px;
-      padding: 0;
-      border-radius: 0 0 5px 5px;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      background: rgba(34, 34, 34, 0.95);
+      backdrop-filter: blur(10px);
+      min-width: 210px;
+      padding: 0.8rem 0;
+      border-radius: 8px;
+      box-shadow: var(--shadow-lg);
       opacity: 0;
       visibility: hidden;
-      transform: translateY(8px);
-      transition: all 0.25s ease;
+      transform: translateY(12px);
+      transition: var(--transition);
       z-index: 100;
       display: flex;
       flex-direction: column;
@@ -134,7 +166,7 @@
     .dropdown.active .dropdown-menu {
       opacity: 1;
       visibility: visible;
-      transform: translateY(0);
+      transform: translateY(8px);
     }
 
     .dropdown-menu li {
@@ -145,25 +177,24 @@
 
     .dropdown-menu a {
       display: block;
-      padding: 0.15rem 0.7rem;
+      padding: 0.5rem 1.2rem;
       color: #fff;
-      transition: all 0.25s ease;
+      transition: var(--transition);
       width: 100%;
-      font-size: 0.8rem;
-      line-height: 1.1;
+      font-size: 0.9rem;
     }
 
     .dropdown-menu a:hover {
-      background: rgba(255,255,255,0.1);
-      color: #fff;
-      padding-left: 0.9rem;
+      background: rgba(255,255,255,0.08);
+      color: var(--orange);
+      padding-left: 1.5rem;
     }
 
     /* Page Header - Full Screen Hero */
     .page-header {
       background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
                   url('https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
-      height: 100vh;
+      height: 85vh;
       padding: 8rem 2rem 5rem;
       color: white;
       text-align: center;
@@ -172,26 +203,92 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient-dark);
+      opacity: 0.7;
+      z-index: 0;
+    }
+
+    .page-header-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
     }
 
     .page-header h1 {
       font-size: 3.5rem;
       margin-bottom: 1.5rem;
       text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      font-weight: 700;
     }
 
     .page-header p {
       font-size: 1.4rem;
       max-width: 800px;
-      margin: 0 auto;
+      margin: 0 auto 2.5rem;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .header-cta {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.9rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--orange);
+      color: white;
+      box-shadow: 0 4px 14px rgba(255, 107, 0, 0.4);
+    }
+
+    .btn-primary:hover {
+      background: var(--orange-light);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(255, 107, 0, 0.5);
+    }
+
+    .btn-outline {
+      border: 2px solid white;
+      color: white;
+      background: transparent;
+    }
+
+    .btn-outline:hover {
+      background: white;
+      color: var(--dark);
+      transform: translateY(-3px);
     }
 
     /* Solutions Filter */
     .solutions-filter {
       background: white;
-      padding: 2rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 2.5rem 2rem;
+      box-shadow: var(--shadow-sm);
       position: sticky;
       top: 70px;
       z-index: 100;
@@ -202,7 +299,7 @@
       margin: 0 auto;
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
+      gap: 1.2rem;
       align-items: center;
       justify-content: center;
     }
@@ -210,27 +307,39 @@
     .filter-group {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 0.8rem;
+      justify-content: center;
     }
 
     .filter-btn {
-      background: var(--light);
+      background: var(--gray-100);
       border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 30px;
+      padding: 0.7rem 1.4rem;
+      border-radius: 50px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: var(--transition);
       font-weight: 500;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
     }
 
     .filter-btn:hover {
-      background: var(--accent);
-      color: var(--dark);
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
     }
 
     .filter-btn.active {
       background: var(--primary);
       color: white;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .filter-btn i {
+      font-size: 0.9rem;
     }
 
     .search-box {
@@ -239,73 +348,50 @@
     }
 
     .search-box input {
-      padding: 0.5rem 1rem 0.5rem 2.5rem;
-      border: 1px solid #ddd;
-      border-radius: 30px;
-      width: 250px;
+      padding: 0.7rem 1rem 0.7rem 2.8rem;
+      border: 1px solid var(--gray-300);
+      border-radius: 50px;
+      width: 280px;
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0,102,204,0.2);
     }
 
     .search-box i {
       position: absolute;
-      left: 1rem;
+      left: 1.2rem;
       top: 50%;
       transform: translateY(-50%);
-      color: #777;
+      color: var(--gray-600);
     }
 
-    /* Circular Solutions Section - Diamond Layout with Wavy Background */
-    .circular-solutions {
+    /* Solutions Showcase Section */
+    .solutions-showcase {
       padding: 6rem 2rem;
       max-width: 1400px;
       margin: 0 auto;
+    }
+
+    .section-header {
       text-align: center;
-      position: relative;
-      overflow: hidden;
+      margin-bottom: 4.5rem;
     }
 
-    /* Wavy background pattern */
-    .circular-solutions::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: 
-        linear-gradient(135deg, rgba(0,102,204,0.03) 25%, transparent 25%) -50px 0,
-        linear-gradient(225deg, rgba(0,102,204,0.03) 25%, transparent 25%) -50px 0,
-        linear-gradient(315deg, rgba(0,102,204,0.03) 25%, transparent 25%),
-        linear-gradient(45deg, rgba(0,102,204,0.03) 25%, transparent 25%);
-      background-size: 100px 100px;
-      z-index: -1;
-      opacity: 0.7;
-    }
-
-    /* Additional wavy lines effect */
-    .circular-solutions::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: 
-        radial-gradient(circle at 20% 80%, rgba(0,216,255,0.05) 0%, transparent 20%),
-        radial-gradient(circle at 80% 20%, rgba(0,216,255,0.05) 0%, transparent 20%),
-        radial-gradient(circle at 40% 40%, rgba(0,102,204,0.05) 0%, transparent 30%),
-        radial-gradient(circle at 60% 60%, rgba(0,102,204,0.05) 0%, transparent 30%);
-      z-index: -1;
-    }
-
-    .circular-solutions h2 {
-      font-size: 2.5rem;
-      margin-bottom: 4rem;
+    .section-header h2 {
+      font-size: 2.8rem;
       color: var(--dark);
+      margin-bottom: 1.2rem;
+      font-weight: 700;
       position: relative;
       display: inline-block;
     }
 
-    .circular-solutions h2::after {
+    .section-header h2::after {
       content: '';
       position: absolute;
       bottom: -15px;
@@ -317,300 +403,103 @@
       border-radius: 2px;
     }
 
-    .circular-container {
+    .section-header p {
+      font-size: 1.2rem;
+      color: var(--gray-600);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .solutions-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(3, auto);
-      gap: 3rem;
-      margin-bottom: 4rem;
-      justify-items: center;
-      align-items: center;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2.5rem;
     }
 
-    /* Diamond positioning for larger screens */
-    @media (min-width: 1025px) {
-      .circular-container {
-        grid-template-areas:
-          ". item1 ."
-          "item2 center item3"
-          ". item4 .";
-      }
-
-      .circular-item:nth-child(1) {
-        grid-area: item1;
-      }
-
-      .circular-item:nth-child(2) {
-        grid-area: item2;
-      }
-
-      .circular-item:nth-child(3) {
-        grid-area: item3;
-      }
-
-      .circular-item:nth-child(4) {
-        grid-area: item4;
-      }
-      
-      .circular-item:nth-child(5) {
-        grid-area: center;
-      }
-    }
-
-    .circular-item {
+    .solution-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+      height: 100%;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      max-width: 280px;
-      position: relative;
-      z-index: 1;
     }
 
-    .circle {
-      width: 200px;
+    .solution-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .solution-img {
       height: 200px;
-      border-radius: 50%;
-      background: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-      margin-bottom: 1.5rem;
-      position: relative;
-      transition: all 0.4s ease;
-      border: 2px solid transparent;
-      background-clip: padding-box;
-    }
-
-    .circle::before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, var(--primary), var(--accent));
-      border-radius: 50%;
-      z-index: -1;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-
-    .circle:hover {
-      transform: translateY(-12px) scale(1.05);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    }
-
-    .circle:hover::before {
-      opacity: 1;
-    }
-
-    .circle-number {
-      position: absolute;
-      top: -10px;
-      right: -10px;
-      background: var(--primary);
-      color: white;
-      width: 45px;
-      height: 45px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      font-size: 1.3rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      transition: all 0.3s ease;
-    }
-
-    .circle:hover .circle-number {
-      transform: scale(1.1) rotate(10deg);
-      background: var(--accent);
-      color: var(--dark);
-    }
-
-    .circle-content {
-      text-align: center;
-    }
-
-    .circle-content h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: var(--dark);
-      transition: color 0.3s ease;
-    }
-
-    .circle:hover + .circle-content h3 {
-      color: var(--primary);
-    }
-
-    .circle-content p {
-      color: #666;
-      font-size: 1rem;
-      line-height: 1.6;
-    }
-
-    /* Mobile layout (vertical) */
-    @media (max-width: 1024px) {
-      .circular-container {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto;
-        grid-template-areas: unset;
-        gap: 3.5rem;
-      }
-      
-      .circular-item {
-        grid-area: unset !important;
-      }
-      
-      .circular-item:nth-child(5) {
-        grid-area: unset !important;
-      }
-      
-      .circle {
-        width: 170px;
-        height: 170px;
-      }
-    }
-
-    /* Alternating Solutions Section */
-    .alternating-solutions {
-      padding: 4rem 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      background: white;
-    }
-
-    .alternating-solutions h2 {
-      font-size: 2.5rem;
-      margin-bottom: 4rem;
-      text-align: center;
-      color: var(--dark);
-      position: relative;
-      display: inline-block;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .alternating-solutions h2::after {
-      content: '';
-      position: absolute;
-      bottom: -15px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 4px;
-      background: var(--primary);
-      border-radius: 2px;
-    }
-
-    .alt-solution {
-      display: flex;
-      align-items: center;
-      margin-bottom: 6rem;
-      border-radius: 20px;
       overflow: hidden;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-      background: white;
-      transition: transform 0.3s ease;
+      position: relative;
     }
 
-    .alt-solution:hover {
-      transform: translateY(-5px);
-    }
-
-    .alt-solution:nth-child(even) {
-      flex-direction: row-reverse;
-    }
-
-    .alt-img {
-      flex: 1;
-      min-height: 400px;
-      overflow: hidden;
-    }
-
-    .alt-img img {
+    .solution-img img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       transition: transform 0.5s ease;
     }
 
-    .alt-solution:hover .alt-img img {
+    .solution-card:hover .solution-img img {
       transform: scale(1.05);
     }
 
-    .alt-content {
-      flex: 1;
-      padding: 3rem;
+    .solution-number {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: var(--primary);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.1rem;
+      box-shadow: var(--shadow-md);
     }
 
-    .alt-content h3 {
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
+    .solution-content {
+      padding: 2rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .solution-content h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
       color: var(--dark);
     }
 
-    .alt-content p {
-      color: #666;
+    .solution-content p {
+      color: var(--gray-600);
+      margin-bottom: 1.8rem;
+      flex-grow: 1;
+    }
+
+    .solution-features {
       margin-bottom: 2rem;
-      font-size: 1.1rem;
-      line-height: 1.7;
     }
 
-    .alt-features {
-      margin-bottom: 2.5rem;
-    }
-
-    .alt-features li {
+    .solution-features li {
       display: flex;
       align-items: center;
-      gap: 0.8rem;
-      margin-bottom: 1rem;
-      font-size: 1rem;
+      gap: 0.7rem;
+      margin-bottom: 0.7rem;
+      font-size: 0.95rem;
     }
 
-    .alt-features i {
+    .solution-features i {
       color: var(--success);
-      font-size: 1.1rem;
-    }
-
-    .alt-cta {
-      display: flex;
-      gap: 1.2rem;
-    }
-
-    .btn {
-      padding: 0.8rem 1.5rem;
-      border-radius: 30px;
-      text-decoration: none;
-      font-weight: 500;
-      transition: all 0.3s ease;
-      display: inline-block;
-    }
-
-    .btn-primary {
-      background: var(--primary);
-      color: white;
-    }
-
-    .btn-primary:hover {
-      background: #0055aa;
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0,102,204,0.3);
-    }
-
-    .btn-outline {
-      border: 2px solid var(--primary);
-      color: var(--primary);
-      background: transparent;
-    }
-
-    .btn-outline:hover {
-      background: var(--primary);
-      color: white;
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0,102,204,0.3);
+      font-size: 0.9rem;
     }
 
     /* Industry Section */
@@ -619,33 +508,63 @@
       color: white;
       padding: 6rem 2rem;
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
 
-    .industry-section h2 {
-      font-size: 2.5rem;
-      margin-bottom: 3rem;
+    .industry-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(0,216,255,0.08) 0%, transparent 20%),
+        radial-gradient(circle at 80% 20%, rgba(0,216,255,0.08) 0%, transparent 20%);
+      z-index: 0;
+    }
+
+    .industry-section .section-header {
+      position: relative;
+      z-index: 1;
+    }
+
+    .industry-section .section-header h2 {
+      color: white;
+    }
+
+    .industry-section .section-header h2::after {
+      background: var(--accent);
+    }
+
+    .industry-section .section-header p {
+      color: rgba(255,255,255,0.8);
     }
 
     .industry-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 2.5rem;
       max-width: 1200px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
     .industry-item {
-      background: rgba(255,255,255,0.1);
+      background: rgba(255,255,255,0.08);
       padding: 2.5rem 2rem;
-      border-radius: 15px;
-      transition: all 0.3s ease;
+      border-radius: 16px;
+      transition: var(--transition);
       backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.1);
     }
 
     .industry-item:hover {
       transform: translateY(-8px);
-      background: rgba(255,255,255,0.15);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      background: rgba(255,255,255,0.12);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
     }
 
     .industry-item i {
@@ -664,34 +583,109 @@
       line-height: 1.6;
     }
 
+    /* Stats Section */
+    .stats-section {
+      padding: 5rem 2rem;
+      background: var(--gray-100);
+    }
+
+    .stats-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 2rem;
+      background: white;
+      border-radius: 16px;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .stat-item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .stat-icon {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1.2rem;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-text {
+      color: var(--gray-600);
+      font-weight: 500;
+    }
+
     /* CTA Section */
     .cta-section {
       padding: 6rem 2rem;
       text-align: center;
-      background: linear-gradient(to right, #f0f8ff, #e6f2ff);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+      opacity: 0.15;
+      z-index: 0;
     }
 
     .cta-content {
       max-width: 800px;
       margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
     .cta-content h2 {
-      font-size: 2.5rem;
+      font-size: 2.8rem;
       margin-bottom: 1.5rem;
-      color: var(--dark);
+      color: white;
     }
 
     .cta-content p {
       font-size: 1.2rem;
       margin-bottom: 2.5rem;
-      color: #555;
+      opacity: 0.9;
       line-height: 1.7;
     }
 
     .btn-large {
-      padding: 1rem 2.5rem;
-      font-size: 1.2rem;
+      padding: 1.2rem 2.8rem;
+      font-size: 1.1rem;
+    }
+
+    .btn-white {
+      background: white;
+      color: var(--primary);
+    }
+
+    .btn-white:hover {
+      background: rgba(255,255,255,0.9);
+      color: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(255,255,255,0.3);
     }
 
     /* Footer Styles */
@@ -704,7 +698,7 @@
 
     .footer-container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 2.5rem;
       max-width: 1200px;
       margin: 0 auto 3rem;
@@ -744,7 +738,7 @@
     .footer-column a {
       color: #ddd;
       text-decoration: none;
-      transition: all 0.3s ease;
+      transition: var(--transition);
     }
 
     .footer-column a:hover {
@@ -775,7 +769,7 @@
     .social-links a {
       color: #ddd;
       font-size: 1.3rem;
-      transition: all 0.3s ease;
+      transition: var(--transition);
     }
 
     .social-links a:hover {
@@ -797,7 +791,7 @@
     .footer-bottom a {
       color: #aaa;
       text-decoration: none;
-      transition: all 0.3s ease;
+      transition: var(--transition);
     }
 
     .footer-bottom a:hover {
@@ -805,6 +799,12 @@
     }
 
     /* Responsive Design */
+    @media (max-width: 1200px) {
+      .solutions-grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      }
+    }
+
     @media (max-width: 1024px) {
       .page-header h1 {
         font-size: 2.8rem;
@@ -814,24 +814,19 @@
         font-size: 1.2rem;
       }
       
-      .circular-container {
-        gap: 2.5rem;
-      }
-      
-      .circle {
-        width: 170px;
-        height: 170px;
+      .section-header h2 {
+        font-size: 2.5rem;
       }
     }
 
     @media (max-width: 900px) {
-      .alt-solution,
-      .alt-solution:nth-child(even) {
-        flex-direction: column;
+      .search-box {
+        margin-left: 0;
+        width: 100%;
       }
-      
-      .alt-img {
-        min-height: 300px;
+
+      .search-box input {
+        width: 100%;
       }
     }
 
@@ -859,7 +854,6 @@
 
       .mobile-menu {
         display: block;
-        font-size: 1.5rem;
       }
 
       .dropdown-menu {
@@ -873,6 +867,7 @@
         background: rgba(0,0,0,0.2);
         margin-top: 0.5rem;
         border-radius: 5px;
+        min-width: auto;
       }
 
       .dropdown.active .dropdown-menu {
@@ -881,7 +876,7 @@
 
       .page-header {
         padding: 8rem 1.5rem 5rem;
-        height: 80vh;
+        height: 75vh;
       }
 
       .page-header h1 {
@@ -892,62 +887,42 @@
         font-size: 1.1rem;
       }
 
+      .header-cta {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .header-cta .btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+      }
+
       .filter-container {
         flex-direction: column;
         align-items: stretch;
       }
 
-      .search-box {
-        margin-left: 0;
-        width: 100%;
+      .filter-group {
+        justify-content: center;
       }
 
-      .search-box input {
-        width: 100%;
-      }
-
-      .circular-container {
+      .solutions-grid {
+        grid-template-columns: 1fr;
         gap: 2rem;
-      }
-      
-      .circle {
-        width: 140px;
-        height: 140px;
-      }
-      
-      .circle-number {
-        width: 35px;
-        height: 35px;
-        font-size: 1.1rem;
-      }
-      
-      .circular-item {
-        max-width: 160px;
-      }
-      
-      .circle-content h3 {
-        font-size: 1.2rem;
-      }
-      
-      .circle-content p {
-        font-size: 0.9rem;
       }
 
       .industry-grid {
         grid-template-columns: 1fr;
       }
 
+      .stats-container {
+        grid-template-columns: 1fr;
+      }
+      
       .footer-container {
         grid-template-columns: 1fr;
         gap: 2rem;
-      }
-      
-      .alt-content {
-        padding: 2rem;
-      }
-      
-      .alt-content h3 {
-        font-size: 1.7rem;
       }
     }
 
@@ -956,40 +931,22 @@
         height: 70vh;
       }
       
-      .circular-container {
-        gap: 1.8rem;
-      }
-      
-      .circle {
-        width: 120px;
-        height: 120px;
-      }
-      
-      .circular-item {
-        max-width: 140px;
-      }
-      
-      .circle-content h3 {
-        font-size: 1.1rem;
-      }
-      
-      .alt-content {
-        padding: 1.8rem;
-      }
-      
-      .alt-content h3 {
-        font-size: 1.5rem;
-      }
-      
-      .alt-cta {
-        flex-direction: column;
-        gap: 1rem;
+      .section-header h2 {
+        font-size: 2.2rem;
       }
     }
 
     @media (max-width: 480px) {
+      header {
+        padding: 1rem;
+      }
+      
+      header.scrolled {
+        padding: 0.7rem 1rem;
+      }
+      
       .page-header {
-        height: 60vh;
+        height: 65vh;
         padding: 7rem 1rem 4rem;
       }
       
@@ -1001,38 +958,20 @@
         font-size: 1rem;
       }
       
-      .circular-container {
-        gap: 1.5rem;
+      .solutions-filter {
+        padding: 2rem 1rem;
       }
       
-      .circle {
-        width: 100px;
-        height: 100px;
+      .solutions-showcase {
+        padding: 4rem 1rem;
       }
       
-      .circle-number {
-        width: 30px;
-        height: 30px;
-        font-size: 1rem;
-        top: -8px;
-        right: -8px;
+      .industry-section, .stats-section, .cta-section {
+        padding: 4rem 1rem;
       }
       
-      .circular-item {
-        max-width: 120px;
-      }
-      
-      .circle-content h3 {
-        font-size: 1rem;
-        margin-bottom: 0.5rem;
-      }
-      
-      .circle-content p {
-        font-size: 0.85rem;
-      }
-      
-      .btn {
-        padding: 0.7rem 1.2rem;
+      .solution-content {
+        padding: 1.5rem;
       }
     }
 
@@ -1043,6 +982,7 @@
     }
 
     .fade-in {
+      opacity: 0;
       animation: fadeIn 0.8s ease forwards;
     }
 
@@ -1062,6 +1002,10 @@
       animation-delay: 0.8s;
     }
     
+    .delay-5 {
+      animation-delay: 1s;
+    }
+    
     /* Smooth scrolling */
     html {
       scroll-behavior: smooth;
@@ -1070,8 +1014,8 @@
 </head>
 <body>
   <!-- Header with Vertical Dropdown Menu -->
-  <header>
-    <div class="logo">Sybyl</div>
+  <header id="main-header">
+    <div class="logo"><i class="fas fa-cube logo-icon"></i> Novasphere</div>
     <nav>
       <div class="mobile-menu">
         <i class="fas fa-bars"></i>
@@ -1115,22 +1059,28 @@
 
   <!-- Page Header -->
   <section class="page-header fade-in">
-    <h1>Enterprise IT Solutions</h1>
-    <p>Comprehensive technology solutions designed to drive growth, enhance security, and optimize operations for businesses of all sizes.</p>
+    <div class="page-header-content">
+      <h1>Enterprise IT Solutions</h1>
+      <p>Comprehensive technology solutions designed to drive growth, enhance security, and optimize operations for businesses of all sizes.</p>
+      <div class="header-cta">
+        <a href="#solutions" class="btn btn-primary">Explore Solutions</a>
+        <a href="contact.html" class="btn btn-outline">Contact Us</a>
+      </div>
+    </div>
   </section>
 
   <!-- Solutions Filter -->
   <section class="solutions-filter">
     <div class="filter-container">
       <div class="filter-group">
-        <button class="filter-btn active" data-filter="all">All Solutions</button>
-        <button class="filter-btn" data-filter="enterprise">Enterprise Systems</button>
-        <button class="filter-btn" data-filter="security">Security</button>
-        <button class="filter-btn" data-filter="business-intelligence">Business Intelligence</button>
-        <button class="filter-btn" data-filter="banking">Banking</button>
-        <button class="filter-btn" data-filter="managed">Managed Services</button>
-        <button class="filter-btn" data-filter="communications">Communications</button>
-        <button class="filter-btn" data-filter="it-services">IT Services</button>
+        <button class="filter-btn active" data-filter="all"><i class="fas fa-layer-group"></i> All Solutions</button>
+        <button class="filter-btn" data-filter="enterprise"><i class="fas fa-server"></i> Enterprise</button>
+        <button class="filter-btn" data-filter="security"><i class="fas fa-shield-alt"></i> Security</button>
+        <button class="filter-btn" data-filter="business-intelligence"><i class="fas fa-chart-line"></i> BI</button>
+        <button class="filter-btn" data-filter="banking"><i class="fas fa-university"></i> Banking</button>
+        <button class="filter-btn" data-filter="managed"><i class="fas fa-cogs"></i> Managed</button>
+        <button class="filter-btn" data-filter="communications"><i class="fas fa-comments"></i> Communications</button>
+        <button class="filter-btn" data-filter="it-services"><i class="fas fa-laptop-code"></i> IT Services</button>
       </div>
       <div class="search-box">
         <i class="fas fa-search"></i>
@@ -1139,141 +1089,119 @@
     </div>
   </section>
 
-  <!-- Circular Solutions Section -->
-  <section class="circular-solutions">
-    <h2>Our Core Solutions</h2>
-    <div class="circular-container">
+  <!-- Solutions Showcase Section -->
+  <section class="solutions-showcase" id="solutions">
+    <div class="section-header fade-in">
+      <h2>Our Comprehensive Solutions</h2>
+      <p>Discover how our tailored IT solutions can transform your business operations and drive growth</p>
+    </div>
+
+    <div class="solutions-grid">
       <!-- Enterprise Systems -->
-      <div class="circular-item fade-in" data-category="enterprise">
-        <div class="circle">
-          <div class="circle-number">1</div>
-          <i class="fas fa-server fa-3x" style="color: #0066cc;"></i>
+      <div class="solution-card fade-in" data-category="enterprise">
+        <div class="solution-img">
+          <img src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2032&q=80" alt="Enterprise Systems">
+          <div class="solution-number">1</div>
         </div>
-        <div class="circle-content">
+        <div class="solution-content">
           <h3>Enterprise Systems</h3>
-          <p>Our comprehensive enterprise solutions integrate all aspects of your business operations from finance and HR to supply chain and customer relationship management.</p>
+          <p>Comprehensive enterprise resource planning (ERP), customer relationship management (CRM), and supply chain management solutions that integrate all aspects of your business operations.</p>
+          <ul class="solution-features">
+            <li><i class="fas fa-check"></i> ERP Implementation & Customization</li>
+            <li><i class="fas fa-check"></i> CRM Solutions & Integration</li>
+            <li><i class="fas fa-check"></i> Supply Chain Optimization</li>
+            <li><i class="fas fa-check"></i> HR & Financial Management Systems</li>
+          </ul>
         </div>
       </div>
 
       <!-- Security Solutions -->
-      <div class="circular-item fade-in delay-1" data-category="security">
-        <div class="circle">
-          <div class="circle-number">2</div>
-          <i class="fas fa-shield-alt fa-3x" style="color: #28a745;"></i>
+      <div class="solution-card fade-in delay-1" data-category="security">
+        <div class="solution-img">
+          <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Security Solutions">
+          <div class="solution-number">2</div>
         </div>
-        <div class="circle-content">
+        <div class="solution-content">
           <h3>Security Solutions</h3>
-          <p>Protect your digital assets with our multi-layered security approach that includes advanced threat detection, encryption protocols, and comprehensive vulnerability assessments.</p>
+          <p>Multi-layered security approach with advanced threat detection, encryption protocols, and comprehensive vulnerability assessments to protect your digital assets and sensitive data.</p>
+          <ul class="solution-features">
+            <li><i class="fas fa-check"></i> Advanced Threat Detection & Prevention</li>
+            <li><i class="fas fa-check"></i> Data Encryption & Access Control</li>
+            <li><i class="fas fa-check"></i> Vulnerability Assessment & Penetration Testing</li>
+            <li><i class="fas fa-check"></i> 24/7 Security Monitoring & Incident Response</li>
+          </ul>
         </div>
       </div>
 
       <!-- Business Intelligence -->
-      <div class="circular-item fade-in delay-2" data-category="business-intelligence">
-        <div class="circle">
-          <div class="circle-number">3</div>
-          <i class="fas fa-chart-line fa-3x" style="color: #00d8ff;"></i>
+      <div class="solution-card fade-in delay-2" data-category="business-intelligence">
+        <div class="solution-img">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Business Intelligence">
+          <div class="solution-number">3</div>
         </div>
-        <div class="circle-content">
+        <div class="solution-content">
           <h3>Business Intelligence</h3>
-          <p>Transform raw data into actionable insights with our advanced analytics and visualization tools that help identify market trends and optimize operations.</p>
+          <p>Advanced analytics and visualization tools that transform raw data into actionable insights, helping identify market trends, optimize operations, and drive informed decision-making.</p>
+          <ul class="solution-features">
+            <li><i class="fas fa-check"></i> Data Analytics & Visualization</li>
+            <li><i class="fas fa-check"></i> Custom Dashboard Development</li>
+            <li><i class="fas fa-check"></i> Predictive Analytics & Forecasting</li>
+            <li><i class="fas fa-check"></i> KPI Monitoring & Performance Reporting</li>
+          </ul>
         </div>
       </div>
 
       <!-- Banking Solutions -->
-      <div class="circular-item fade-in delay-3" data-category="banking">
-        <div class="circle">
-          <div class="circle-number">4</div>
-          <i class="fas fa-university fa-3x" style="color: #f90;"></i>
+      <div class="solution-card fade-in delay-3" data-category="banking">
+        <div class="solution-img">
+          <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80" alt="Banking Solutions">
+          <div class="solution-number">4</div>
         </div>
-        <div class="circle-content">
+        <div class="solution-content">
           <h3>Banking Solutions</h3>
-          <p>Specialized technology platforms designed specifically for financial institutions, featuring robust security, compliance management, and customer experience enhancements.</p>
+          <p>Specialized technology platforms designed specifically for financial institutions, featuring robust security, compliance management, and enhanced customer experience capabilities.</p>
+          <ul class="solution-features">
+            <li><i class="fas fa-check"></i> Core Banking System Implementation</li>
+            <li><i class="fas fa-check"></i> Regulatory Compliance Management</li>
+            <li><i class="fas fa-check"></i> Fraud Detection & Prevention Systems</li>
+            <li><i class="fas fa-check"></i> Digital Banking & Mobile App Solutions</li>
+          </ul>
         </div>
       </div>
-      
-      <!-- IT Services - Center Tile -->
-      <div class="circular-item fade-in delay-4" data-category="it-services" style="grid-area: center;">
-        <div class="circle">
-          <div class="circle-number">5</div>
-          <i class="fas fa-cogs fa-3x" style="color: #f90;"></i>
-        </div>
-        <div class="circle-content">
-          <h3>IT Services</h3>
-          <p>Comprehensive IT services including consulting, implementation, and support to ensure your technology infrastructure aligns with business objectives.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Alternating Solutions Section -->
-  <section class="alternating-solutions">
-    <h2>Additional Solutions</h2>
-    
-    <!-- Managed Services -->
-    <div class="alt-solution fade-in" data-category="managed">
-      <div class="alt-img">
-        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Managed Services">
-      </div>
-      <div class="alt-content">
-        <h3>Managed Services</h3>
-        <p>Comprehensive IT management solutions to keep your business running smoothly with 24/7 monitoring, proactive maintenance, and strategic IT planning.</p>
-        <ul class="alt-features">
-          <li><i class="fas fa-check"></i> 24/7 Monitoring & Support</li>
-          <li><i class="fas fa-check"></i> Proactive Maintenance</li>
-          <li><i class="fas fa-check"></i> Help Desk Support</li>
-          <li><i class="fas fa-check"></i> Strategic IT Planning</li>
-          <li><i class="fas fa-check"></i> Regular System Updates</li>
-          <li><i class="fas fa-check"></i> Disaster Recovery Planning</li>
-        </ul>
-        <div class="alt-cta">
-          <a href="managed-services.html" class="btn btn-primary">Learn More</a>
-          <a href="contact.html" class="btn btn-outline">Contact Sales</a>
+      <!-- Managed Services -->
+      <div class="solution-card fade-in delay-4" data-category="managed">
+        <div class="solution-img">
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Managed Services">
+          <div class="solution-number">5</div>
+        </div>
+        <div class="solution-content">
+          <h3>Managed Services</h3>
+          <p>Comprehensive IT management solutions including 24/7 monitoring, proactive maintenance, strategic IT planning, and help desk support to keep your business running smoothly.</p>
+          <ul class="solution-features">
+            <li><i class="fas fa-check"></i> 24/7 Monitoring & Technical Support</li>
+            <li><i class="fas fa-check"></i> Proactive Maintenance & System Updates</li>
+            <li><i class="fas fa-check"></i> Help Desk & End-User Support</li>
+            <li><i class="fas fa-check"></i> Strategic IT Planning & Consultation</li>
+          </ul>
         </div>
       </div>
-    </div>
 
-    <!-- Unified Communications -->
-    <div class="alt-solution fade-in delay-1" data-category="communications">
-      <div class="alt-img">
-        <img src="https://images.unsplash.com/photo-1579389083078-4e7018379f7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Unified Communications">
-      </div>
-      <div class="alt-content">
-        <h3>Unified Communications</h3>
-        <p>Seamlessly integrate all your communication channels for improved collaboration and productivity across your organization.</p>
-        <ul class="alt-features">
-          <li><i class="fas fa-check"></i> VoIP Systems</li>
-          <li><i class="fas fa-check"></i> Video Conferencing</li>
-          <li><i class="fas fa-check"></i> Instant Messaging</li>
-          <li><i class="fas fa-check"></i> Presence Management</li>
-          <li><i class="fas fa-check"></i> Mobile Integration</li>
-          <li><i class="fas fa-check"></i> Contact Center Solutions</li>
-        </ul>
-        <div class="alt-cta">
-          <a href="unified-communications.html" class="btn btn-primary">Learn More</a>
-          <a href="contact.html" class="btn btn-outline">Contact Sales</a>
+      <!-- Unified Communications -->
+      <div class="solution-card fade-in delay-5" data-category="communications">
+        <div class="solution-img">
+          <img src="https://images.unsplash.com/photo-1579389083078-4e7018379f7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Unified Communications">
+          <div class="solution-number">6</div>
         </div>
-      </div>
-    </div>
-
-    <!-- IT Services -->
-    <div class="alt-solution fade-in delay-2" data-category="it-services">
-      <div class="alt-img">
-        <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="IT Services">
-      </div>
-      <div class="alt-content">
-        <h3>IT Services</h3>
-        <p>End-to-end IT services to support your business technology needs from implementation to maintenance and everything in between.</p>
-        <ul class="alt-features">
-          <li><i class="fas fa-check"></i> IT Consulting</li>
-          <li><i class="fas fa-check"></i> System Integration</li>
-          <li><i class="fas fa-check"></i> Technical Support</li>
-          <li><i class="fas fa-check"></i> IT Infrastructure</li>
-          <li><i class="fas fa-check"></i> Cloud Migration</li>
-          <li><i class="fas fa-check"></i> Network Design & Implementation</li>
-        </ul>
-        <div class="alt-cta">
-          <a href="it-services.html" class="btn btn-primary">Learn More</a>
-          <a href="contact.html" class="btn btn-outline">Contact Sales</a>
+        <div class="solution-content">
+          <h3>Unified Communications</h3>
+          <p>Seamless integration of all communication channels including VoIP, video conferencing, instant messaging, and contact center solutions for improved collaboration and productivity.</p>
+          <ul class="solution-features">
+            <li><i class="fas fa-check"></i> VoIP & Telephony Systems</li>
+            <li><i class="fas fa-check"></i> Video Conferencing & Webinars</li>
+            <li><i class="fas fa-check"></i> Instant Messaging & Presence Management</li>
+            <li><i class="fas fa-check"></i> Contact Center & Customer Service Solutions</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -1281,7 +1209,11 @@
 
   <!-- Industry Section -->
   <section class="industry-section">
-    <h2>Solutions for Every Industry</h2>
+    <div class="section-header fade-in">
+      <h2>Solutions for Every Industry</h2>
+      <p>Tailored technology solutions designed to address the unique challenges of your industry</p>
+    </div>
+
     <div class="industry-grid">
       <div class="industry-item fade-in">
         <i class="fas fa-building"></i>
@@ -1306,12 +1238,51 @@
     </div>
   </section>
 
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="section-header fade-in">
+      <h2>Why Choose Sybyl Enterprise IT</h2>
+      <p>Proven results and expertise that set us apart in the industry</p>
+    </div>
+
+    <div class="stats-container">
+      <div class="stat-item fade-in">
+        <div class="stat-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <div class="stat-number" data-count="500">500+</div>
+        <div class="stat-text">Satisfied Clients</div>
+      </div>
+      <div class="stat-item fade-in delay-1">
+        <div class="stat-icon">
+          <i class="fas fa-project-diagram"></i>
+        </div>
+        <div class="stat-number" data-count="1200">1200+</div>
+        <div class="stat-text">Projects Completed</div>
+      </div>
+      <div class="stat-item fade-in delay-2">
+        <div class="stat-icon">
+          <i class="fas fa-certificate"></i>
+        </div>
+        <div class="stat-number" data-count="85">85+</div>
+        <div class="stat-text">Industry Certifications</div>
+      </div>
+      <div class="stat-item fade-in delay-3">
+        <div class="stat-icon">
+          <i class="fas fa-clock"></i>
+        </div>
+        <div class="stat-number" data-count="15">15+</div>
+        <div class="stat-text">Years of Experience</div>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA Section -->
   <section class="cta-section">
     <div class="cta-content">
       <h2>Ready to Transform Your Business?</h2>
       <p>Contact our experts today to discuss how our solutions can address your specific business challenges and help you achieve your goals. We'll provide a customized consultation to identify the best approach for your organization's unique needs.</p>
-      <a href="contact.html" class="btn btn-primary btn-large">Get Started Today</a>
+      <a href="contact.html" class="btn btn-white btn-large">Get Started Today</a>
     </div>
   </section>
 
@@ -1383,6 +1354,16 @@
       });
     });
 
+    // Header scroll effect
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('main-header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+
     // Filter functionality
     document.querySelectorAll('.filter-btn').forEach(button => {
       button.addEventListener('click', function() {
@@ -1395,26 +1376,16 @@
         this.classList.add('active');
         
         const filter = this.getAttribute('data-filter');
-        const circularItems = document.querySelectorAll('.circular-item');
-        const altSolutions = document.querySelectorAll('.alt-solution');
+        const solutionCards = document.querySelectorAll('.solution-card');
         
         if (filter === 'all') {
-          circularItems.forEach(item => item.style.display = 'flex');
-          altSolutions.forEach(item => item.style.display = 'flex');
+          solutionCards.forEach(card => card.style.display = 'flex');
         } else {
-          circularItems.forEach(item => {
-            if (item.getAttribute('data-category') === filter) {
-              item.style.display = 'flex';
+          solutionCards.forEach(card => {
+            if (card.getAttribute('data-category') === filter) {
+              card.style.display = 'flex';
             } else {
-              item.style.display = 'none';
-            }
-          });
-          
-          altSolutions.forEach(item => {
-            if (item.getAttribute('data-category') === filter) {
-              item.style.display = 'flex';
-            } else {
-              item.style.display = 'none';
+              card.style.display = 'none';
             }
           });
         }
@@ -1424,28 +1395,17 @@
     // Search functionality
     document.getElementById('solutionSearch').addEventListener('input', function() {
       const searchTerm = this.value.toLowerCase();
-      const circularItems = document.querySelectorAll('.circular-item');
-      const altSolutions = document.querySelectorAll('.alt-solution');
+      const solutionCards = document.querySelectorAll('.solution-card');
       
-      circularItems.forEach(item => {
-        const title = item.querySelector('h3').textContent.toLowerCase();
-        const description = item.querySelector('p').textContent.toLowerCase();
+      solutionCards.forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        const description = card.querySelector('p').textContent.toLowerCase();
+        const features = card.querySelector('.solution-features').textContent.toLowerCase();
         
-        if (title.includes(searchTerm) || description.includes(searchTerm)) {
-          item.style.display = 'flex';
+        if (title.includes(searchTerm) || description.includes(searchTerm) || features.includes(searchTerm)) {
+          card.style.display = 'flex';
         } else {
-          item.style.display = 'none';
-        }
-      });
-      
-      altSolutions.forEach(item => {
-        const title = item.querySelector('h3').textContent.toLowerCase();
-        const description = item.querySelector('p').textContent.toLowerCase();
-        
-        if (title.includes(searchTerm) || description.includes(searchTerm)) {
-          item.style.display = 'flex';
-        } else {
-          item.style.display = 'none';
+          card.style.display = 'none';
         }
       });
     });
@@ -1458,6 +1418,35 @@
         });
       }
     });
+
+    // Counter animation for stats
+    function animateCounter() {
+      const counters = document.querySelectorAll('.stat-number');
+      const speed = 200;
+      
+      counters.forEach(counter => {
+        const target = +counter.getAttribute('data-count');
+        const count = +counter.innerText;
+        const increment = Math.ceil(target / speed);
+        
+        if (count < target) {
+          counter.innerText = Math.min(count + increment, target);
+          setTimeout(animateCounter, 1);
+        }
+      });
+    }
+
+    // Initialize counter animation when stats section is in view
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    observer.observe(document.querySelector('.stats-section'));
   </script>
 </body>
 </html>
