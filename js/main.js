@@ -126,5 +126,167 @@ window.addEventListener('load', () => {
     handleResponsive();
 });
 
+
+// Minimal responsive background script
+function initResponsiveBackground() {
+    const bgImage = document.querySelector('.section-bg img');
+    if (!bgImage) return;
+
+    function updateBackground() {
+        const width = window.innerWidth;
+        
+        if (width < 768) {
+            // Mobile
+            bgImage.style.filter = 'blur(1px) brightness(0.7)';
+            bgImage.style.transform = 'scale(1.15)';
+            bgImage.style.objectPosition = 'top center';
+        } else if (width < 1024) {
+            // Tablet
+            bgImage.style.filter = 'blur(2px) brightness(0.8)';
+            bgImage.style.transform = 'scale(1.08)';
+            bgImage.style.objectPosition = 'center center';
+        } else {
+            // Desktop
+            bgImage.style.filter = 'blur(3px) brightness(0.85)';
+            bgImage.style.transform = 'scale(1.05)';
+            bgImage.style.objectPosition = 'center center';
+        }
+    }
+
+    // Set initial styles
+    bgImage.style.transition = 'all 0.5s ease';
+    bgImage.style.objectFit = 'cover';
+    bgImage.style.width = '100%';
+    bgImage.style.height = '100%';
+    
+    // Initial update
+    updateBackground();
+    
+    // Update on resize
+    window.addEventListener('resize', updateBackground);
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', initResponsiveBackground);
 // Update on resize
 window.addEventListener('resize', handleResponsive);
+
+ class ShapeAnimator {
+      constructor(containerId) {
+        this.container = document.getElementById(containerId);
+        this.shapes = [];
+        this.maxShapes = 15;
+        this.init();
+      }
+
+      init() {
+        this.createShapes();
+        this.startAnimation();
+        this.handleResize();
+      }
+
+      createShapes() {
+        const shapeTypes = ['circle', 'square', 'triangle', 'hexagon'];
+        const colors = ['blue', 'purple', 'green', 'orange', 'pink'];
+        
+        for (let i = 0; i < this.maxShapes; i++) {
+          const shape = document.createElement('div');
+          const type = shapeTypes[Math.floor(Math.random() * shapeTypes.length)];
+          const color = colors[Math.floor(Math.random() * colors.length)];
+          
+          shape.className = `shape ${type} ${color} glow`;
+          
+          // Random size between 20px and 80px
+          const size = Math.random() * 60 + 20;
+          
+          // Set random position
+          const left = Math.random() * 100;
+          const top = Math.random() * 100;
+          
+          // Set random animation properties
+          const duration = Math.random() * 10 + 10; // 10-20 seconds
+          const delay = Math.random() * 5; // 0-5 seconds delay
+          
+          shape.style.cssText = `
+            width: ${size}px;
+            height: ${type === 'triangle' ? 0 : size}px;
+            left: ${left}%;
+            top: ${top}%;
+            animation-duration: ${duration}s;
+            animation-delay: ${delay}s;
+            opacity: ${Math.random() * 0.5 + 0.3};
+          `;
+
+          // Special styling for triangles
+          if (type === 'triangle') {
+            shape.style.borderLeftWidth = `${size/2}px`;
+            shape.style.borderRightWidth = `${size/2}px`;
+            shape.style.borderBottomWidth = `${size}px`;
+            shape.style.borderBottomColor = `rgba(255, 255, 255, 0.3)`;
+          }
+
+          this.container.appendChild(shape);
+          this.shapes.push(shape);
+        }
+      }
+
+      startAnimation() {
+        // Add different animation types randomly
+        this.shapes.forEach(shape => {
+          const animations = ['float', 'pulse', 'spin'];
+          const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
+          
+          if (randomAnimation === 'spin') {
+            shape.style.animation = `spin ${Math.random() * 20 + 10}s linear infinite`;
+          } else if (randomAnimation === 'pulse') {
+            shape.style.animation = `pulse ${Math.random() * 3 + 2}s ease-in-out infinite`;
+          }
+          // Default is 'float' which is already in CSS
+        });
+      }
+
+      handleResize() {
+        window.addEventListener('resize', () => {
+          // Recalculate positions on resize if needed
+          this.shapes.forEach(shape => {
+            // Add any responsive behavior here
+          });
+        });
+      }
+
+      // Method to add more shapes dynamically
+      addShape() {
+        if (this.shapes.length < this.maxShapes) {
+          this.createShapes();
+        }
+      }
+
+      // Method to remove all shapes
+      clearShapes() {
+        this.shapes.forEach(shape => shape.remove());
+        this.shapes = [];
+      }
+    }
+
+    // Initialize the shape animator when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      const shapeAnimator = new ShapeAnimator('animatedShapes');
+      
+      // Optional: Add interactivity
+      const modernServicesSection = document.querySelector('.modern-services');
+      
+      modernServicesSection.addEventListener('mouseenter', function() {
+        // Speed up animations on hover
+        shapeAnimator.shapes.forEach(shape => {
+          shape.style.animationDuration = '3s';
+        });
+      });
+      
+      modernServicesSection.addEventListener('mouseleave', function() {
+        // Reset animation speeds
+        shapeAnimator.shapes.forEach(shape => {
+          const duration = Math.random() * 10 + 10;
+          shape.style.animationDuration = `${duration}s`;
+        });
+      });
+    });
