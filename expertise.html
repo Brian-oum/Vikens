@@ -3,22 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sybyl - Enterprise IT Solutions</title>
+  <title>Solutions - Sybyl Enterprise IT</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
       --primary: #0066cc;
-      --primary-light: #e6f2ff;
+      --primary-dark: #0052a3;
       --secondary: #0f3c4c;
       --accent: #00d8ff;
-      --accent-light: #e6f9ff;
+      --accent-dark: #00b8d9;
       --dark: #222;
       --light: #f7f7f7;
-      --orange: #f90;
-      --section-bg: #f9f9f9;
-      --border-radius: 12px;
-      --box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+      --orange: #ff6b00;
+      --orange-light: #ff8c33;
+      --success: #28a745;
+      --gray-100: #f8f9fa;
+      --gray-200: #e9ecef;
+      --gray-300: #dee2e6;
+      --gray-600: #6c757d;
+      --gray-800: #343a40;
+      --gradient-primary: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      --gradient-orange: linear-gradient(135deg, var(--orange) 0%, #ff9d5c 100%);
+      --gradient-dark: linear-gradient(135deg, var(--dark) 0%, var(--secondary) 100%);
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+      --shadow-lg: 0 8px 24px rgba(0,0,0,0.15);
       --transition: all 0.3s ease;
     }
 
@@ -30,18 +40,17 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      line-height: 1.7;
+      line-height: 1.6;
+      background-color: var(--light);
       color: var(--dark);
-      background-color: white;
-      scroll-behavior: smooth;
+      overflow-x: hidden;
     }
 
-    /* Header Styles */
+    /* Header */
     header {
       background: rgba(34, 34, 34, 0.95);
       backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      color: white;
+      color: #fff;
       padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
@@ -50,63 +59,60 @@
       width: 100%;
       top: 0;
       z-index: 1000;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
+      box-shadow: var(--shadow-sm);
       transition: var(--transition);
     }
 
     header.scrolled {
-      padding: 0.75rem 2rem;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      padding: 0.7rem 2rem;
+      background: rgba(34, 34, 34, 0.98);
     }
 
     .logo {
       font-weight: 700;
       font-size: 1.8rem;
       color: var(--orange);
-      letter-spacing: 1px;
       display: flex;
       align-items: center;
       gap: 0.5rem;
     }
 
-    .logo i {
-      font-size: 1.5rem;
+    .logo-icon {
+      font-size: 2rem;
     }
 
     nav ul {
-      display: flex;
       list-style: none;
-      gap: 1.5rem;
+      display: flex;
+      gap: 1.8rem;
     }
 
     nav a {
-      color: white;
+      color: #fff;
       text-decoration: none;
       font-weight: 500;
-      transition: var(--transition);
       position: relative;
-      padding: 0.5rem 0;
-    }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--orange);
+      padding-bottom: 5px;
       transition: var(--transition);
+      font-size: 0.95rem;
     }
 
-    nav a:hover::after,
-    nav a.active::after {
-      width: 100%;
+    nav a:hover {
+      color: var(--orange);
     }
 
-    nav a:hover,
     nav a.active {
       color: var(--orange);
+    }
+
+    nav a.active:after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: var(--orange);
+      bottom: 0;
+      left: 0;
     }
 
     .mobile-menu {
@@ -115,348 +121,1332 @@
       font-size: 1.5rem;
     }
 
-    /* Hero Section */
-    .hero {
-      background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+    /* Vertical Dropdown Menu */
+    .dropdown {
+      position: relative;
+    }
+
+    .dropdown > a {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dropdown > a::after {
+      content: '\f078';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      font-size: 0.7rem;
+      transition: transform 0.3s ease;
+    }
+
+    .dropdown.active > a::after {
+      transform: rotate(180deg);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: rgba(34, 34, 34, 0.95);
+      backdrop-filter: blur(10px);
+      min-width: 210px;
+      padding: 0.8rem 0;
+      border-radius: 8px;
+      box-shadow: var(--shadow-lg);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(12px);
+      transition: var(--transition);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dropdown.active .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(8px);
+    }
+
+    .dropdown-menu li {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 0.5rem 1.2rem;
+      color: #fff;
+      transition: var(--transition);
+      width: 100%;
+      font-size: 0.9rem;
+    }
+
+    .dropdown-menu a:hover {
+      background: rgba(255,255,255,0.08);
+      color: var(--orange);
+      padding-left: 1.5rem;
+    }
+
+    /* Page Header - Full Screen Hero */
+    .page-header {
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                  url('https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+      height: 85vh;
+      padding: 8rem 2rem 5rem;
       color: white;
-      padding: 10rem 2rem 6rem;
+      text-align: center;
+      margin-top: 70px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--gradient-dark);
+      opacity: 0.7;
+      z-index: 0;
+    }
+
+    .page-header-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+    }
+
+    .page-header h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      font-weight: 700;
+    }
+
+    .page-header p {
+      font-size: 1.4rem;
+      max-width: 800px;
+      margin: 0 auto 2.5rem;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .header-cta {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 0.9rem 2rem;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--orange);
+      color: white;
+      box-shadow: 0 4px 14px rgba(255, 107, 0, 0.4);
+    }
+
+    .btn-primary:hover {
+      background: var(--orange-light);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(255, 107, 0, 0.5);
+    }
+
+    .btn-outline {
+      border: 2px solid white;
+      color: white;
+      background: transparent;
+    }
+
+    .btn-outline:hover {
+      background: white;
+      color: var(--dark);
+      transform: translateY(-3px);
+    }
+
+    /* Solutions Filter */
+    .solutions-filter {
+      background: white;
+      padding: 2.5rem 2rem;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 70px;
+      z-index: 100;
+    }
+
+    .filter-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      justify-content: center;
+    }
+
+    .filter-btn {
+      background: var(--gray-100);
+      border: none;
+      padding: 0.7rem 1.4rem;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 500;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .filter-btn:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .filter-btn.active {
+      background: var(--primary);
+      color: white;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .filter-btn i {
+      font-size: 0.9rem;
+    }
+
+    .search-box {
+      position: relative;
+      margin-left: auto;
+    }
+
+    .search-box input {
+      padding: 0.7rem 1rem 0.7rem 2.8rem;
+      border: 1px solid var(--gray-300);
+      border-radius: 50px;
+      width: 280px;
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+
+    .search-box input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0,102,204,0.2);
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 1.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray-600);
+    }
+
+    /* Solutions Showcase Section */
+    .solutions-showcase {
+      padding: 6rem 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4.5rem;
+    }
+
+    .section-header h2 {
+      font-size: 2.8rem;
+      color: var(--dark);
+      margin-bottom: 1.2rem;
+      font-weight: 700;
+      position: relative;
+      display: inline-block;
+    }
+
+    .section-header h2::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+    }
+
+    .section-header p {
+      font-size: 1.2rem;
+      color: var(--gray-600);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .solutions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .solution-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .solution-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .solution-img {
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .solution-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .solution-card:hover .solution-img img {
+      transform: scale(1.05);
+    }
+
+    .solution-number {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: var(--primary);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.1rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .solution-content {
+      padding: 2rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .solution-content h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+
+    .solution-content p {
+      color: var(--gray-600);
+      margin-bottom: 1.8rem;
+      flex-grow: 1;
+    }
+
+    .solution-features {
+      margin-bottom: 2rem;
+    }
+
+    .solution-features li {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.7rem;
+      font-size: 0.95rem;
+    }
+
+    .solution-features i {
+      color: var(--success);
+      font-size: 0.9rem;
+    }
+
+    /* Industry Section */
+    .industry-section {
+      background: var(--secondary);
+      color: white;
+      padding: 6rem 2rem;
       text-align: center;
       position: relative;
       overflow: hidden;
     }
 
-    .hero::before {
+    .industry-section::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
-      opacity: 0.1;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(0,216,255,0.08) 0%, transparent 20%),
+        radial-gradient(circle at 80% 20%, rgba(0,216,255,0.08) 0%, transparent 20%);
       z-index: 0;
     }
 
-    .hero-content {
+    .industry-section .section-header {
       position: relative;
       z-index: 1;
-      max-width: 800px;
-      margin: 0 auto;
     }
 
-    .hero h1 {
-      font-size: 3.5rem;
-      margin-bottom: 1.5rem;
-      line-height: 1.2;
-    }
-
-    .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      opacity: 0.9;
-    }
-
-    .cta-button {
-      display: inline-block;
-      background: var(--orange);
+    .industry-section .section-header h2 {
       color: white;
-      padding: 0.8rem 2rem;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: var(--transition);
-      border: 2px solid var(--orange);
     }
 
-    .cta-button:hover {
-      background: transparent;
-      color: var(--orange);
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    .industry-section .section-header h2::after {
+      background: var(--accent);
     }
 
-    /* Main Content Container */
-    .main-content {
-      display: flex;
+    .industry-section .section-header p {
+      color: rgba(255,255,255,0.8);
+    }
+
+    .industry-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
       max-width: 1200px;
-      margin: 4rem auto;
-      padding: 0 2rem;
-      gap: 3rem;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
-    /* Services Section - Left Side - SIMPLIFIED TO MATCH SCREENSHOT */
-    .services {
-      flex: 1;
+    .industry-item {
+      background: rgba(255,255,255,0.08);
+      padding: 2.5rem 2rem;
+      border-radius: 16px;
+      transition: var(--transition);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.1);
     }
 
-    .service-item {
-      margin-bottom: 2.5rem;
+    .industry-item:hover {
+      transform: translateY(-8px);
+      background: rgba(255,255,255,0.12);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
     }
 
-    .service-item h3 {
-      color: var(--primary);
-      font-size: 1.5rem;
-      margin-bottom: 0.8rem;
-      font-weight: 600;
+    .industry-item i {
+      font-size: 3rem;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
     }
 
-    .service-item p {
-      color: #555;
+    .industry-item h3 {
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+    }
+
+    .industry-item p {
+      opacity: 0.9;
       line-height: 1.6;
     }
 
-    /* Industries Section - Right Side */
-    .industries {
-      flex: 1;
-      background: var(--section-bg);
-      padding: 2.5rem;
-      border-radius: var(--border-radius);
-      position: sticky;
-      top: 120px;
-      align-self: flex-start;
+    /* Stats Section */
+    .stats-section {
+      padding: 5rem 2rem;
+      background: var(--gray-100);
     }
 
-    .section-title {
+    .stats-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 2rem;
+      background: white;
+      border-radius: 16px;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .stat-item:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .stat-icon {
+      font-size: 2.5rem;
+      color: var(--primary);
+      margin-bottom: 1.2rem;
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-text {
+      color: var(--gray-600);
+      font-weight: 500;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 6rem 2rem;
+      text-align: center;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+      opacity: 0.15;
+      z-index: 0;
+    }
+
+    .cta-content {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-content h2 {
+      font-size: 2.8rem;
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+
+    .cta-content p {
+      font-size: 1.2rem;
+      margin-bottom: 2.5rem;
+      opacity: 0.9;
+      line-height: 1.7;
+    }
+
+    .btn-large {
+      padding: 1.2rem 2.8rem;
+      font-size: 1.1rem;
+    }
+
+    .btn-white {
+      background: white;
+      color: var(--primary);
+    }
+
+    .btn-white:hover {
+      background: rgba(255,255,255,0.9);
+      color: var(--primary-dark);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(255,255,255,0.3);
+    }
+
+    /* Footer Styles */
+    footer {
+      background: var(--dark);
+      color: #aaa;
+      padding: 5rem 2rem 2rem;
+      font-size: 0.95rem;
+    }
+
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2.5rem;
+      max-width: 1200px;
+      margin: 0 auto 3rem;
+      text-align: left;
+    }
+
+    .footer-column {
       margin-bottom: 2rem;
     }
 
-    .section-title h2 {
-      font-size: 2.2rem;
-      color: var(--secondary);
-      margin-bottom: 0.5rem;
+    .footer-column h3 {
+      color: var(--orange);
+      margin-bottom: 1.8rem;
+      font-size: 1.2rem;
       position: relative;
-      display: inline-block;
+      padding-bottom: 12px;
     }
 
-    .section-title h2::after {
+    .footer-column h3::after {
       content: '';
       position: absolute;
-      bottom: -5px;
       left: 0;
+      bottom: 0;
       width: 50px;
       height: 3px;
       background: var(--accent);
     }
 
-    .section-title p {
-      color: #666;
+    .footer-column ul {
+      list-style: none;
     }
 
-    .industries-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1rem;
+    .footer-column ul li {
+      margin-bottom: 1rem;
     }
 
-    .industry-item {
-      background: white;
-      padding: 1.2rem;
-      text-align: center;
-      border-radius: var(--border-radius);
-      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    .footer-column a {
+      color: #ddd;
+      text-decoration: none;
       transition: var(--transition);
-      font-weight: 500;
     }
 
-    .industry-item:hover {
-      background: var(--primary-light);
-      color: var(--primary);
-      transform: translateY(-3px);
+    .footer-column a:hover {
+      color: var(--accent);
+      padding-left: 8px;
+    }
+
+    .contact-info li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1.2rem;
+    }
+
+    .contact-info i {
+      color: var(--accent);
+      width: 20px;
+      text-align: center;
+      font-size: 1.1rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 18px;
+      margin-top: 2rem;
+    }
+
+    .social-links a {
+      color: #ddd;
+      font-size: 1.3rem;
+      transition: var(--transition);
+    }
+
+    .social-links a:hover {
+      color: var(--accent);
+      transform: translateY(-5px);
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 2.5rem;
+      text-align: center;
+    }
+
+    .footer-bottom p {
+      margin-bottom: 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    .footer-bottom a {
+      color: #aaa;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-bottom a:hover {
+      color: var(--accent);
     }
 
     /* Responsive Design */
+    @media (max-width: 1200px) {
+      .solutions-grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      }
+    }
+
     @media (max-width: 1024px) {
-      .main-content {
-        flex-direction: column;
+      .page-header h1 {
+        font-size: 2.8rem;
+      }
+      
+      .page-header p {
+        font-size: 1.2rem;
+      }
+      
+      .section-header h2 {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .search-box {
+        margin-left: 0;
+        width: 100%;
       }
 
-      .industries {
-        position: static;
+      .search-box input {
+        width: 100%;
       }
     }
 
     @media (max-width: 768px) {
-      .hero {
-        padding: 8rem 1.5rem 4rem;
-      }
-
-      .hero h1 {
-        font-size: 2.5rem;
-      }
-
       nav ul {
         position: fixed;
         top: 70px;
-        left: 0;
-        right: 0;
-        background: rgba(34, 34, 34, 0.95);
+        left: -100%;
+        width: 100%;
+        height: calc(100vh - 70px);
+        background: var(--dark);
         flex-direction: column;
         align-items: center;
-        padding: 1rem 0;
-        gap: 0;
-        clip-path: circle(0px at 90% -10%);
-        transition: all 0.5s ease-out;
-        pointer-events: none;
+        padding-top: 2rem;
+        transition: left 0.3s ease;
       }
 
       nav ul.active {
-        clip-path: circle(1000px at 90% -10%);
-        pointer-events: all;
+        left: 0;
       }
 
       nav ul li {
-        width: 100%;
-        text-align: center;
-      }
-
-      nav ul li a {
-        display: block;
-        padding: 1rem;
+        margin: 1.2rem 0;
       }
 
       .mobile-menu {
         display: block;
       }
 
-      .industries {
-        padding: 2rem;
+      .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        display: none;
+        padding-left: 1rem;
+        background: rgba(0,0,0,0.2);
+        margin-top: 0.5rem;
+        border-radius: 5px;
+        min-width: auto;
       }
 
-      .section-title h2 {
+      .dropdown.active .dropdown-menu {
+        display: flex;
+      }
+
+      .page-header {
+        padding: 8rem 1.5rem 5rem;
+        height: 75vh;
+      }
+
+      .page-header h1 {
+        font-size: 2.2rem;
+      }
+
+      .page-header p {
+        font-size: 1.1rem;
+      }
+
+      .header-cta {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .header-cta .btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+      }
+
+      .filter-container {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .filter-group {
+        justify-content: center;
+      }
+
+      .solutions-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .industry-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .stats-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .footer-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .page-header {
+        height: 70vh;
+      }
+      
+      .section-header h2 {
+        font-size: 2.2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 1rem;
+      }
+      
+      header.scrolled {
+        padding: 0.7rem 1rem;
+      }
+      
+      .page-header {
+        height: 65vh;
+        padding: 7rem 1rem 4rem;
+      }
+      
+      .page-header h1 {
         font-size: 1.8rem;
       }
+      
+      .page-header p {
+        font-size: 1rem;
+      }
+      
+      .solutions-filter {
+        padding: 2rem 1rem;
+      }
+      
+      .solutions-showcase {
+        padding: 4rem 1rem;
+      }
+      
+      .industry-section, .stats-section, .cta-section {
+        padding: 4rem 1rem;
+      }
+      
+      .solution-content {
+        padding: 1.5rem;
+      }
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    .delay-1 {
+      animation-delay: 0.2s;
+    }
+
+    .delay-2 {
+      animation-delay: 0.4s;
+    }
+
+    .delay-3 {
+      animation-delay: 0.6s;
+    }
+    
+    .delay-4 {
+      animation-delay: 0.8s;
+    }
+    
+    .delay-5 {
+      animation-delay: 1s;
+    }
+    
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
     }
   </style>
 </head>
 <body>
-  <!-- Header -->
-  <header id="header">
-    <div class="logo">
-      <i class="fas fa-network-wired"></i>
-      <span>Sybyl</span>
-    </div>
+  <!-- Header with Vertical Dropdown Menu -->
+  <header id="main-header">
+    <div class="logo"><i class="fas fa-cube logo-icon"></i> Novasphere</div>
     <nav>
       <div class="mobile-menu">
         <i class="fas fa-bars"></i>
       </div>
       <ul>
-        <li><a href="#" class="active">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Services</a></li>
-        <li><a href="#">Industries</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="homepage.html">Home</a></li>
+        <li class="dropdown">
+          <a href="#">About</a>
+          <ul class="dropdown-menu">
+            <li><a href="about_us.html">About Us</a></li>
+            <li><a href="#">Our People</a></li>
+            <li><a href="#">Awards & Accolades</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Downloads</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="expertise.html" class="active">Solutions</a>
+          <ul class="dropdown-menu">
+            <li><a href="solutions.html#enterprise">Enterprise Systems</a></li>
+            <li><a href="solutions.html#security">Security Solutions</a></li>
+            <li><a href="solutions.html#business-intelligence">Business Intelligence</a></li>
+            <li><a href="solutions.html#banking">Banking Solutions</a></li>
+            <li><a href="solutions.html#managed">Managed Services</a></li>
+            <li><a href="solutions.html#communications">Unified Communications</a></li>
+            <li><a href="solutions.html#it-services">IT Services</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a href="#">Discover & Learn</a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Insights and Latest</a></li>
+            <li><a href="#">In the Community</a></li>
+            <li><a href="#">Customer Stories</a></li>
+          </ul>
+        </li>
+        <li><a href="contact.html">Get In Touch</a></li>
       </ul>
     </nav>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="hero-content">
+  <!-- Page Header -->
+  <section class="page-header fade-in">
+    <div class="page-header-content">
       <h1>Enterprise IT Solutions</h1>
-      <p>Transforming businesses through innovative technology solutions tailored to your needs</p>
-      <a href="#services" class="cta-button">Explore Our Services</a>
+      <p>Comprehensive technology solutions designed to drive growth, enhance security, and optimize operations for businesses of all sizes.</p>
+      <div class="header-cta">
+        <a href="#solutions" class="btn btn-primary">Explore Solutions</a>
+        <a href="contact.html" class="btn btn-outline">Contact Us</a>
+      </div>
     </div>
   </section>
 
-  <!-- Main Content - Side by Side Sections -->
-  <div class="main-content">
-    <!-- Services Section - Left - SIMPLIFIED TO MATCH SCREENSHOT -->
-    <section class="services" id="services">
-      <div class="service-item">
-        <h3>Enterprise Systems</h3>
-        <p>Data Centres, Cloud, Networking & Cabling, Communication, Contact Centres</p>
+  <!-- Solutions Filter -->
+  <section class="solutions-filter">
+    <div class="filter-container">
+      <div class="filter-group">
+        <button class="filter-btn active" data-filter="all"><i class="fas fa-layer-group"></i> All Solutions</button>
+        <button class="filter-btn" data-filter="enterprise"><i class="fas fa-server"></i> Enterprise</button>
+        <button class="filter-btn" data-filter="security"><i class="fas fa-shield-alt"></i> Security</button>
+        <button class="filter-btn" data-filter="business-intelligence"><i class="fas fa-chart-line"></i> BI</button>
+        <button class="filter-btn" data-filter="banking"><i class="fas fa-university"></i> Banking</button>
+        <button class="filter-btn" data-filter="managed"><i class="fas fa-cogs"></i> Managed</button>
+        <button class="filter-btn" data-filter="communications"><i class="fas fa-comments"></i> Communications</button>
+        <button class="filter-btn" data-filter="it-services"><i class="fas fa-laptop-code"></i> IT Services</button>
       </div>
-      
-      <div class="service-item">
-        <h3>Security</h3>
-        <p>Data & Application Security, Physical Security</p>
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="Search solutions..." id="solutionSearch">
       </div>
-      
-      <div class="service-item">
-        <h3>Banking Sector Solutions</h3>
-        <p>Core Banking, Cash Management, Digital Channels, Fintech Solutions</p>
-      </div>
-      
-      <div class="service-item">
-        <h3>Services</h3>
-        <p>Fully harness the potential of technology for your business through technological advancements.</p>
-      </div>
-      
-      <div class="service-item">
-        <h3>Business Intelligence</h3>
-        <p>Active management to optimize returns while managing risk.</p>
-      </div>
-      
-      <div class="service-item">
-        <h3>Managed Services</h3>
-        <p>Maximize growth potential via managed Services.</p>
-      </div>
-      
-      <div class="service-item">
-        <h3>Unified Communication</h3>
-        <p>Deliver quality of services to ensure availability and performance of your crucial IT infrastructure.</p>
-      </div>
-      
-      <div class="service-item">
-        <h3>End User Devices</h3>
-        <p>Laptops, Printers, Solar Panels, and End User Computing for enhanced Productivity and Sustainability.</p>
-      </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- Industries Section - Right -->
-    <section class="industries">
-      <div class="section-title">
-        <h2>Industries We Serve</h2>
-        <p>Sybyl's experience cuts across verticals and industries. Explore our capabilities.</p>
+  <!-- Solutions Showcase Section -->
+  <section class="solutions-showcase" id="solutions">
+    <div class="section-header fade-in">
+      <h2>Our Comprehensive Solutions</h2>
+      <p>Discover how our tailored IT solutions can transform your business operations and drive growth</p>
+    </div>
+
+    <div class="solutions-grid">
+      <!-- Enterprise Systems -->
+      <div class="solution-card fade-in" data-category="enterprise">
+        <div class="solution-img">
+          <img src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2032&q=80" alt="Enterprise Systems">
+          <div class="solution-number">1</div>
+        </div>
+        <div class="solution-content">
+          <h3>Enterprise Systems</h3>
+          <p>Comprehensive enterprise resource planning (ERP), customer relationship management (CRM), and supply chain management solutions that integrate all aspects of your business operations.</p>
+          <ul class="solution-features">
+            <li><i class="fas fa-check"></i> ERP Implementation & Customization</li>
+            <li><i class="fas fa-check"></i> CRM Solutions & Integration</li>
+            <li><i class="fas fa-check"></i> Supply Chain Optimization</li>
+            <li><i class="fas fa-check"></i> HR & Financial Management Systems</li>
+          </ul>
+        </div>
       </div>
-      <div class="industries-grid">
-        <div class="industry-item">Banking</div>
-        <div class="industry-item">Consulting</div>
-        <div class="industry-item">Education</div>
-        <div class="industry-item">Energy</div>
-        <div class="industry-item">Telecom</div>
-        <div class="industry-item">Government</div>
-        <div class="industry-item">Healthcare</div>
-        <div class="industry-item">Hospitality</div>
-        <div class="industry-item">Insurance</div>
-        <div class="industry-item">Manufacturing</div>
-        <div class="industry-item">NGOs</div>
-        <div class="industry-item">Financial Institutions</div>
+
+      <!-- Security Solutions -->
+      <div class="solution-card fade-in delay-1" data-category="security">
+        <div class="solution-img">
+          <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Security Solutions">
+          <div class="solution-number">2</div>
+        </div>
+        <div class="solution-content">
+          <h3>Security Solutions</h3>
+          <p>Multi-layered security approach with advanced threat detection, encryption protocols, and comprehensive vulnerability assessments to protect your digital assets and sensitive data.</p>
+          <ul class="solution-features">
+            <li><i class="fas fa-check"></i> Advanced Threat Detection & Prevention</li>
+            <li><i class="fas fa-check"></i> Data Encryption & Access Control</li>
+            <li><i class="fas fa-check"></i> Vulnerability Assessment & Penetration Testing</li>
+            <li><i class="fas fa-check"></i> 24/7 Security Monitoring & Incident Response</li>
+          </ul>
+        </div>
       </div>
-    </section>
-  </div>
+
+      <!-- Business Intelligence -->
+      <div class="solution-card fade-in delay-2" data-category="business-intelligence">
+        <div class="solution-img">
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Business Intelligence">
+          <div class="solution-number">3</div>
+        </div>
+        <div class="solution-content">
+          <h3>Business Intelligence</h3>
+          <p>Advanced analytics and visualization tools that transform raw data into actionable insights, helping identify market trends, optimize operations, and drive informed decision-making.</p>
+          <ul class="solution-features">
+            <li><i class="fas fa-check"></i> Data Analytics & Visualization</li>
+            <li><i class="fas fa-check"></i> Custom Dashboard Development</li>
+            <li><i class="fas fa-check"></i> Predictive Analytics & Forecasting</li>
+            <li><i class="fas fa-check"></i> KPI Monitoring & Performance Reporting</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Banking Solutions -->
+      <div class="solution-card fade-in delay-3" data-category="banking">
+        <div class="solution-img">
+          <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2022&q=80" alt="Banking Solutions">
+          <div class="solution-number">4</div>
+        </div>
+        <div class="solution-content">
+          <h3>Banking Solutions</h3>
+          <p>Specialized technology platforms designed specifically for financial institutions, featuring robust security, compliance management, and enhanced customer experience capabilities.</p>
+          <ul class="solution-features">
+            <li><i class="fas fa-check"></i> Core Banking System Implementation</li>
+            <li><i class="fas fa-check"></i> Regulatory Compliance Management</li>
+            <li><i class="fas fa-check"></i> Fraud Detection & Prevention Systems</li>
+            <li><i class="fas fa-check"></i> Digital Banking & Mobile App Solutions</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Managed Services -->
+      <div class="solution-card fade-in delay-4" data-category="managed">
+        <div class="solution-img">
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Managed Services">
+          <div class="solution-number">5</div>
+        </div>
+        <div class="solution-content">
+          <h3>Managed Services</h3>
+          <p>Comprehensive IT management solutions including 24/7 monitoring, proactive maintenance, strategic IT planning, and help desk support to keep your business running smoothly.</p>
+          <ul class="solution-features">
+            <li><i class="fas fa-check"></i> 24/7 Monitoring & Technical Support</li>
+            <li><i class="fas fa-check"></i> Proactive Maintenance & System Updates</li>
+            <li><i class="fas fa-check"></i> Help Desk & End-User Support</li>
+            <li><i class="fas fa-check"></i> Strategic IT Planning & Consultation</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Unified Communications -->
+      <div class="solution-card fade-in delay-5" data-category="communications">
+        <div class="solution-img">
+          <img src="https://images.unsplash.com/photo-1579389083078-4e7018379f7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Unified Communications">
+          <div class="solution-number">6</div>
+        </div>
+        <div class="solution-content">
+          <h3>Unified Communications</h3>
+          <p>Seamless integration of all communication channels including VoIP, video conferencing, instant messaging, and contact center solutions for improved collaboration and productivity.</p>
+          <ul class="solution-features">
+            <li><i class="fas fa-check"></i> VoIP & Telephony Systems</li>
+            <li><i class="fas fa-check"></i> Video Conferencing & Webinars</li>
+            <li><i class="fas fa-check"></i> Instant Messaging & Presence Management</li>
+            <li><i class="fas fa-check"></i> Contact Center & Customer Service Solutions</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Industry Section -->
+  <section class="industry-section">
+    <div class="section-header fade-in">
+      <h2>Solutions for Every Industry</h2>
+      <p>Tailored technology solutions designed to address the unique challenges of your industry</p>
+    </div>
+
+    <div class="industry-grid">
+      <div class="industry-item fade-in">
+        <i class="fas fa-building"></i>
+        <h3>Financial Services</h3>
+        <p>Secure, compliant solutions for banking and financial institutions with advanced fraud detection and regulatory compliance features.</p>
+      </div>
+      <div class="industry-item fade-in delay-1">
+        <i class="fas fa-hospital"></i>
+        <h3>Healthcare</h3>
+        <p>HIPAA-compliant systems for patient care and medical records management with interoperability and data security as priorities.</p>
+      </div>
+      <div class="industry-item fade-in delay-2">
+        <i class="fas fa-graduation-cap"></i>
+        <h3>Education</h3>
+        <p>Technology solutions for schools and educational institutions including learning management systems and campus-wide networks.</p>
+      </div>
+      <div class="industry-item fade-in delay-3">
+        <i class="fas fa-industry"></i>
+        <h3>Manufacturing</h3>
+        <p>Optimized systems for production and supply chain management with IoT integration and real-time monitoring capabilities.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="section-header fade-in">
+      <h2>Why Choose Sybyl Enterprise IT</h2>
+      <p>Proven results and expertise that set us apart in the industry</p>
+    </div>
+
+    <div class="stats-container">
+      <div class="stat-item fade-in">
+        <div class="stat-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <div class="stat-number" data-count="500">500+</div>
+        <div class="stat-text">Satisfied Clients</div>
+      </div>
+      <div class="stat-item fade-in delay-1">
+        <div class="stat-icon">
+          <i class="fas fa-project-diagram"></i>
+        </div>
+        <div class="stat-number" data-count="1200">1200+</div>
+        <div class="stat-text">Projects Completed</div>
+      </div>
+      <div class="stat-item fade-in delay-2">
+        <div class="stat-icon">
+          <i class="fas fa-certificate"></i>
+        </div>
+        <div class="stat-number" data-count="85">85+</div>
+        <div class="stat-text">Industry Certifications</div>
+      </div>
+      <div class="stat-item fade-in delay-3">
+        <div class="stat-icon">
+          <i class="fas fa-clock"></i>
+        </div>
+        <div class="stat-number" data-count="15">15+</div>
+        <div class="stat-text">Years of Experience</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to Transform Your Business?</h2>
+      <p>Contact our experts today to discuss how our solutions can address your specific business challenges and help you achieve your goals. We'll provide a customized consultation to identify the best approach for your organization's unique needs.</p>
+      <a href="contact.html" class="btn btn-white btn-large">Get Started Today</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>About Sybyl</h3>
+        <p>Sybyl Enterprise IT provides cutting-edge technology solutions to businesses worldwide, helping them achieve digital transformation and operational excellence through innovative approaches and industry expertise.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h3>Solutions</h3>
+        <ul>
+          <li><a href="solutions.html#enterprise">Enterprise Systems</a></li>
+          <li><a href="solutions.html#security">Security Solutions</a></li>
+          <li><a href="solutions.html#business-intelligence">Business Intelligence</a></li>
+          <li><a href="solutions.html#banking">Banking Solutions</a></li>
+          <li><a href="solutions.html#managed">Managed Services</a></li>
+          <li><a href="solutions.html#communications">Unified Communications</a></li>
+          <li><a href="solutions.html#it-services">IT Services</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="homepage.html">Home</a></li>
+          <li><a href="about_us.html">About Us</a></li>
+          <li><a href="expertise.html">Expertise</a></li>
+          <li><a href="solutions.html">Solutions</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="#">Careers</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Contact Us</h3>
+        <ul class="contact-info">
+          <li><i class="fas fa-map-marker-alt"></i> 123 Enterprise Street, Tech City, TC 10101</li>
+          <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+          <li><i class="fas fa-envelope"></i> info@sybylenterprise.com</li>
+          <li><i class="fas fa-clock"></i> Mon-Fri: 8:30 AM - 5:30 PM</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2023 Sybyl Enterprise IT. All Rights Reserved.</p>
+      <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+    </div>
+  </footer>
 
   <script>
-    // Mobile Menu Toggle
-    const mobileMenu = document.querySelector('.mobile-menu');
-    const navUl = document.querySelector('nav ul');
-    
-    mobileMenu.addEventListener('click', () => {
-      navUl.classList.toggle('active');
-      mobileMenu.innerHTML = navUl.classList.contains('active') ? 
-        '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+    // Mobile menu toggle
+    document.querySelector('.mobile-menu').addEventListener('click', function() {
+      document.querySelector('nav ul').classList.toggle('active');
     });
 
-    // Header Scroll Effect
-    const header = document.getElementById('header');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 100) {
+    // Dropdown menu functionality
+    document.querySelectorAll('.dropdown > a').forEach(item => {
+      item.addEventListener('click', function(e) {
+        if (window.innerWidth <= 768) {
+          e.preventDefault();
+          this.parentElement.classList.toggle('active');
+        }
+      });
+    });
+
+    // Header scroll effect
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('main-header');
+      if (window.scrollY > 50) {
         header.classList.add('scrolled');
       } else {
         header.classList.remove('scrolled');
       }
     });
 
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
+    // Filter functionality
+    document.querySelectorAll('.filter-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        // Remove active class from all buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+          btn.classList.remove('active');
         });
+        
+        // Add active class to clicked button
+        this.classList.add('active');
+        
+        const filter = this.getAttribute('data-filter');
+        const solutionCards = document.querySelectorAll('.solution-card');
+        
+        if (filter === 'all') {
+          solutionCards.forEach(card => card.style.display = 'flex');
+        } else {
+          solutionCards.forEach(card => {
+            if (card.getAttribute('data-category') === filter) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        }
       });
     });
+
+    // Search functionality
+    document.getElementById('solutionSearch').addEventListener('input', function() {
+      const searchTerm = this.value.toLowerCase();
+      const solutionCards = document.querySelectorAll('.solution-card');
+      
+      solutionCards.forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        const description = card.querySelector('p').textContent.toLowerCase();
+        const features = card.querySelector('.solution-features').textContent.toLowerCase();
+        
+        if (title.includes(searchTerm) || description.includes(searchTerm) || features.includes(searchTerm)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.matches('.dropdown > a')) {
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+          dropdown.classList.remove('active');
+        });
+      }
+    });
+
+    // Counter animation for stats
+    function animateCounter() {
+      const counters = document.querySelectorAll('.stat-number');
+      const speed = 200;
+      
+      counters.forEach(counter => {
+        const target = +counter.getAttribute('data-count');
+        const count = +counter.innerText;
+        const increment = Math.ceil(target / speed);
+        
+        if (count < target) {
+          counter.innerText = Math.min(count + increment, target);
+          setTimeout(animateCounter, 1);
+        }
+      });
+    }
+
+    // Initialize counter animation when stats section is in view
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    observer.observe(document.querySelector('.stats-section'));
   </script>
 </body>
 </html>
