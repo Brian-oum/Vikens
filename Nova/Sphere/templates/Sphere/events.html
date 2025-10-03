@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upcoming Events</title>
+    <link rel="stylesheet" href="{% static 'Sphere/css/style.css' %}">
+</head>
+<body>
+    <h1>Upcoming Events</h1>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div class="events-container">
+        {% for event in events %}
+            <div class="event-card">
+                {% if event.image %}
+                    <img src="{{ event.image.url }}" alt="{{ event.name }}">
+                {% endif %}
+                <h2>{{ event.name }}</h2>
+                <p>{{ event.short_detail }}</p>
+                <p><strong>Date:</strong> {{ event.event_date }}</p>
+                <p><strong>Time:</strong> {{ event.event_time }}</p>
+                <p><strong>Location:</strong> {{ event.location }}</p>
+                <p><strong>Slots:</strong> {{ event.registered }}/{{ event.people_required }}</p>
+                <p><strong>Fee:</strong> KSh {{ event.registration_fee }}</p>
+
+                {% if user.is_authenticated %}
+                    {% if event.is_full %}
+                        <button disabled>Event Full</button>
+                    {% else %}
+                        <a href="{% url 'register_event' event.id %}">
+                            <button>Register</button>
+                        </a>
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'login' %}?next={% url 'events' %}">
+                        <button>Login to Register</button>
+                    </a>
+                {% endif %}
+            </div>
+        {% empty %}
+            <p>No events available.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
