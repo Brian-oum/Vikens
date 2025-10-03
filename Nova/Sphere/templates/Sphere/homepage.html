@@ -21,17 +21,8 @@
         <i class="fas fa-bars"></i>
       </div>
       <ul>
-        <li><a href="homepage.html" class="active">Home</a></li>
-        <li class="dropdown">
-          <a href="#">About</a>
-          <ul class="dropdown-menu">
-            <li><a href="about_us.html">About Us</a></li>
-            <li><a href="#">Our People</a></li>
-            <li><a href="#">Awards & Accolades</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">Downloads</a></li>
-          </ul>
-        </li>
+        <li><a href="{% url 'homepage' %}" class="active">Home</a></li>
+        <li><a href="{% url 'about'%}">About</a></li>
         <li class="dropdown">
           <a href="expertise.html">Solutions</a>
           <ul class="dropdown-menu">

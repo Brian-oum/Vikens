@@ -8,7 +8,7 @@ def homepage(request):
     return render(request, 'Sphere/homepage.html')
 
 def about(request):
-    return render(request, 'Sphere/about_us.html')
+    return render(request, 'Sphere/about.html')
 
 def contact(request):
     return render(request, 'Sphere/contact.html')

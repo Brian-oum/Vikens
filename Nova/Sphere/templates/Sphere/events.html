@@ -1,52 +1,178 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Upcoming Events</title>
-    <link rel="stylesheet" href="{% static 'Sphere/css/style.css' %}">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NovaSphere IT Solutions Ltd</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="{% static 'Sphere/css/style.css' %}">
 </head>
 <body>
-    <h1>Upcoming Events</h1>
+  <!-- Header with Vertical Dropdown Menu -->
+  <header>
+    <div class="logo"><span>No</span>va<span>Sphere</span></div>
+    <nav>
+      <div class="mobile-menu">
+        <i class="fas fa-bars"></i>
+      </div>
+      <ul>
+        <li><a href="homepage.html" class="active">Home</a></li>
+
+        <li class="dropdown">
+          <a href="#">About</a>
+          <ul class="dropdown-menu">
+            <li><a href="about_us.html">About Us</a></li>
+            <li><a href="#">Our People</a></li>
+            <li><a href="#">Awards & Accolades</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Downloads</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="#">Solutions</a>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'IT_support' %}">IT Support & Consultancy</a></li>
+            <li><a href="{% url 'software' %}">Software & Systems</a></li>
+            <li><a href="{% url 'hardware' %}">Hardware & IoT</a></li>
+            <li><a href="{% url 'networking' %}">Networking & Connectivity</a></li>
+            <li><a href="{% url 'cybersec' %}">Cyber & Physical Security</a></li>
+            <li><a href="{% url 'cloud' %}">Cloud Computing</a></li>
+          </ul>
+        </li>
+
+        <li><a href="#">Events</a></li>
+        <li><a href="contact.html">Get In Touch</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-cloud">
+    <div class="overlay fade-in">
+      <h1>NovaSphere IT Solutions Ltd</h1>
+      <h3><span class="highlight">Cyber & Physical Security</span></h3>
+      <a href="#" class="cta-button">Get Started</a>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="container">
+    <h1 class="page-title" id="events">Upcoming Events</h1>
 
     {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li class="{{ message.tags }}">{{ message }}</li>
-            {% endfor %}
-        </ul>
+      <ul class="messages">
+        {% for message in messages %}
+          <li class="{{ message.tags }}">{{ message }}</li>
+        {% endfor %}
+      </ul>
     {% endif %}
 
     <div class="events-container">
-        {% for event in events %}
-            <div class="event-card">
-                {% if event.image %}
-                    <img src="{{ event.image.url }}" alt="{{ event.name }}">
-                {% endif %}
-                <h2>{{ event.name }}</h2>
-                <p>{{ event.short_detail }}</p>
-                <p><strong>Date:</strong> {{ event.event_date }}</p>
-                <p><strong>Time:</strong> {{ event.event_time }}</p>
-                <p><strong>Location:</strong> {{ event.location }}</p>
-                <p><strong>Slots:</strong> {{ event.registered }}/{{ event.people_required }}</p>
-                <p><strong>Fee:</strong> KSh {{ event.registration_fee }}</p>
+      {% for event in events %}
+        <div class="event-card">
+          {% if event.image %}
+            <img src="{{ event.image.url }}" alt="{{ event.name }}">
+          {% else %}
+            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80" alt="Event Image">
+          {% endif %}
 
-                {% if user.is_authenticated %}
-                    {% if event.is_full %}
-                        <button disabled>Event Full</button>
-                    {% else %}
-                        <a href="{% url 'register_event' event.id %}">
-                            <button>Register</button>
-                        </a>
-                    {% endif %}
-                {% else %}
-                    <a href="{% url 'login' %}?next={% url 'events' %}">
-                        <button>Login to Register</button>
-                    </a>
-                {% endif %}
+          <div class="event-card-content">
+            <h2>{{ event.name }}</h2>
+            <p class="short-detail">{{ event.short_detail }}</p>
+            
+            <div class="event-meta">
+              <span><i class="far fa-calendar"></i> {{ event.event_date }}</span>
+              <span><i class="far fa-clock"></i> {{ event.event_time }}</span>
+              <span><i class="fas fa-map-marker-alt"></i> {{ event.location }}</span>
             </div>
-        {% empty %}
-            <p>No events available.</p>
-        {% endfor %}
+            
+            <div class="slots-info">
+              <span class="slots-count">{{ event.registered }}/{{ event.people_required }} slots</span>
+              <span class="fee">KSh {{ event.registration_fee }}</span>
+            </div>
+
+            {% if event.is_full %}
+              <button class="btn" disabled>Event Full</button>
+            {% else %}
+              <a href="{% url 'register_event' event.id %}">
+                <button class="btn btn-accent">Register Now</button>
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      {% empty %}
+        <div class="empty-state">
+          <i class="far fa-calendar-times"></i>
+          <h3>No Events Available</h3>
+          <p>We don't have any upcoming events at the moment. Please check back later!</p>
+        </div>
+      {% endfor %}
     </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>About NovaSphere</h3>
+        <p>Leading provider of enterprise IT solutions helping businesses transform and grow through innovative technology.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin"></i></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="homepage.html">Home</a></li>
+          <li><a href="about_us.html">About Us</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Case Studies</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Services</h3>
+        <ul>
+          <li><a href="{% url 'IT_support' %}">IT Support & Consultancy</a></li>
+          <li><a href="{% url 'software' %}">Software & Systems</a></li>
+          <li><a href="{% url 'hardware' %}">Hardware & IoT</a></li>
+          <li><a href="{% url 'networking' %}">Networking & Connectivity</a></li>
+          <li><a href="{% url 'cybersec' %}">Cyber & Physical Security</a></li>
+          <li><a href="{% url 'cloud' %}">Cloud Computing</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Contact Us</h3>
+        <ul class="contact-info">
+          <li><i class="fas fa-map-marker-alt"></i> 123 Tech Street, Nairobi, Kenya</li>
+          <li><i class="fas fa-phone"></i> +254 700 123456</li>
+          <li><i class="fas fa-envelope"></i> info@novasphere.com</li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; 2025 NovaSphere. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="{%static 'Sphere/js/main.js' %}"></script>
 </body>
 </html>
