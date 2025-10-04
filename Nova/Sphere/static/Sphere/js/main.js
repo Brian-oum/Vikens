@@ -6,13 +6,13 @@ window.addEventListener('scroll', () => {
   const currentScroll = window.scrollY;
 
   // Add background when scrolling
-  if (currentScroll > 100) {
+  if (currentScroll > 50) {
     header.classList.add('scrolled');
   } else {
     header.classList.remove('scrolled');
   }
 
-  // Hide/show header on scroll
+  // Hide/show header on scroll - FIXED for mobile
   if (currentScroll > lastScrollY && currentScroll > 100) {
     // Scrolling down -> hide
     header.classList.add('hidden');
@@ -264,3 +264,29 @@ window.addEventListener('load', () => {
 });
 
 window.addEventListener('resize', handleResponsive);
+
+
+// Simple counting animation
+function startCountAnimation() {
+    const numbers = document.querySelectorAll('.stats strong');
+    
+    numbers.forEach(number => {
+        const finalValue = parseInt(number.textContent);
+        let current = 0;
+        const duration = 2000; // 2 seconds
+        const increment = finalValue / (duration / 16); // 60fps
+        
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= finalValue) {
+                number.textContent = finalValue + '+';
+                clearInterval(timer);
+            } else {
+                number.textContent = Math.floor(current) + '+';
+            }
+        }, 16);
+    });
+}
+
+// Start when page loads
+window.addEventListener('load', startCountAnimation);

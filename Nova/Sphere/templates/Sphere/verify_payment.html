@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verify Payment - {{ event.name }}</title>
+  <link rel="stylesheet" href="{% static 'Sphere/css/style.css' %}">
+</head>
+<body>
+  <div class="verify-container">
+    <h1>Verify Payment for {{ event.name }}</h1>
+    <p>Please enter your details and M-Pesa confirmation code to complete registration.</p>
+
+    {% if messages %}
+      <div class="messages">
+        {% for message in messages %}
+          <div class="alert {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-accent">Submit Payment</button>
+    </form>
+
+    <a href="{% url 'events' %}" class="back-link">← Back to Events</a>
+  </div>
+</body>
+</html>

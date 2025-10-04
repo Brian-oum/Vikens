@@ -8,6 +8,7 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('events/', views.events, name='events'),
     path("events/register/<int:event_id>/", views.register_event, name="register_event"),
+    path('event/<int:event_id>/verify/', views.verify_payment, name='verify_payment'),
 
     # Solution pages
     path('expertise/it-support/', views.IT_support, name='IT_support'),

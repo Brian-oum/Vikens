@@ -1,5 +1,8 @@
 from django.contrib import admin
-from .models import Event
+from .models import Event, PaymentVerification
+from django.core.mail import send_mail
+from django.conf import settings
+from django.contrib import messages
 
 # Register your models here.
 @admin.register(Event)
@@ -8,3 +11,45 @@ class EventAdmin(admin.ModelAdmin):
     list_filter = ("event_date", "location")
     search_fields = ("name", "location", "short_detail")
     ordering = ("event_date",)
+
+@admin.register(PaymentVerification)
+class PaymentVerificationAdmin(admin.ModelAdmin):
+    list_display = ('full_name', 'email', 'event', 'mpesa_code', 'verified', 'timestamp')
+    list_filter = ('verified', 'event')
+    search_fields = ('mpesa_code', 'phone_number', 'full_name', 'email')
+
+    def save_model(self, request, obj, form, change):
+        was_verified = False
+        if change:
+            previous = PaymentVerification.objects.get(pk=obj.pk)
+            was_verified = previous.verified
+
+        super().save_model(request, obj, form, change)
+
+        # If newly verified
+        if obj.verified and not was_verified:
+            event = obj.event
+
+            # ✅ Increase slot count safely
+            if event.registered < event.people_required:
+                event.registered += 1
+                event.save()
+
+            # ✅ Send email
+            try:
+                send_mail(
+                    subject=f"Access Link for {event.name}",
+                    message=(
+                        f"Hello {obj.full_name},\n\n"
+                        f"Your payment for '{event.name}' has been verified successfully.\n\n"
+                        f"Join here: {event.meeting_link if hasattr(event, 'meeting_link') else event.location}\n\n"
+                        f"Thank you for registering!\n"
+                        f"NovaSphere IT Solutions Ltd"
+                    ),
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[obj.email],
+                    fail_silently=False,
+                )
+                messages.success(request, f"✅ Email sent to {obj.full_name}.")
+            except Exception as e:
+                messages.error(request, f"❌ Failed to send email: {e}")

@@ -20,29 +20,21 @@
       <div class="mobile-menu">
         <i class="fas fa-bars"></i>
       </div>
-      <ul>
-        <li><a href="homepage.html" class="active">Home</a></li>
-        <li class="dropdown">
-          <a href="#">About</a>
-          <ul class="dropdown-menu">
-            <li><a href="about_us.html">About Us</a></li>
-            <li><a href="#">Our People</a></li>
-            <li><a href="#">Awards & Accolades</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">Downloads</a></li>
-          </ul>
-        </li>
+       <ul>
+        <li><a href="{% url 'homepage' %}" class="active">Home</a></li>
+        <li><a href="{% url 'about'%}">About</a></li>
         <li class="dropdown">Solutions
-            <li><a href="{% url 'IT_support.html' %}">IT Support & Consultancy</a></li>
-            <li><a href="{% url 'software.html' %}">Software & Systems</a></li>
-            <li><a href="{% url 'hardware.html' %}">Hardware & Iot</a></li>
-            <li><a href="{% url 'network.html' %}">Networking & Connectivity</a></li>
-            <li><a href="{%url 'cybersec.html' %}">Cyber & Physical Security</a></li>
-            <li><a href="{% url 'cloud.html' %}">Cloud Computing</a></li>
+          <ul class="dropdown-menu">
+            <li><a href="{% url 'IT_support' %}">IT Support & Consultancy</a></li>
+            <li><a href="{% url 'software' %}">Software & Systems</a></li>
+            <li><a href="{% url 'hardware' %}">Hardware & Iot</a></li>
+            <li><a href="{% url 'networking' %}">Networking & Connectivity</a></li>
+            <li><a href="{%url 'cybersec' %}">Cyber & Physical Security</a></li>
+            <li><a href="{% url 'cloud' %}">Cloud Computing</a></li>
           </ul>
         </li>
-        <li><a href="#">Events</a> </li>
-        <li><a href="contact.html">Get In Touch</a></li>
+        <li><a href="{% url 'events' %}">Events</a> </li>
+        <li><a href="{%url 'contact' %}">Contact Us</a></li>
       </ul>
     </nav>
   </header>
@@ -73,14 +65,7 @@
       <img src="{%static 'Sphere/images/iot.jpg' %}" alt="IT Services Background" alt="iot">
       <div class="bg-overlay"></div>
       <!-- Animated Shapes -->
-      <div class="animated-shapes">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-        <div class="shape shape-4"></div>
-        <div class="shape shape-5"></div>
-        <div class="shape shape-6"></div>
-      </div>
+      <div class="animated-shapes" id="animatedShapes"></div>
     </div>
 
     <div class="services-container">
@@ -178,23 +163,21 @@
       <div class="footer-column">
         <h3>Quick Links</h3>
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Case Studies</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="{%url 'homepage%'}">Home</a></li>
+          <li><a href="{%url 'about%'}">About Us</a></li>
+          <li><a href="{%url 'contact'%}">Contact</a></li>
         </ul>
       </div>
       
       <div class="footer-column">
         <h3>Services</h3>
         <ul>
-          <li><a href="IT_support.html">IT Support & Consultancy</a></li>
-          <li><a href="software.html">Software & Systems</a></li>
-          <li><a href="hardware.html">Hardware & IoT</a></li>
-          <li><a href="network.html">Networking & Connectivity</a></li>
-          <li><a href="cybersec.html">Cyber & Physical Security</a></li>
-          <li><a href="cloud.html"> Cloud Computing</a></li>
+          <li><a href="{% url 'IT_support' %}">IT Support & Consultancy</a></li>
+          <li><a href="{% url 'software' %}">Software & Systems</a></li>
+          <li><a href="{% url 'hardware' %}">Hardware & Iot</a></li>
+          <li><a href="{% url 'networking' %}">Networking & Connectivity</a></li>
+          <li><a href="{%url 'cybersec' %}">Cyber & Physical Security</a></li>
+          <li><a href="{% url 'cloud' %}">Cloud Computing</a></li>
         </ul>
       </div>
       

@@ -23,8 +23,7 @@
       <ul>
         <li><a href="{% url 'homepage' %}" class="active">Home</a></li>
         <li><a href="{% url 'about'%}">About</a></li>
-        <li class="dropdown">
-          <a href="expertise.html">Solutions</a>
+        <li class="dropdown">Solutions
           <ul class="dropdown-menu">
             <li><a href="{% url 'IT_support' %}">IT Support & Consultancy</a></li>
             <li><a href="{% url 'software' %}">Software & Systems</a></li>
@@ -35,7 +34,7 @@
           </ul>
         </li>
         <li><a href="{% url 'events' %}">Events</a> </li>
-        <li><a href="contact.html">Get In Touch</a></li>
+        <li><a href="{%url 'contact' %}">Contact Us</a></li>
       </ul>
     </nav>
   </header>
@@ -57,105 +56,55 @@
     </div>
     <div class="stats">
       <div class="fade-in delay-1">
-        <strong>800+</strong><br>Projects Delivered
+        <strong>10+</strong><br>Projects Delivered
       </div>
       <div class="fade-in delay-2">
-        <strong>50+</strong><br>Enterprise Partners
+        <strong>5+</strong><br>Enterprise Partners
       </div>
       <div class="fade-in delay-1">
         <strong>10+</strong><br>Industries
       </div>
       <div class="fade-in delay-2">
-        <strong>10+</strong><br>Project Countries
+        <strong>5+</strong><br>Project Countries
       </div>
     </div>
   </section>
   <section class="services">
-  <p class="intro fade-in">We deliver the best ICT enterprise services available in the East Africa Region. Our solutions are crafted to suit your unique challenges to ensure you gain competitive advantage.</p>
+  <div>
+  <p class="intro fade-in">We deliver the best ICT enterprise services available every Region. Our solutions are crafted to suit your unique challenges to ensure you gain competitive advantage.</p>
   <div class="grid">
-    
-    <!-- IT Support & Consultancy -->
-    <div class="card enterprise fade-in">
-      <h3><i class="fas fa-headset icon"></i> IT Support & Consultancy</h3>
-      <p>Expert IT support, strategic consultancy, and project management.</p>
-      <div class="plus-icon">+</div>
-      <div class="card-menu">
-        <ul>
-          <li><a href="#">IT Support Services</a></li>
-          <li><a href="#">Consultancy</a></li>
-          <li><a href="#">Project Management</a></li>
-          <li><a href="#">Explore More</a></li>
-        </ul>
-      </div>
-    </div>
-
     <!-- Software & Systems Solutions -->
     <div class="card security fade-in delay-1">
       <h3><i class="fas fa-laptop-code icon"></i> Software & Systems</h3>
-      <p>Custom web & software development, QA, AI, and data management.</p>
-      <div class="plus-icon">+</div>
-      <div class="card-menu">
-        <ul>
-          <li><a href="#">Web & Systems Development</a></li>
-          <li><a href="#">Software Development & QA</a></li>
-          <li><a href="#">AI & Machine Learning</a></li>
-          <li><a href="#">Data Management</a></li>
-        </ul>
+      <p>Custom web & software development, and system development.</p>
+      <div class="card-footer">
+         <a href="{%url 'software'%}" class="read-more-link">
+           Read More <i class="fas fa-arrow-right"></i>
+        </a>
       </div>
     </div>
 
     <!-- IoT, Networking & Connectivity -->
     <div class="card business-intel fade-in delay-2">
-      <h3><i class="fas fa-network-wired icon"></i> IoT, Networking & Connectivity</h3>
-      <p>IoT solutions, telematics, structured cabling, and wireless networks.</p>
-      <div class="plus-icon">+</div>
-      <div class="card-menu">
-        <ul>
-          <li><a href="#">IoT & Telematics</a></li>
-          <li><a href="#">Structured Cabling</a></li>
-          <li><a href="#">Wi-Fi & Wireless Networks</a></li>
-          <li><a href="#">Explore More</a></li>
-        </ul>
+      <h3><i class="fas fa-network-wired icon"></i> IoT & Hardware</h3>
+      <p>IoT solutions, telematics, fleet and hardware solutions.</p>
+      <div class="card-footer">
+         <a href="{%url 'hardware'%}" class="read-more-link">
+           Read More <i class="fas fa-arrow-right"></i>
+        </a>
       </div>
     </div>
 
     <!-- Hardware & Cybersecurity -->
     <div class="card banking fade-in delay-1">
-      <h3><i class="fas fa-shield-alt icon"></i> Hardware & Cybersecurity</h3>
-      <p>Hardware installations, software deployment, and cybersecurity solutions.</p>
-      <div class="plus-icon">+</div>
-      <div class="card-menu">
-        <ul>
-          <li><a href="#">Hardware Installations</a></li>
-          <li><a href="#">Software Deployment</a></li>
-          <li><a href="#">Cybersecurity Solutions</a></li>
-          <li><a href="#">Explore More</a></li>
-        </ul>
+      <h3><i class="fas fa-shield-alt icon"></i> Cyber & Physical security</h3>
+      <p>cybersecurity, digital, data and Physicalsecurity solutions.</p>
+      <div class="card-footer">
+         <a href="{% url 'cybersec'%}" class="read-more-link">
+           Read More <i class="fas fa-arrow-right"></i>
+        </a>
       </div>
     </div>
-
-    <!-- Training & Cloud Services -->
-    <div class="card managed fade-in delay-2">
-      <h3><i class="fas fa-chalkboard-teacher icon"></i> Training & Cloud Services</h3>
-      <p>Tech workshops, professional training, and cloud infrastructure management.</p>
-      <div class="plus-icon">+</div>
-      <div class="card-menu">
-        <ul>
-          <li><a href="#">Workshops & Training</a></li>
-          <li><a href="#">Tech Events</a></li>
-          <li><a href="#">Cloud Infrastructure</a></li>
-          <li><a href="#">Explore More</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Explore Card -->
-    <div class="card explore fade-in delay-3">
-      <h3><i class="fas fa-compass icon"></i> Explore Our Capabilities</h3>
-      <p>Sybyl's experience cuts across verticals and industries.</p>
-      <button>Explore Industries → <a href="#"></a></button>
-    </div>
-
   </div>
 
   <p class="discover fade-in delay-3">Discover & Learn. Explore what we are up to at Sybyl. Keeping you ahead
@@ -178,23 +127,21 @@
       <div class="footer-column">
         <h3>Quick Links</h3>
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Case Studies</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="{%url 'homepage%'}">Home</a></li>
+          <li><a href="{%url 'about%'}">About Us</a></li>
+          <li><a href="{%url 'contact'%}">Contact</a></li>
         </ul>
       </div>
       
       <div class="footer-column">
         <h3>Services</h3>
         <ul>
-          <li><a href="IT_support.html">IT Support & Consultancy</a></li>
-          <li><a href="software.html">Software & Systems</a></li>
-          <li><a href="hardware.html">Hardware & IoT</a></li>
-          <li><a href="network.html">Networking & Connectivity</a></li>
-          <li><a href="cybersec.html">Cyber & Physical Security</a></li>
-          <li><a href="cloud.html"> Cloud Computing</a></li>
+          <li><a href="{% url 'IT_support' %}">IT Support & Consultancy</a></li>
+          <li><a href="{% url 'software' %}">Software & Systems</a></li>
+          <li><a href="{% url 'hardware' %}">Hardware & Iot</a></li>
+          <li><a href="{% url 'networking' %}">Networking & Connectivity</a></li>
+          <li><a href="{%url 'cybersec' %}">Cyber & Physical Security</a></li>
+          <li><a href="{% url 'cloud' %}">Cloud Computing</a></li>
         </ul>
       </div>
       

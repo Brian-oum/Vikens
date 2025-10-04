@@ -20,19 +20,9 @@
         <i class="fas fa-bars"></i>
       </div>
       <ul>
-        <li><a href="homepage.html">Home</a></li>
-        <li class="dropdown">
-          <a href="#">About</a>
-          <ul class="dropdown-menu">
-            <li><a href="about_us.html">About Us</a></li>
-            <li><a href="#">Our People</a></li>
-            <li><a href="#">Awards & Accolades</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">Downloads</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="expertise.html">Solutions</a>
+        <li><a href="{% url 'homepage' %}">Home</a></li>
+        <li><a href="{% url 'about'%}" class="active">About</a></li>
+        <li class="dropdown">Solutions
           <ul class="dropdown-menu">
             <li><a href="{% url 'IT_support' %}">IT Support & Consultancy</a></li>
             <li><a href="{% url 'software' %}">Software & Systems</a></li>
@@ -42,18 +32,17 @@
             <li><a href="{% url 'cloud' %}">Cloud Computing</a></li>
           </ul>
         </li>
-        <li><a href="{% url 'events'%}">Events</a> </li>
-        <li><a href="contact.html">Get In Touch</a></li>
+        <li><a href="{% url 'events' %}">Events</a> </li>
+        <li><a href="{%url 'contact' %}">Contact Us</a></li>
       </ul>
     </nav>
   </header>
 
   <!-- Hero Section -->
-  <section class="hero">
+  <section class="hero-about">
     <div class="overlay fade-in">
       <h1>About NovaSphere</h1>
       <h3>Pioneering <span class="highlight">Digital Transformation</span> Across East Africa</h3>
-      <a href="#mission" class="cta-button">Discover Our Story</a>
     </div>
   </section>
 
@@ -196,11 +185,9 @@
       <div class="footer-column">
         <h3>Quick Links</h3>
         <ul>
-          <li><a href="homepage.html">Home</a></li>
-          <li><a href="about_us.html">About Us</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="{% url 'events'%}">Events</a></li>
-          <li><a href="contact.html">Contact</a></li>
+          <li><a href="{%url 'homepage%'}">Home</a></li>
+          <li><a href="{%url 'about%'}">About Us</a></li>
+          <li><a href="{%url 'contact'%}">Contact</a></li>
         </ul>
       </div>
       
@@ -209,7 +196,7 @@
         <ul>
           <li><a href="{% url 'IT_support' %}">IT Support & Consultancy</a></li>
           <li><a href="{% url 'software' %}">Software & Systems</a></li>
-          <li><a href="{% url 'hardware' %}">Hardware & IoT</a></li>
+          <li><a href="{% url 'hardware' %}">Hardware & Iot</a></li>
           <li><a href="{% url 'networking' %}">Networking & Connectivity</a></li>
           <li><a href="{%url 'cybersec' %}">Cyber & Physical Security</a></li>
           <li><a href="{% url 'cloud' %}">Cloud Computing</a></li>
@@ -232,39 +219,5 @@
   </footer>
 
   <script src="{%static 'Sphere/js/main.js' %}"></script>
-  <script>
-    // Simple animation for mission and vision cards
-    document.addEventListener('DOMContentLoaded', function() {
-      const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      };
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-          }
-        });
-      }, observerOptions);
-
-      // Observe mission and vision cards
-      document.querySelectorAll('.mission-card, .vision-card').forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = 'all 0.6s ease';
-        observer.observe(card);
-      });
-
-      // Observe value cards
-      document.querySelectorAll('.value-card').forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = 'all 0.6s ease';
-        observer.observe(card);
-      });
-    });
-  </script>
 </body>
 </html>
